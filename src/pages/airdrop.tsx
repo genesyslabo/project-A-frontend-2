@@ -1,43 +1,56 @@
-import { Circle, Flex, Image, Text } from "@chakra-ui/react"
+import { Circle, Flex, Image, Text, useColorModeValue } from "@chakra-ui/react"
 import { FramePage } from "../components/FramePage"
 import { Balance } from "../components/Balance"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { useAccount } from "wagmi"
 
 
 const Airdrop = () => {
     const { address } = useAccount();
+
+    const [account, setAccount] = useState("")
+
+    const bgHeader = useColorModeValue('white', '#242A33')
+    const bgPanel = useColorModeValue('#ECFDFF', '#1B2026')
+    const bgAvator = useColorModeValue('#20B4CA', '#0084FF')
+    const bgBorder = useColorModeValue('#DAF7FF', '')
+    const colorHeader = useColorModeValue('black', 'white')
+    const colorTitle = useColorModeValue('darkgreen', '#0084FF')
+
+    useEffect(() => {
+        setAccount(address)
+    }, [address])
    
     return (<>
         <FramePage menu="airdrop">
             <Flex className="flex flex-col justify-center items-center pt-4 gap-6">
-                <Flex color={"darkgreen"} className="w-full text-2xl font-bold items-start">Flare claim check</Flex>
+                <Flex color={colorTitle} className="w-full text-2xl font-bold items-start">Flare claim check</Flex>
 
                 <Flex className="w-full flex-col">
                     <Flex className="justify-end pr-1">
                         <Image src="/assets/images/bot1.png" />
                     </Flex>
-                    <Flex className="w-full flex-col gap-2 bg-white rounded-xl p-[2px]">
-                        <Flex className="flex-col md:flex-row gap-8 p-4 bg-[#f2fdff] rounded-t-2xl border-b border-[#DAF7FF]">
+                    <Flex className="w-full flex-col gap-2 rounded-xl p-[2px]" bg={bgHeader} color={colorHeader}>
+                        <Flex className="flex-col md:flex-row gap-8 p-4 rounded-t-2xl border-b" bg={bgPanel} borderColor={bgBorder}>
                             <Flex className="flex-col gap-2 grow">
                                 <Text className="text-[#6E8A99] text-sm font-bold">
                                     ACCOUNT
                                 </Text>
-                                <Text className="text-black text-base">
-                                    {address}
+                                <Text className="text-base" color={colorHeader}>
+                                    {account}
                                 </Text>
                             </Flex>
                             <Flex className="flex-col gap-2">
                                 <Text className="text-[#6E8A99] text-sm font-bold">
                                     BALANCE
                                 </Text>
-                                <Flex className="flex-row items-center text-black text-base">
+                                <Flex className="flex-row items-center text-base" color={colorHeader}>
                                     <Balance />
-                                    <Circle size='16px' bg='#1BA4B9' color='white' className="ml-1" />
+                                    <Circle size='16px' bg={bgAvator} color='white' className="ml-1" />
                                 </Flex>
                             </Flex>
                         </Flex>
-                        <Flex className="items-center text-base text-black p-3 pb-8">
+                        <Flex className="items-center text-base p-3 pb-8">
                             Tokens are currently not claimable.
                         </Flex>
                     </Flex>
@@ -49,7 +62,7 @@ const Airdrop = () => {
                 </Flex>
 
                 <Flex className="flex-col gap-2">
-                    <Flex color={"darkgreen"} className="w-full text-2xl font-bold items-start">NFT claim check</Flex>
+                    <Flex color={colorTitle} className="w-full text-2xl font-bold items-start">NFT claim check</Flex>
 
                     <Text className="text-base text-[#666666]">
                         Enter the Token ID to see if a XXX NFT is eligible for a one-time claim of Flare NFT.
@@ -59,7 +72,7 @@ const Airdrop = () => {
                         <Flex className="justify-end pr-1">
                             <Image src="/assets/images/bot2.png" />
                         </Flex>
-                        <Flex className="items-center text-base text-black p-3 pb-8 bg-white rounded-xl">
+                        <Flex className="items-center text-base p-3 pb-8 rounded-xl" bg={bgHeader} color={colorHeader}>
                         You are not on the whitelist.
                         </Flex>
                     </Flex>

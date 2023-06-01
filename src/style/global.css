@@ -60,7 +60,7 @@ button {
 .chakra-modal__content {
     margin-bottom: 0 !important;
     border-radius: 16px 16px 0px 0px !important;
-    background-color: #EDF8FF !important;
+    background-color: #EDF8FF;
     color: black !important;
 }
 
@@ -72,7 +72,7 @@ button {
     .chakra-modal__content {
         margin-bottom: 0 !important;
         border-radius: 16px !important;
-        background-color: #EDF8FF !important;
+        background-color: #EDF8FF;
         color: black !important;
         padding-bottom: 16px;
     }

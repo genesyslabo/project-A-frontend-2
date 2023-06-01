@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Text, useDisclosure, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Text, useColorModeValue, useDisclosure, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import SmallButton from "../SmallButton";
 import { ContractService } from "../../service/contractService";
@@ -26,6 +26,14 @@ const LockExtendModal: React.FC<{
     const [roi, setRoi] = useState(0)
     const [maxWeeks, setMaxWeeks] = useState(52);
     const [userInfo, setUserInfo] = useState(null)
+
+    const bgModal = useColorModeValue('', '#1B2026')
+    const bgBtn = useColorModeValue('darkgreen', '#0084FF')
+    const colorHeader = useColorModeValue('black', 'white')
+    const bgBox = useColorModeValue('#CFF8FF', '#242A33')
+    const bgAvator = useColorModeValue('#20B4CA', '#0084FF')
+    const colorDesc = useColorModeValue('#5B7A8A', '#898B8E')
+    const colorHighlight = useColorModeValue('darkgreen', '#0084FF')
 
     const toast = useToast()
 
@@ -168,10 +176,10 @@ const LockExtendModal: React.FC<{
     return (<>
         <Modal isOpen={isOpen} onClose={closeModal}>
             <ModalOverlay />
-            <ModalContent>
-                <ModalHeader className=" bg-white">Extend Lock</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody className=" bg-white">
+            <ModalContent bg={bgModal}>
+                <ModalHeader color={colorHeader}>Extend Lock</ModalHeader>
+                <ModalCloseButton color={colorHeader} />
+                <ModalBody>
                     <Flex className="flex-col gap-2">
                         <Flex>
                             <Text className="grow text-[#5B7A8A] text-xs font-medium">
@@ -179,16 +187,16 @@ const LockExtendModal: React.FC<{
                             </Text>
                             <Flex className="gap-1 items-center">
                                 <Box
-                                    bg={"darkgreen"}
+                                    bg={bgAvator}
                                     className="rounded-full w-4 h-4"
                                 ></Box>
-                                <Box className="font-bold text-sm">
+                                <Box className="font-bold text-sm" color={colorHeader}>
                                     FLARE
                                 </Box>
                             </Flex>
                         </Flex>
-                        <Text className="text-xs font-medium mt-4">
-                            <Box as="span" color={"darkgreen"}>ADD</Box> DURATION
+                        <Text className="text-xs font-medium mt-4" color={colorHeader}>
+                            <Box as="span" color={colorHighlight}>ADD</Box> DURATION
                         </Text>
                         <Grid className="grid-cols-5 gap-2 mt-2">
                             <SmallButton text="1W" onClick={() => setWeekValue(1)} />
@@ -200,44 +208,44 @@ const LockExtendModal: React.FC<{
 
                         <Flex className="flex-row items-center mt-4 gap-2">
                             <Box className="inline grow">
-                                <Input variant='filled' placeholder='' bg={"#ECFDFF"} 
+                                <Input variant='filled' placeholder='' bg={bgBox} color={colorHeader} 
                                     className="font-bold text-right"
                                     value={weekValue} onChange={handleWeekInputChange} />
                             </Box>
-                            <Text className="inline text-sm font-medium">Week</Text>
+                            <Text className="inline text-sm font-medium" color={colorHeader}>Week</Text>
                         </Flex>
 
-                        <Text className="text-xs font-medium mt-4">
-                            <Box as="span" color={"darkgreen"}>LOCK</Box> OVERVIEW
+                        <Text className="text-xs font-medium mt-4" color={colorHeader} >
+                            <Box as="span" color={colorHighlight}>LOCK</Box> OVERVIEW
                         </Text>
 
-                        <Grid className="grid-cols-2 gap-2 text-[12px] font-medium bg-[#ECFDFF] p-4"
+                        <Grid className="grid-cols-2 gap-2 text-[12px] font-medium p-4" bg={bgBox}
                             borderRadius={"7px"} color={"lightfont"}>
                             <Box>FLARELOCKED TO BE LOCKED</Box>
-                            <Box className="text-right text-black text-base">0.00-&gt;0.00</Box>
+                            <Box className="text-right text-base" color={colorHeader}>0.00-&gt;0.00</Box>
                             <Box>APR</Box>
-                            <Box className="text-right text-black text-base"><LockStakingFutureAPR amount={amount} week={weekValue} /></Box>
+                            <Box className="text-right text-base" color={colorHeader}><LockStakingFutureAPR amount={amount} week={weekValue} /></Box>
                             <Box>DURATION</Box>
-                            <Box className="text-right text-black text-base">{duration} week{duration > 1 ? 's':''}</Box>
+                            <Box className="text-right text-base" color={colorHeader}>{duration} week{duration > 1 ? 's':''}</Box>
                             <Box>YIELD BOOST</Box>
-                            <Box className="text-right text-black text-base">{boost}x</Box>
+                            <Box className="text-right text-base" color={colorHeader}>{boost}x</Box>
                             <Box>UNLOCK ON</Box>
-                            <Box className="text-right text-black text-base">{unlockOn} </Box>
+                            <Box className="text-right text-base" color={colorHeader}>{unlockOn} </Box>
                             <Box>EXPECTED ROI</Box>
-                            <Box className="text-right text-black text-base">${roi}</Box>
+                            <Box className="text-right text-base" color={colorHeader}>${roi}</Box>
                         </Grid>
 
                         <Button
                             size="lg"
-                            bg="darkgreen"
+                            bg={bgBtn}
                             color={"white"}
-                            borderColor="darkgreen"
-                            bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
+                            borderColor={bgBtn}
+                            // bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
                             onClick={lockStaking}
                             disabled={!weekValue || weekValue <= 0 || weekValue > maxWeeks || inTransaction }
-                            _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
+                            // _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
                             _active={{
-                                bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)",
+                                // bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)",
                                 transform: "scale(0.98)",
                             }}
                         >

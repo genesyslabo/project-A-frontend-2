@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, Text, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
 import StakingModal from "./FlexibleModal";
 import { useAccount } from "wagmi";
@@ -9,6 +9,9 @@ const FlexibleBox = () => {
     const { isConnected } = useAccount();
     const [disabled, setDisabled] = useState(false);
 
+    const bgBtn = useColorModeValue('darkgreen', '#0084FF')
+    const colorHeader = useColorModeValue('black', 'white')
+
     useEffect(() => {
         setDisabled(!isConnected)
     }, [isConnected])
@@ -16,7 +19,7 @@ const FlexibleBox = () => {
     return (<>
         <StakingModal openModal={isFlexibleOpen} onClose={() => setFlexibleOpen(false)} />
 
-        <Text className="mb-2 text-black font-medium text-sm">
+        <Text className="mb-2 font-medium text-sm" color={colorHeader}>
             <Box as="span" color={"#FE9D1C"}>
                 STAKE
             </Box>{" "}
@@ -24,14 +27,14 @@ const FlexibleBox = () => {
         </Text>
         <Button
             size="lg"
-            bg="darkgreen"
+            bg={bgBtn}
             color={"white"}
-            borderColor="darkgreen"
-            bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
+            borderColor={bgBtn}
+            // bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
             disabled={disabled}
-            _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
+            // _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
             _active={{
-                bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)",
+                // bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)",
                 transform: "scale(0.98)",
             }}
             onClick={() => setFlexibleOpen(true)}

@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack, Text, useDisclosure, useToast } from "@chakra-ui/react"
+import { Box, Button, Flex, Grid, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack, Text, useColorModeValue, useDisclosure, useToast } from "@chakra-ui/react"
 import { BigNumber } from "ethers";
 import React, { useEffect, useState } from "react"
 import { flareUsdRate } from "../../common/constants";
@@ -21,6 +21,15 @@ const StakingModal: React.FC<{
     const [usdValue, setUsdValue] = useState(0)
     const [inTransaction, setInTransaction] = useState(false);
     const [roi, setRoi] = useState(0)
+
+    const bgModal = useColorModeValue('', '#1B2026')
+    const bgBtn = useColorModeValue('darkgreen', '#0084FF')
+    const colorHeader = useColorModeValue('black', 'white')
+    const bgBox = useColorModeValue('#CFF8FF', '#242A33')
+    const bgAvator = useColorModeValue('#20B4CA', '#0084FF')
+    const colorDesc = useColorModeValue('#5B7A8A', '#898B8E')
+    const colorBtn = useColorModeValue('darkgreen', '#0084FF')
+    const bgSecondBtn = useColorModeValue('white', '#1c2025')
 
     const toast = useToast()
 
@@ -145,26 +154,26 @@ const StakingModal: React.FC<{
     return (<>
         <Modal isOpen={isOpen} onClose={closeModal}>
             <ModalOverlay />
-            <ModalContent>
-                <ModalHeader>FLEXIBLE</ModalHeader>
-                <ModalCloseButton />
+            <ModalContent bg={bgModal}>
+                <ModalHeader color={colorHeader}>FLEXIBLE</ModalHeader>
+                <ModalCloseButton color={colorHeader} />
                 <ModalBody>
                     <Flex className="flex-col gap-2">
                         <Flex>
-                            <Text className="grow text-[#5B7A8A] text-xs font-medium">
+                            <Text className="grow text-xs font-medium" color={colorDesc}>
                                 FLARE TO STAKE
                             </Text>
                             <Flex className="gap-1 items-center">
                                 <Box
-                                    bg={"darkgreen"}
+                                    bg={bgAvator}
                                     className="rounded-full w-4 h-4"
                                 ></Box>
-                                <Box className="font-bold text-sm">
+                                <Box className="font-bold text-sm" color={colorHeader}>
                                     FLARE
                                 </Box>
                             </Flex>
                         </Flex>
-                        <Flex className="flex-col items-end bg-[#CFF8FF] rounded-lg gap-2 p-2">
+                        <Flex className="flex-col items-end rounded-lg gap-2 p-2" bg={bgBox} color={colorHeader}>
                             <Input variant='unstyled' 
                                 placeholder='' 
                                 className="font-bold text-right"
@@ -174,7 +183,7 @@ const StakingModal: React.FC<{
                                 {usdValue} USD
                             </Text>
                         </Flex>
-                        <Text className="text-right text-[#6E8A99] text-xs">
+                        <Text className="text-right text-xs" color={colorDesc}>
                             Balance: {balance} Flare
                         </Text>
                         <Box pt={6} pb={2}>
@@ -183,7 +192,7 @@ const StakingModal: React.FC<{
                                 <SliderMark
                                     value={sliderValue}
                                     textAlign='center'
-                                    bg='darkgreen'
+                                    bg={bgBtn}
                                     color='white'
                                     mt='-10'
                                     ml='-5'
@@ -193,7 +202,7 @@ const StakingModal: React.FC<{
                                 </SliderMark>
 
                                 <SliderTrack bg={"lightgreen"}>
-                                    <SliderFilledTrack bg={"darkgreen"} />
+                                    <SliderFilledTrack bg={bgBtn} />
                                 </SliderTrack>
 
                                 <SliderThumb boxSize={6}>
@@ -212,22 +221,22 @@ const StakingModal: React.FC<{
                                 <Text>xxNFT x1 +25% &gt;</Text>
                                 <Text>Annual ROI at current rates;</Text>
                             </Flex>
-                            <Flex className="items-center font-medium text-sm">
+                            <Flex className="items-center font-medium text-sm" color={colorHeader}>
                                ${roi}
                             </Flex>
                         </Flex>
 
                         <Button
                             size="lg"
-                            bg="darkgreen"
+                            bg={bgBtn}
                             color={"white"}
-                            borderColor="darkgreen"
-                            bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
+                            borderColor={bgBtn}
+                            // bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
                             onClick={staking}
                             disabled={!stakeValue || stakeValue <= 0 || stakeValue > balance || inTransaction }
-                            _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
+                            // _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
                             _active={{
-                                bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)",
+                                // bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)",
                                 transform: "scale(0.98)",
                             }}
                         >
@@ -236,13 +245,13 @@ const StakingModal: React.FC<{
 
                         <Button
                             size="lg"
-                            bg="white"
-                            color={"darkgreen"}
+                            bg={bgSecondBtn}
+                            color={colorBtn}
                             variant="outline"
-                            borderColor={"darkgreen"}
+                            borderColor={colorBtn}
                             _hover={{}}
                             _active={{
-                                bg: "white",
+                                bg: {bgSecondBtn},
                                 transform: "scale(0.98)",
                             }}
                         >

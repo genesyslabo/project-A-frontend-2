@@ -1,9 +1,8 @@
-import { Box, Button, Flex, Grid, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, RadioGroup, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack, Text, useDisclosure, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, Grid, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, RadioGroup, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack, Text, useColorModeValue, useDisclosure, useToast } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { RadioCard } from "../CustomRadio";
 import SmallButton from "../SmallButton";
 import { ContractService } from "../../service/contractService";
-import { MinLockStakingAmount, flareUsdRate } from "../../common/constants";
+import { flareUsdRate } from "../../common/constants";
 import CustomToast from "../CustomToast";
 import { BigNumber } from "ethers";
 import { LockStakingFutureAPR } from "../LockStakingAPR";
@@ -31,6 +30,14 @@ const LockStakingModal: React.FC<{
     const [unlockOn, setUnlockOn] = useState("")
     const [boost, setBoost] = useState(0);
     const [roi, setRoi] = useState(0)
+
+    const bgModal = useColorModeValue('', '#1B2026')
+    const bgBtn = useColorModeValue('darkgreen', '#0084FF')
+    const colorHeader = useColorModeValue('black', 'white')
+    const bgBox = useColorModeValue('#CFF8FF', '#242A33')
+    const bgAvator = useColorModeValue('#20B4CA', '#0084FF')
+    const colorDesc = useColorModeValue('#5B7A8A', '#898B8E')
+    const colorHighlight = useColorModeValue('darkgreen', '#0084FF')
 
     const toast = useToast()
 
@@ -204,10 +211,10 @@ const LockStakingModal: React.FC<{
     return (<>
         <Modal isOpen={isOpen} onClose={closeModal}>
             <ModalOverlay />
-            <ModalContent>
-                <ModalHeader className=" bg-white">FLARE TO LOCK</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody className=" bg-white h-[80vh] overflow-y-auto">
+            <ModalContent bg={bgModal}>
+                <ModalHeader color={colorHeader}>FLARE TO LOCK</ModalHeader>
+                <ModalCloseButton color={colorHeader} />
+                <ModalBody className="h-[80vh] overflow-y-auto">
                     <Flex className="flex-col gap-2">
                         <Flex>
                             <Text className="grow text-[#5B7A8A] text-xs font-medium">
@@ -215,15 +222,15 @@ const LockStakingModal: React.FC<{
                             </Text>
                             <Flex className="gap-1 items-center">
                                 <Box
-                                    bg={"darkgreen"}
+                                    bg={bgAvator}
                                     className="rounded-full w-4 h-4"
                                 ></Box>
-                                <Box className="font-bold text-sm">
+                                <Box className="font-bold text-sm" color={colorHeader}>
                                     FLARE
                                 </Box>
                             </Flex>
                         </Flex>
-                        <Flex className="flex-col items-end bg-[#ECFDFF] rounded-lg gap-2 p-2">
+                        <Flex className="flex-col items-end rounded-lg gap-2 p-2" bg={bgBox} color={colorHeader}>
                             <Input variant='unstyled' 
                                     placeholder='' 
                                     className="font-bold text-right"
@@ -242,7 +249,7 @@ const LockStakingModal: React.FC<{
                                 <SliderMark
                                     value={sliderValue}
                                     textAlign='center'
-                                    bg='darkgreen'
+                                    bg={bgBtn}
                                     color='white'
                                     mt='-10'
                                     ml='-5'
@@ -252,7 +259,7 @@ const LockStakingModal: React.FC<{
                                 </SliderMark>
 
                                 <SliderTrack bg={"lightgreen"}>
-                                    <SliderFilledTrack bg={"darkgreen"} />
+                                    <SliderFilledTrack bg={bgBtn} />
                                 </SliderTrack>
 
                                 <SliderThumb boxSize={6}>
@@ -266,8 +273,8 @@ const LockStakingModal: React.FC<{
                             <SmallButton text="75%" onClick={() => handleSliderChange(75)} />
                             <SmallButton text="Max" onClick={() => handleSliderChange(100)} />
                         </Grid>
-                        <Text className="text-xs font-medium mt-4">
-                            <Box as="span" color={"darkgreen"}>ADD</Box> DURATION
+                        <Text className="text-xs font-medium mt-4" color={colorDesc}>
+                            <Box as="span" color={colorHighlight}>ADD</Box> DURATION
                         </Text>
                         <Grid className="grid-cols-5 gap-2 mt-2">
                             <SmallButton text="1W" onClick={() => setWeekValue(1)} />
@@ -279,44 +286,44 @@ const LockStakingModal: React.FC<{
 
                         <Flex className="flex-row items-center mt-4 gap-2">
                             <Box className="inline grow">
-                                <Input variant='filled' placeholder='' bg={"#ECFDFF"} 
+                                <Input variant='filled' placeholder='' bg={bgBox} color={colorHeader} 
                                     className="font-bold text-right"
                                     value={weekValue} onChange={handleWeekInputChange} />
                             </Box>
-                            <Text className="inline text-sm font-medium">Week</Text>
+                            <Text className="inline text-sm font-medium" color={colorHeader}>Week</Text>
                         </Flex>
 
-                        <Text className="text-xs font-medium mt-4">
-                            <Box as="span" color={"darkgreen"}>LOCK</Box> OVERVIEW
+                        <Text className="text-xs font-medium mt-4" color={colorDesc}>
+                            <Box as="span" color={colorHighlight}>LOCK</Box> OVERVIEW
                         </Text>
 
-                        <Grid className="grid-cols-2 gap-2 text-[12px] font-medium bg-[#ECFDFF] p-4"
-                            borderRadius={"7px"} color={"lightfont"}>
+                        <Grid className="grid-cols-2 gap-2 text-[12px] font-medium p-4"
+                            borderRadius={"7px"} color={"lightfont"} bg={bgBox}>
                             <Box>FLARELOCKED TO BE LOCKED</Box>
-                            <Box className="text-right text-black text-base">0.00-&gt;{+parseFloat(stakeValue + "").toFixed(2)}</Box>
+                            <Box className="text-right text-base" color={colorHeader}>0.00-&gt;{+parseFloat(stakeValue + "").toFixed(2)}</Box>
                             <Box>APR</Box>
-                            <Box className="text-right text-black text-base"><LockStakingFutureAPR amount={stakeValue} week={weekValue} /></Box>
+                            <Box className="text-right text-base" color={colorHeader}><LockStakingFutureAPR amount={stakeValue} week={weekValue} /></Box>
                             <Box>DURATION</Box>
-                            <Box className="text-right text-black text-base">{weekValue} week{weekValue > 1 ? 's':''}</Box>
+                            <Box className="text-right text-base" color={colorHeader}>{weekValue} week{weekValue > 1 ? 's':''}</Box>
                             <Box>YIELD BOOST</Box>
-                            <Box className="text-right text-black text-base">{boost}x</Box>
+                            <Box className="text-right text-base" color={colorHeader}>{boost}x</Box>
                             <Box>UNLOCK ON</Box>
-                            <Box className="text-right text-black text-base">{unlockOn}</Box>
+                            <Box className="text-right text-base" color={colorHeader}>{unlockOn}</Box>
                             <Box>EXPECTED ROI</Box>
-                            <Box className="text-right text-black text-base">${roi}</Box>
+                            <Box className="text-right text-base" color={colorHeader}>${roi}</Box>
                         </Grid>
 
                         <Button
                             size="lg"
-                            bg="darkgreen"
+                            bg={bgBtn}
                             color={"white"}
-                            borderColor="darkgreen"
-                            bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
+                            borderColor={bgBtn}
+                            // bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
                             onClick={lockStaking}
                             disabled={!stakeValue || stakeValue < minLockAmount || stakeValue > balance || !weekValue || weekValue <= 0 || weekValue > maxWeeks || inTransaction }
-                            _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
+                            // _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
                             _active={{
-                                bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)",
+                                // bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)",
                                 transform: "scale(0.98)",
                             }}
                         >

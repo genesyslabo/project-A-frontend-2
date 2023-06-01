@@ -1,5 +1,4 @@
 import {extendTheme} from '@chakra-ui/react'
-import {mode} from "@chakra-ui/theme-tools";
 
 
 const fonts = {mono: `'Menlo', monospace`, heading: 'PalanquinDark', body: 'Fahkwang'}
@@ -22,10 +21,16 @@ const colors = {
     darkgreen: '#1BA4B9',
     lightgreen: '#CFF8FF',
     lightfont: '#6E8A99',
+    bg: '#D5FAFF',
+    dark: {
+        darkgreen: '#0084FF',
+    }
+    
 }
 
 export const theme = extendTheme({
-    // initialColorMode: "light",
+    initialColorMode: 'system',
+    useSystemColorMode: true,
     // semanticTokens: {
     //     colors: {
     //         text: {
@@ -43,9 +48,8 @@ export const theme = extendTheme({
         global: props => ({
             // Optionally set global CSS styles
             body: {
-                // color: mode(
-                //     colors.backBlack,
-                //     "#ffffff")(props),
+                bg: props.colorMode === 'dark' ? '#15171b' : '#D5FAFF',
+                color: props.colorMode === 'dark' ? '#fff' : '#6E8A99',
             },
 
         }),

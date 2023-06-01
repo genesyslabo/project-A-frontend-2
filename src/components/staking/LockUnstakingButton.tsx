@@ -1,4 +1,4 @@
-import { Button, useToast } from "@chakra-ui/react"
+import { Button, useColorModeValue, useToast } from "@chakra-ui/react"
 import { useState } from "react"
 import { ContractService } from "../../service/contractService"
 import CustomToast from "../CustomToast"
@@ -8,6 +8,7 @@ const LockUnstakingButton: React.FC<{}> = () => {
     const toast = useToast()
     const [inTransaction, setInTransaction] = useState(false);
     const {data: signer} = useSigner();
+    const bgBtn = useColorModeValue('darkgreen', '#0084FF')
 
     const unstaking = async () => {
         toast({
@@ -46,16 +47,16 @@ const LockUnstakingButton: React.FC<{}> = () => {
     return (<>
         <Button
             size="lg"
-            bg="darkgreen"
-            color={"white"}
             fontSize={16}
-            borderColor="darkgreen"
-            bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
+            bg={bgBtn}
+            color={"white"}
+            borderColor={bgBtn}
+            // bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
             onClick={unstaking}
             disabled={inTransaction}
-            _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
+            // _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
             _active={{
-                bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)",
+                // bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)",
                 transform: "scale(0.98)",
             }}
         >

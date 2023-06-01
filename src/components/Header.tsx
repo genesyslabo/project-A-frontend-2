@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import {Avatar, Box, Button, Flex, Image, Spacer, TabIndicator, TabList, Tabs, useDisclosure} from '@chakra-ui/react';
+import {Avatar, Box, Button, Flex, Image, Spacer, TabIndicator, TabList, Tabs, useColorMode, useColorModeValue, useDisclosure} from '@chakra-ui/react';
 import Link from 'next/link';
 import { CustomConnectButton } from './CustomConnectButton';
 import CustomTab from './CustomTab';
 import { useRouter } from 'next/router';
+import { DarkModeSwitch } from './DarkModeSwitch';
 
 export function Header(props) {
     const {isOpen, onOpen, onClose} = useDisclosure();
     const router = useRouter();
     const [tabIndex, setTabIndex] = useState(0);
+
+    const bg = useColorModeValue('#BEF6FF', '#1A1D29')
+    const bgBtn = useColorModeValue('darkgreen', '#0084FF')
+    const bgMobileMenu = useColorModeValue('#D5FAFF', '#1A1D29')
 
     const handleTabsChange = (index) => {
         switch (index) {
@@ -39,11 +44,11 @@ export function Header(props) {
 
     return (
         <>
-            <Box as='nav' className="w-full flex fixed z-20 top-0 left-0 justify-between items-center bg-[#BEF6FF]">
-                <Flex className='w-full md:!w-10/12 lg:!w-8/12 gap-2 px-8 md:px-4 h-12 justify-between items-center mx-auto'>
+            <Box as='nav' bg={bg} className="w-full flex fixed z-20 top-0 left-0 justify-between items-center">
+                <Flex className='w-full gap-4 px-8 md:px-4 h-12 justify-between items-center mx-auto'>
                     {/* <Avatar bg={"#02715F"} name='Logo' size={"sm"} src='/' /> */}
                     <Link href={"/"}><Image src='/assets/logo.png' className='cursor-pointer' /></Link>
-                    <Tabs position="relative" 
+                    {/* <Tabs position="relative" 
                         variant="unstyled" 
                         className="w-full !hidden md:!block" 
                         size={"lg"} 
@@ -61,56 +66,64 @@ export function Header(props) {
                             width={10}
                             borderRadius="1px"
                             />
-                    </Tabs>
+                    </Tabs> */}
                     <Spacer />
                     
                     <CustomConnectButton />
+
+                    <DarkModeSwitch />
+
                     <Image src={ isOpen ? "/assets/images/icon-close.png" : "/assets/images/icon-hamburger.png" }
-                        onClick={isOpen ? onClose : onOpen}
-                        className='md:hidden w-4 ml-4' />
-                    <Button
-                        size="sm"
-                        bg="darkgreen"
-                        ml={4}
-                        minW={40}
-                        color={"white"}
-                        borderColor="darkgreen"
-                        fontSize={14}
-                        _hover={{ bg: "#00A68B" }}
-                        className='!hidden md:!inline-flex grow'
-                        _active={{
-                            bg: "#00A68B",
-                            transform: "scale(0.98)",
-                        }}
-                    >
-                        START EXPLORING
-                    </Button>
+                        onClick={isOpen ? onClose : onOpen} className='md:hidden w-4 ml-4' />
+
+                    <Box>
+                        <Button
+                            size="sm"
+                            bg={bgBtn}
+                            ml={4}
+                            minW={40}
+                            color={"white"}
+                            borderColor={bgBtn}
+                            fontSize={14}
+                            _hover={{ bg: bgBtn }}
+                            className='!hidden md:!inline-flex grow'
+                            _active={{
+                                bg: bgBtn,
+                                transform: "scale(0.98)",
+                            }}
+                        >
+                            START EXPLORING
+                        </Button>
+                    </Box>
                 </Flex>
             </Box>
 
             <Box className={
                 isOpen ? 
-                    "fixed top-12 left-0 bottom-0 z-50 !ml-0 flex flex-col justify-between bg-[#D5FAFF] py-8 px-8 pb-12 text-white transition-all duration-300 ease-in-out md:hidden right-0 -translate-x-0"
+                    "fixed top-12 left-0 bottom-0 z-50 !ml-0 flex flex-col justify-between py-8 px-8 pb-12 text-white transition-all duration-300 ease-in-out md:hidden right-0 -translate-x-0"
                     :
-                    "fixed top-12 left-0 bottom-0 z-50 !ml-0 flex flex-col justify-between bg-[#D5FAFF] py-8 px-8 pb-12 text-white transition-all duration-300 ease-in-out md:hidden -translate-x-full"
-            }>
+                    "fixed top-12 left-0 bottom-0 z-50 !ml-0 flex flex-col justify-between py-8 px-8 pb-12 text-white transition-all duration-300 ease-in-out md:hidden -translate-x-full"
+            } bg={bgMobileMenu}>
                 <Box as="ul" className="mb-8 flex flex-col justify-center space-y-8 font-bold text-[20px] text-[#6E8A99]">
                     <Box as='li' color={props.menu == 'about' ? 'darkgreen' : ''}>
+                        Entrance
+                    </Box>
+                    <Box as='li' color={props.menu == 'tokens' ? 'darkgreen' : ''}>
                         About
+                    </Box>
+                    <Box as='li' color={props.menu == 'tokens' ? 'darkgreen' : ''}>
+                        The Team
                     </Box>
                     <Box as='li' color={props.menu == 'staking' ? 'darkgreen' : ''}>
                         <Link href="/">
                             Staking
                         </Link>
                     </Box>
-                    <Box as='li' color={props.menu == 'marketplace' ? 'darkgreen' : ''}>
-                        Marketplace
-                    </Box>
-                    <Box as='li' color={props.menu == 'tokens' ? 'darkgreen' : ''}>
-                        Tokens
-                    </Box>
                     <Box as='li' color={props.menu == 'airdrop' ? 'darkgreen' : ''}>
                         <Link href="/airdrop">Airdrop</Link>
+                    </Box>
+                    <Box as='li' color={props.menu == 'marketplace' ? 'darkgreen' : ''}>
+                        Market place
                     </Box>
                 </Box>
             </Box>

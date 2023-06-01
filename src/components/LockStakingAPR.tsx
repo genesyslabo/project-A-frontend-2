@@ -18,7 +18,7 @@ export const LockStakingFutureAPR = ({ amount, week }) => {
     }, [amount, week]);
 
     return (
-        <Text className="text-black text-base font-medium">
+        <Text className="text-base font-medium">
             {(apr * 100).toFixed(2)}%
         </Text>
     );

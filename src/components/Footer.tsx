@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box, Flex, Image, Spacer } from '@chakra-ui/react';
+import { Box, Flex, Image, Spacer, useColorModeValue } from '@chakra-ui/react';
 
 export function Footer() {
+    const bg = useColorModeValue('#000000', '#1A1D29')
 
     return (
         <>
-            <Box className="w-full flex text-white justify-center items-center bg-[#000000] text-xs font-['PingFangSC-Regular']">
+            <Box className={`w-full flex text-white justify-center items-center text-xs font-['PingFangSC-Regular']`} bg={bg}>
                 <Box className='flex flex-col w-full md:!w-10/12 lg:!w-8/12 p-4'>
                     <Flex className='w-full flex-col md:flex-row gap-4 md:gap-8 justify-between items-start md:items-center'>
                         <Box>White Paper</Box>

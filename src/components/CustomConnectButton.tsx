@@ -1,7 +1,10 @@
-import { Image } from '@chakra-ui/react';
+import { Image, useColorMode, useColorModeValue } from '@chakra-ui/react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export const CustomConnectButton = () => {
+  const { colorMode } = useColorMode()
+  const colorText = useColorModeValue('darkgreen', '#0084FF')
+
   return (
     <ConnectButton.Custom>
       {({
@@ -36,7 +39,9 @@ export const CustomConnectButton = () => {
             {(() => {
               if (!connected) {
                 return (
-                  <Image src='/assets/images/icon-wallet.png' className='md:w-14 cursor-pointer' onClick={openConnectModal} />
+                  <Image src={
+                    colorMode === 'dark' ? '/assets/images/icon-wallet-white.png' : '/assets/images/icon-wallet.png'
+                  } className='md:w-14 cursor-pointer' onClick={openConnectModal} />
                 );
               }
               if (chain.unsupported) {
@@ -52,7 +57,7 @@ export const CustomConnectButton = () => {
                     onClick={openChainModal}
                     style={{ display: 'flex', alignItems: 'center' }}
                     type="button"
-                    className='text-[#02715F]'
+                    className={`text-[${colorMode === 'dark' ? '#0084FF' : '#02715F'}]`}
                   >
                     {chain.hasIcon && (
                       <div
@@ -76,7 +81,7 @@ export const CustomConnectButton = () => {
                     )}
                     {/* {chain.name} */}
                   </button>
-                  <button onClick={openAccountModal} type="button" className='text-[#02715F] whitespace-nowrap'>
+                  <button onClick={openAccountModal} type="button" className={`text-[${colorMode === 'dark' ? '#0084FF' : '#02715F'}]  whitespace-nowrap`}>
                     {account.displayName}
                     <span className='hidden'>
                         {account.displayBalance

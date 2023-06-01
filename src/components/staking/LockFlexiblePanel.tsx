@@ -1,4 +1,4 @@
-import { AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, AvatarBadge, Box, Flex, Grid, HStack, Image, Tag, TagLabel, TagLeftIcon, Text, VStack } from "@chakra-ui/react"
+import { AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, AvatarBadge, Box, Flex, Grid, HStack, Image, Tag, TagLabel, TagLeftIcon, Text, VStack, useColorModeValue } from "@chakra-ui/react"
 import { LockStakingDuration, LockStakingTime } from "../LockStakingTime"
 import { LockIcon } from "@chakra-ui/icons"
 import { LockStakingAmount } from "../LockStakingAmount"
@@ -20,6 +20,14 @@ const LockFlexiblePanel = () => {
     const [weekValue, setWeekValue] = useState(1)
     const [boost, setBoost] = useState(0);
     const [stakeAmount, setStakeAmount] = useState(0);
+
+    const bgHeader = useColorModeValue('white', '#242A33')
+    const bgPanel = useColorModeValue('#ECFDFF', '#1B2026')
+    const bgAvator = useColorModeValue('#20B4CA', '#0084FF')
+    const colorHeader = useColorModeValue('black', 'white')
+    const colorDesc = useColorModeValue('#6E8A99', '#898B8E')
+    const colorBorder = useColorModeValue('#96E6FF', '#2D4E6E')
+    const colorIcon = useColorModeValue('darkgreen', '#0084FF')
 
     const fetchAmount = async () => {
         const result = await ContractService.userLockStakingAmount(address, signer);
@@ -70,11 +78,11 @@ const LockFlexiblePanel = () => {
     }, [isConnected]);
 
     return (<>
-        <AccordionItem mt={4}>
-            <AccordionButton className="!bg-white rounded-2xl">
+        <AccordionItem mt={4} className="!border-0">
+            <AccordionButton className="rounded-2xl" bg={bgHeader}>
                 <Flex className="w-full flex-row items-center justify-between gap-4">
                     <HStack>
-                        <Avatar bg={"#20B4CA"} name=" ">
+                        <Avatar bg={bgAvator} name=" ">
                             <AvatarBadge
                                 boxSize="1.25em"
                                 bg="transparent"
@@ -88,52 +96,53 @@ const LockFlexiblePanel = () => {
                             <Text className="text-[#FE9D1C] text-[10px] font-medium">
                                 locked
                             </Text>
-                            <Text className="text-black font-bold text-sm !mt-0">
+                            <Text className="font-bold text-sm !mt-0" color={colorHeader}>
                                 stake FLARE
                             </Text>
-                            <Text className="text-[#6E8A99] text-[10px] !mt-0">
+                            <Text className="text-[10px] !mt-0" color={colorDesc}>
                                 Stake, Earn-And more!
                             </Text>
                         </VStack>
                     </HStack>
 
                     <VStack className="!hidden md:!flex !items-start">
-                        <Text className="text-[#6E8A99] text-[11px] font-medium whitespace-nowrap">
+                        <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
                             FLARE staked
                         </Text>
-                        <Text className="text-[#6E8A99] text-[14px] font-medium !mt-0">
+                        <Text className="text-[14px] font-medium !mt-0" color={colorDesc}>
                             {stakeAmount}
                         </Text>
-                        <Text className="text-[#6E8A99] text-[14px] font-medium !mt-0">
+                        <Text className="text-[14px] font-medium !mt-0" color={colorDesc}>
                             {stakeAmount * flareUsdRate} USD
                         </Text>
                     </VStack>
                     <VStack>
-                        <Text className="text-[#6E8A99] text-[11px] font-medium whitespace-nowrap">
+                        <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
                             Locked APR
                         </Text>
-                        <Text className="text-[#6E8A99] text-[14px] font-medium !mt-0">
+                        <Text className="text-[14px] font-medium !mt-0" color={colorDesc}>
                             Up to
                         </Text>
-                        <Text className="text-black text-[14px] font-medium !mt-0">
+                        <Text className="text-[14px] font-medium !mt-0" color={colorHeader}>
                             <LockStakingCurrentAPR />
                         </Text>
                     </VStack>
                     <VStack className="!hidden md:!flex">
-                        <Text className="text-[#6E8A99] text-[11px] font-medium whitespace-nowrap">
+                        <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
                             Total staked
                         </Text>
-                        <Text className="text-black text-[14px] font-medium !mt-0">
+                        <Text className="text-[14px] font-medium !mt-0" color={colorHeader}>
                             <LockStakingAmount />
                         </Text>
                     </VStack>
                 </Flex>
-                <AccordionIcon color={"darkgreen"} fontSize={32} />
+                <AccordionIcon color={colorIcon} fontSize={32} />
             </AccordionButton>
 
             <AccordionPanel
                 pb={4}
-                className="bg-[#ECFDFF] text-[#507589] rounded-b-2xl mt-2"
+                bg={bgPanel}
+                className="rounded-b-2xl mt-2"
             >
                 <Box className="flex flex-row gap-2 items-center mt-2">
                     <Text
@@ -145,7 +154,7 @@ const LockFlexiblePanel = () => {
                     </Text>
                     <Tag
                         size="sm"
-                        bg={"darkgreen"}
+                        bg={bgAvator}
                         color={"white"}
                         borderRadius="full"
                     >
@@ -154,7 +163,7 @@ const LockFlexiblePanel = () => {
                     </Tag>
                 </Box>
                 <Flex className="flex-col md:flex-row md:gap-4">
-                    <Grid className="grid-cols-2 gap-4 md:gap-0 md:py-10 items-center text-black text-[14px] !hidden md:!grid">
+                    <Grid className="grid-cols-2 gap-4 md:gap-0 md:py-10 items-center text-[14px] !hidden md:!grid" color={colorHeader}>
                         <Box>Total locked</Box>
                         <Box className="text-right font-medium whitespace-nowrap">
                             <TotalStakingAmount />
@@ -167,7 +176,8 @@ const LockFlexiblePanel = () => {
                         <Box className="text-right font-medium">0-2%</Box> */}
                     </Grid>
                     <Grid
-                        border={"1px solid #96E6FF"}
+                        border={"1px solid"}
+                        borderColor={colorBorder}
                         borderRadius={"8px"}
                         p={"20px"}
                         my={"20px"}
@@ -183,33 +193,34 @@ const LockFlexiblePanel = () => {
                         <PendingFlare pid={1} />
 
                         <Flex className="flex-col">
-                            <Text className="text-black font-bold text-xl">
+                            <Text className="font-bold text-xl" color={colorHeader}>
                                 {boost}x
                             </Text>
-                            <Text className="font-medium text-xs">
+                            <Text className="font-medium text-xs" color={colorDesc}>
                                 Lock for <LockStakingDuration />
                             </Text>
                         </Flex>
                     </Grid>
 
                     <Flex
-                        border={"1px solid #96E6FF"}
+                        border={"1px solid"}
+                        borderColor={colorBorder}
                         borderRadius={"8px"}
                         p={"20px"}
                         my={"20px"}
                         className="flex-col gap-4 md:basis-5/12"
                     >
-                        <Grid className="grid-cols-2">
+                        <Grid className="grid-cols-2" color={colorDesc}>
                             <Text className="font-medium text-sm">
                                 <span className="text-[#FE9D1C]">
                                     FLARE
                                 </span>
                                 LOCKED
                             </Text>
-                            <Text className=" font-medium text-sm">
+                            <Text className="font-medium text-sm">
                                 UNLOCK IN
                             </Text>
-                            <Text className="text-black font-bold text-xl">
+                            <Text className="font-bold text-xl" color={colorHeader}>
                                 {amount}
                             </Text>
                             <LockStakingTime />

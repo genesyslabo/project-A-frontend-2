@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack, Text, useDisclosure, useToast } from "@chakra-ui/react"
+import { Box, Button, Flex, Grid, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack, Text, useColorModeValue, useDisclosure, useToast } from "@chakra-ui/react"
 import { BigNumber } from "ethers";
 import React, { useEffect, useState } from "react"
 import { flareUsdRate } from "../../common/constants";
@@ -22,6 +22,13 @@ const UnstakeModal: React.FC<{
     const [usdValue, setUsdValue] = useState(0)
     const [amount, setAmount] = useState(0);
     const [remainDate, setRemainDate] = useState("")
+
+    const bgModal = useColorModeValue('', '#1B2026')
+    const bgBtn = useColorModeValue('darkgreen', '#0084FF')
+    const colorHeader = useColorModeValue('black', 'white')
+    const bgBox = useColorModeValue('#CFF8FF', '#242A33')
+    const bgAvator = useColorModeValue('#20B4CA', '#0084FF')
+    const colorDesc = useColorModeValue('#5B7A8A', '#898B8E')
 
     const toast = useToast()
 
@@ -130,26 +137,26 @@ const UnstakeModal: React.FC<{
     return (<>
         <Modal isOpen={isOpen} onClose={closeModal}>
             <ModalOverlay />
-            <ModalContent>
-                <ModalHeader>Unstake</ModalHeader>
-                <ModalCloseButton />
+            <ModalContent bg={bgModal}>
+                <ModalHeader color={colorHeader}>Unstake</ModalHeader>
+                <ModalCloseButton color={colorHeader} />
                 <ModalBody>
                     <Flex className="flex-col gap-2">
                         <Flex>
-                            <Text className="grow text-[#5B7A8A] text-xs font-medium">
+                            <Text className="grow text-[#5B7A8A] text-xs font-medium" color={colorDesc}>
                                 Unstake
                             </Text>
                             <Flex className="gap-1 items-center">
                                 <Box
-                                    bg={"darkgreen"}
+                                    bg={bgAvator}
                                     className="rounded-full w-4 h-4"
                                 ></Box>
-                                <Box className="font-bold text-sm">
+                                <Box className="font-bold text-sm" color={colorHeader}>
                                     FLARE
                                 </Box>
                             </Flex>
                         </Flex>
-                        <Flex className="flex-col items-end bg-[#CFF8FF] rounded-lg gap-2 p-2">
+                        <Flex className="flex-col items-end rounded-lg gap-2 p-2" bg={bgBox} color={colorHeader}>
                             <Input variant='unstyled' 
                                 placeholder='' 
                                 className="font-bold text-right"
@@ -168,7 +175,7 @@ const UnstakeModal: React.FC<{
                                 <SliderMark
                                     value={sliderValue}
                                     textAlign='center'
-                                    bg='darkgreen'
+                                    bg={bgBtn}
                                     color='white'
                                     mt='-10'
                                     ml='-5'
@@ -178,7 +185,7 @@ const UnstakeModal: React.FC<{
                                 </SliderMark>
 
                                 <SliderTrack bg={"lightgreen"}>
-                                    <SliderFilledTrack bg={"darkgreen"} />
+                                    <SliderFilledTrack bg={bgBtn} />
                                 </SliderTrack>
 
                                 <SliderThumb boxSize={6}>
@@ -197,7 +204,7 @@ const UnstakeModal: React.FC<{
                                 <Text>Unstaking Fee</Text>
                                 <Text>0.1% unstaking fee before</Text>
                             </Flex>
-                            <Flex className="flex-col gap-2 items-end grow text-xs text-[#676768]">
+                            <Flex className="flex-col gap-2 items-end grow text-xs" color={colorHeader}>
                                 <Text>0.0000 FLARE</Text>
                                 <Text>{remainDate}</Text>
                             </Flex>
@@ -205,15 +212,15 @@ const UnstakeModal: React.FC<{
 
                         <Button
                             size="lg"
-                            bg="darkgreen"
+                            bg={bgBtn}
                             color={"white"}
-                            borderColor="darkgreen"
-                            bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
+                            borderColor={bgBtn}
+                            // bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
                             onClick={unstake}
                             disabled={!stakeValue || stakeValue <= 0 || inTransaction }
-                            _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
+                            // _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
                             _active={{
-                                bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)",
+                                // bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)",
                                 transform: "scale(0.98)",
                             }}
                         >

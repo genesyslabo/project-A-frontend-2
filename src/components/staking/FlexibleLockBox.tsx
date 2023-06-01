@@ -1,5 +1,5 @@
 import { MinusIcon, SmallAddIcon } from "@chakra-ui/icons"
-import { Box, HStack, IconButton, Spacer, Text, VStack } from "@chakra-ui/react"
+import { Box, HStack, IconButton, Spacer, Text, VStack, useColorModeValue } from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import { ContractService } from "../../service/contractService";
 import { flareUsdRate } from "../../common/constants";
@@ -14,6 +14,10 @@ const FlexibleLockBox = () => {
     const [amount, setAmount] = useState(0);
     const [isFlexibleOpen, setFlexibleOpen] = useState(false);
     const [isUnstakeOpen, setUnstakeOpen] = useState(false);
+
+    const colorHeader = useColorModeValue('black', 'white')
+    const colorDesc = useColorModeValue('#6E8A99', '#898B8E')
+    const colorBtn = useColorModeValue('#20B4CA', '#0084FF')
 
     const fetchAmount = async () => {
         const result = await ContractService.userStakingAmount(address, signer);
@@ -33,7 +37,7 @@ const FlexibleLockBox = () => {
         <StakingModal openModal={isFlexibleOpen} onClose={() => setFlexibleOpen(false)} />
         <UnstakeModal openModal={isUnstakeOpen} onClose={() => setUnstakeOpen(false)} />
 
-        <Text className="mb-2 text-black font-medium text-sm">
+        <Text className="mb-2 font-medium text-sm" color={colorHeader}>
             <Box as="span" color={"#FE9D1C"}>
                 STAKE
             </Box>
@@ -41,10 +45,10 @@ const FlexibleLockBox = () => {
         </Text>
         <HStack className="items-stretch justify-between">
             <VStack className="justify-start items-start">
-                <Text className="text-black font-bold text-xl">
+                <Text className="font-bold text-xl" color={colorHeader}>
                     {amount} FLARE
                 </Text>
-                <Text className="w-full font-medium text-xs text-left">
+                <Text className="w-full font-medium text-xs text-left" color={colorDesc}>
                     ~{amount * flareUsdRate} USD
                 </Text>
             </VStack>
@@ -54,8 +58,8 @@ const FlexibleLockBox = () => {
             <HStack className="grow justify-end">
                 <IconButton
                     variant='outline'
-                    borderColor={"#20B4CA"}
-                    color={"#20B4CA"}
+                    borderColor={colorBtn}
+                    color={colorBtn}
                     aria-label='Call Sage'
                     fontSize='12px'
                     icon={<MinusIcon />}
@@ -64,8 +68,8 @@ const FlexibleLockBox = () => {
 
                 <IconButton
                     variant='outline'
-                    borderColor={"#20B4CA"}
-                    color={"#20B4CA"}
+                    borderColor={colorBtn}
+                    color={colorBtn}
                     aria-label='Call Sage'
                     fontSize='20px'
                     icon={<SmallAddIcon />}

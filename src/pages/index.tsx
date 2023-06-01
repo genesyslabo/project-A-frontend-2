@@ -1,4 +1,4 @@
-import { Accordion, Avatar, Box, Flex, Grid, HStack, Spacer, Text } from "@chakra-ui/react"
+import { Accordion, Avatar, Box, Flex, Grid, HStack, Spacer, Text, useColorModeValue } from "@chakra-ui/react"
 import { FramePage } from "../components/FramePage"
 import React, { useState } from "react"
 import FlexiblePanel from "../components/staking/FlexiblePanel"
@@ -23,33 +23,38 @@ const DepositsPanel = () => {
 }
 
 const Index = () => {
+    const bgHeader = useColorModeValue('white', '#242A33')
+    const colorHeader = useColorModeValue('black', 'white')
+    const colorDesc = useColorModeValue('#6E8A99', '#898B8E')
+    const bgAvator = useColorModeValue('#20B4CA', '#0084FF')
+    const colorTitle = useColorModeValue('darkgreen', '#0084FF')
 
     return (<>
         <FramePage menu="staking">
             <Flex className="flex flex-col justify-center items-center pt-4">
-                <Box className="w-full flex flex-col md:flex-row gap-2 justify-between bg-white rounded-2xl p-4">
+                <Box className="w-full flex flex-col md:flex-row gap-2 justify-between rounded-2xl p-4" bg={bgHeader}>
                     <Box className="flex flex-row gap-2 items-center">
                         <Box>
-                            <Avatar bg={"#20B4CA"} name=" " size={"lg"} />
+                            <Avatar bg={bgAvator} name=" " size={"lg"} />
                         </Box>
                         <Box className="flex flex-col gap-0">
-                            <Text className="text-black font-bold text-base">Flare Staking</Text>
-                            <Text className="text-[#6E8A99] text-xs">Collateralize assets to borrow liquidity.</Text>
-                            <Text className="text-[#6E8A99] text-xs underline">Learn More</Text>
+                            <Text className="font-bold text-base" color={colorHeader}>Flare Staking</Text>
+                            <Text className="text-xs" color={colorDesc}>Collateralize assets to borrow liquidity.</Text>
+                            <Text className="text-xs underline" color={colorHeader}>Learn More</Text>
                         </Box>
                     </Box>
                     <Grid className="grid-cols-2 gap-2 md:gap-x-20">
-                        <Box className="text-black text-xl font-medium">
+                        <Box className="text-xl font-medium" color={colorHeader}>
                             <TotalStakingAmount />
                         </Box>
-                        <Box className="text-black text-xl font-medium">911</Box>
-                        <Box className="text-[#6E8A99] text-xs">Total staked</Box>
-                        <Box className="text-[#6E8A99] text-xs">Total reward</Box>
+                        <Box className="text-xl font-medium" color={colorHeader}>911</Box>
+                        <Box className="text-xs" color={colorHeader}>Total staked</Box>
+                        <Box className="text-xs" color={colorHeader}>Total reward</Box>
                     </Grid>
                 </Box>
 
                 <HStack className="w-full mt-4 mb-2">
-                    <Box className="text-[24px] font-bold" color={"darkgreen"}>Vesting</Box>
+                    <Box className="text-[24px] font-bold" color={colorTitle}>Vesting</Box>
                     <Spacer />
                     {/* <Tabs variant='soft-rounded' colorScheme='green'>
                         <TabList borderRadius={"var(--chakra-radii-full)"} bg={"white"}>

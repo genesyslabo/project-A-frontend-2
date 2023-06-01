@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text } from '@chakra-ui/react';
+import { Text, useColorModeValue } from '@chakra-ui/react';
 import { ContractService } from '../service/contractService';
 import { useAccount, useSigner } from 'wagmi';
 
@@ -7,6 +7,7 @@ export const LockStakingTime = () => {
     const [time, setTime] = useState(0);
     const { isConnected, address } = useAccount();
     const {data: signer} = useSigner();
+    const colorHeader = useColorModeValue('black', 'white')
 
     useEffect(() => {
         const fetchTime = async () => {
@@ -24,7 +25,7 @@ export const LockStakingTime = () => {
     }, [isConnected]);
 
     return (
-        <Text className="text-black font-bold text-xl">
+        <Text className="font-bold text-xl" color={colorHeader}>
             {(time / 86400).toFixed(1)} Days
         </Text>
     );

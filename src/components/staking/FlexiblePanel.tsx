@@ -1,4 +1,4 @@
-import { AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, AvatarBadge, Box, Flex, Grid, HStack, Image, Text, VStack } from "@chakra-ui/react"
+import { AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, AvatarBadge, Box, Flex, Grid, HStack, Image, Text, VStack, useColorMode, useColorModeValue } from "@chakra-ui/react"
 import { StakingAmount } from "../StakingAmount";
 import { StakingAPR } from "../StakingAPR";
 import StakingButtons from "./StakingButtons";
@@ -13,6 +13,14 @@ const FlexiblePanel = () => {
     const [amount, setAmount] = useState(0);
     const { isConnected, address } = useAccount();
     const {data: signer} = useSigner();
+    
+    const bgHeader = useColorModeValue('white', '#242A33')
+    const bgPanel = useColorModeValue('#ECFDFF', '#1B2026')
+    const bgAvator = useColorModeValue('#20B4CA', '#0084FF')
+    const colorHeader = useColorModeValue('black', 'white')
+    const colorDesc = useColorModeValue('#6E8A99', '#898B8E')
+    const colorBorder = useColorModeValue('#96E6FF', '#2D4E6E')
+    const colorIcon = useColorModeValue('darkgreen', '#0084FF')
 
     const fetchAmount = async () => {
         const result = await ContractService.userStakingAmount(address, signer);
@@ -26,11 +34,11 @@ const FlexiblePanel = () => {
         
     }, [isConnected]);
     return (<>
-        <AccordionItem>
-            <AccordionButton className="!bg-white rounded-2xl">
+        <AccordionItem className="!border-0">
+            <AccordionButton className="rounded-2xl" bg={bgHeader}>
                 <Flex className="w-full flex-row items-center justify-between gap-2">
                     <HStack>
-                        <Avatar bg={"#20B4CA"} name=" ">
+                        <Avatar bg={bgAvator} name=" ">
                             <AvatarBadge
                                 boxSize="1.25em"
                                 bg="transparent"
@@ -41,59 +49,62 @@ const FlexiblePanel = () => {
                         </Avatar>
 
                         <VStack className="text-left" alignItems={"start"}>
-                            <Text className="text-black text-xs">
+                            <Text className="text-xs" color={colorHeader}>
                                 Flexible FLARE
                             </Text>
-                            <Text className="text-[#6E8A99] text-[10px] !mt-0">
+                            <Text className="text-[10px] !mt-0" color={colorDesc}>
                                 Fleible staking on the side.
                             </Text>
                         </VStack>
                     </HStack>
                     <VStack className="!hidden md:!flex !items-start">
-                        <Text className="text-[#6E8A99] text-[11px] font-medium whitespace-nowrap">
+                        <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
                             FLARE staked
                         </Text>
-                        <Text className="text-[#6E8A99] text-[14px] font-medium !mt-0">
+                        <Text className="text-[14px] font-medium !mt-0" color={colorDesc}>
                             {amount}
                         </Text>
-                        <Text className="text-[#6E8A99] text-[14px] font-medium !mt-0">
+                        <Text className="text-[14px] font-medium !mt-0" color={colorDesc}>
                             {amount * flareUsdRate} USD
                         </Text>
                     </VStack>
                     <VStack>
-                        <Text className="text-[#6E8A99] text-[11px] font-medium whitespace-nowrap">
+                        <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
                             Flexible APY
                         </Text>
-                        <Text className="text-black text-[14px] font-medium !mt-0">
+                        <Text className="text-[14px] font-medium !mt-0" color={colorHeader}>
                             <StakingAPR />
                         </Text>
                     </VStack>
                     <VStack className="!hidden md:!flex">
-                        <Text className="text-[#6E8A99] text-[11px] font-medium whitespace-nowrap">
+                        <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
                             Total staked
                         </Text>
-                        <Text className="text-black text-[14px] font-medium !mt-0">
+                        <Text className="text-[14px] font-medium !mt-0" color={colorHeader}>
                             <StakingAmount />
                         </Text>
                     </VStack>
                 </Flex>
-                <AccordionIcon color={"darkgreen"} fontSize={32} />
+                <AccordionIcon color={colorIcon} fontSize={32} />
             </AccordionButton>
 
             <AccordionPanel
                 pb={4}
-                className="bg-[#ECFDFF] text-[#507589] rounded-b-2xl mt-2 flex flex-col md:flex-row md:gap-4"
+                bg={bgPanel}
+                color={colorDesc}
+                className={`rounded-b-2xl mt-2 flex flex-col md:flex-row md:gap-4`}
             >
                 <Grid className="grid-cols-2 gap-2 mt-4 md:!hidden">
                     <Box className="text-base font-medium">
                         Flexible APY
                     </Box>
-                    <Box className="text-right text-black text-base font-medium">
+                    <Box className="text-right text-base font-medium" color={colorHeader}>
                         <StakingAPR />
                     </Box>
                 </Grid>
                 <VStack
-                    border={"1px solid #96E6FF"}
+                    border={"1px solid"}
+                    borderColor={colorBorder}
                     borderRadius={"8px"}
                     p={"20px"}
                     my={"20px"}
@@ -109,14 +120,15 @@ const FlexiblePanel = () => {
                     </Text>
                     <Flex className="flex-row items-center gap-8">
                         <PendingFlare pid={0} />
-                        <Box className="text-right text-black underline text-sm font-medium md:basis-6/12">
+                        <Box className="text-right underline text-sm font-medium md:basis-6/12" color={colorHeader}>
                             flexible lock for 1 day
                         </Box>
                     </Flex>
                 </VStack>
 
                 <VStack
-                    border={"1px solid #96E6FF"}
+                    border={"1px solid"}
+                    borderColor={colorBorder}
                     borderRadius={"8px"}
                     p={"20px"}
                     my={"20px"}
@@ -127,7 +139,7 @@ const FlexiblePanel = () => {
                     <StakingButtons />
                 </VStack>
                 
-                <Grid className="grid-cols-2 gap-4 md:gap-2 md:py-8 text-black text-[14px] md:order-first">
+                <Grid className="grid-cols-2 gap-4 md:gap-2 md:py-8 text-[14px] md:order-first" color={colorHeader}>
                     <Box>Total staked</Box>
                     <Box className="text-right font-medium">
                         <TotalStakingAmount />
