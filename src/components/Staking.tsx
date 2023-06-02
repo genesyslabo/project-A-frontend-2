@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Flex, Grid, Button, Input } from '@chakra-ui/react';
 import { ContractService } from '../service/contractService';
 import { useAccount, useSigner } from 'wagmi';
+import { StakingFlexibleContractAddr } from '../common/constants';
 
 const Staking = () => {
     const { isConnected, address } = useAccount();
@@ -24,7 +25,7 @@ const Staking = () => {
                     onChange={(e) => setAllowanceInput(e.target.value)}
                 />
                 <Button
-                    onClick={() => ContractService.approve(parseFloat(allowanceInput), address, signer)}
+                    onClick={() => ContractService.approve(parseFloat(allowanceInput), address, StakingFlexibleContractAddr, signer)}
                     size="lg"
                     bg="darkgreen"
                     color={"white"}

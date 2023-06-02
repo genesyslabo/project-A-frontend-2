@@ -41,7 +41,7 @@ export const CustomConnectButton = () => {
                 return (
                   <Image src={
                     colorMode === 'dark' ? '/assets/images/icon-wallet-white.png' : '/assets/images/icon-wallet.png'
-                  } className='md:w-14 cursor-pointer' onClick={openConnectModal} />
+                  } className='md:w-8 cursor-pointer' onClick={openConnectModal} />
                 );
               }
               if (chain.unsupported) {
