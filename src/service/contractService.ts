@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import contractABI from '../contracts/contract.json'
-import { MetaflareContractAddr, StakingContractAddr, MinStakingAmount, MinLockStakingAmount} from '../common/constants';
-import { useSigner } from 'wagmi';
+import { MetaflareContractAddr, StakingFlexibleContractAddr, StakingLockContractAddr, MinStakingAmount, MinLockStakingAmount} from '../common/constants';
+// import { useSigner } from 'wagmi';
 
 // const getSigner = async () => {
 //     // const {data: signer} = useSigner();
@@ -26,13 +26,20 @@ const getMetaflareContract = (signer) => {
     return new ethers.Contract(MetaflareContractAddr, contractABI.MetaflareContractABI, getProvider());
 }
 
-const getStakingContract = (signer) => {
+const getStakingFlexibleContract = (signer) => {
     if (signer) {
-        return new ethers.Contract(StakingContractAddr, contractABI.StakingContractABI, signer);
+        return new ethers.Contract(StakingFlexibleContractAddr, contractABI.StakingFlexibleContractABI, signer);
     }
 
-    return new ethers.Contract(StakingContractAddr, contractABI.StakingContractABI, getProvider());
-    // return new ethers.Contract(StakingContractAddr, contractABI.StakingContractABI, signer);
+    return new ethers.Contract(StakingFlexibleContractAddr, contractABI.StakingFlexibleContractABI, getProvider());
+}
+
+const getStakingLockContract = (signer) => {
+    if (signer) {
+        return new ethers.Contract(StakingLockContractAddr, contractABI.StakingLockContractABI, signer);
+    }
+
+    return new ethers.Contract(StakingLockContractAddr, contractABI.StakingLockContractABI, getProvider());
 }
 
 const balanceOf = async (address, signer) => {
@@ -48,7 +55,7 @@ const balanceOf = async (address, signer) => {
     }
 };
 
-const approve = async (amount, address, signer) => {
+const approve = async (amount, address, spender, signer) => {
     try {
         // const balanceNumber = await balanceOf(address, signer);
         // if (balanceNumber < amount) {
@@ -56,7 +63,6 @@ const approve = async (amount, address, signer) => {
         //     throw new Error('Insufficient balance');
         // }
         const metaflareContract = getMetaflareContract(signer);
-        const spender = StakingContractAddr;
         const tx = await metaflareContract.approve(spender, ethers.utils.parseUnits(amount.toString(), 'wei'));
         console.log('Approve: ', tx);
         await tx.wait();
@@ -70,7 +76,7 @@ const approve = async (amount, address, signer) => {
 const allowance = async (address, signer) => {
     try {
         const metaflareContract = getMetaflareContract(signer);
-        const spender = StakingContractAddr;
+        const spender = StakingFlexibleContractAddr;
         const allowance = await metaflareContract.allowance(address, spender);
         const allowanceNumber = ethers.utils.formatUnits(allowance, 18);
         console.log('Allowance: ', allowanceNumber);
@@ -83,7 +89,7 @@ const allowance = async (address, signer) => {
 
 const pendingFlare = async (pid, address, signer) => {
     try {
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingFlexibleContract(signer);
         const pendingFlare = await stakingContract.pendingFlare(address, pid);
         const pendingFlareNumber = ethers.utils.formatUnits(pendingFlare, 18);
         // console.log('pendingFlare: ', pendingFlareNumber);
@@ -98,7 +104,7 @@ const enterStaking = async (amount, address, signer) => {
     try {
         // const allowanceNumber = await allowance(address, signer);
         // if (allowanceNumber < amount) {
-            const approveResult = await approve(parseFloat(amount), address, signer)
+            const approveResult = await approve(parseFloat(amount), address, StakingFlexibleContractAddr, signer)
             console.log("approve", approveResult)
             // throw new Error('Insufficient allowance');
         // }
@@ -106,7 +112,7 @@ const enterStaking = async (amount, address, signer) => {
         if (amountInWei.lte(MinStakingAmount)) {
             throw new Error('Insufficient amount');
         }
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingFlexibleContract(signer);
         const tx = await stakingContract.enterStaking(amountInWei);
         console.log('EnterStaking: ', tx);
         await tx.wait();
@@ -123,7 +129,7 @@ const leaveStaking = async (amount, signer) => {
         if (amountInWei.lte(MinStakingAmount)) {
             throw new Error('Insufficient amount');
         }
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingFlexibleContract(signer);
         const tx = await stakingContract.leaveStaking(amountInWei);
         console.log('LeaveStaking: ', tx);
         await tx.wait();
@@ -138,7 +144,7 @@ const enterLockStaking = async (amount, weeks, address, signer) => {
     try {
         // const allowanceNumber = await allowance(address, signer);
         // if (allowanceNumber < amount) {
-            const approveResult = await approve(parseFloat(amount), address, signer)
+            const approveResult = await approve(parseFloat(amount), address, StakingLockContractAddr, signer)
             console.log("approve", approveResult)
             // throw new Error('Insufficient allowance');
         // }
@@ -146,7 +152,7 @@ const enterLockStaking = async (amount, weeks, address, signer) => {
         if (amountInWei.lte(MinLockStakingAmount)) {
             throw new Error('Insufficient amount');
         }
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingLockContract(signer);
         const tx = await stakingContract.enterLockStaking(amountInWei, weeks);
         console.log('EnterLockStaking: ', tx);
         await tx.wait();
@@ -163,13 +169,13 @@ const reEnterLockStaking = async (amount, weeks, address, signer) => {
         // if (allowanceNumber < amount) {
         //     throw new Error('Insufficient allowance');
         // }
-        const approveResult = await approve(parseFloat(amount), address, signer)
+        const approveResult = await approve(parseFloat(amount), address, StakingLockContractAddr, signer)
         console.log("approve", approveResult)
         const amountInWei = ethers.utils.parseUnits(amount.toString(), 18);
         // if (amountInWei.lte(MinLockStakingAmount)) {
         //     throw new Error('Insufficient amount');
         // }
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingLockContract(signer);
         const tx = await stakingContract.reEnterLockStaking(amountInWei, weeks);
         console.log('ReEnterLockStaking: ', tx);
         await tx.wait();
@@ -182,7 +188,7 @@ const reEnterLockStaking = async (amount, weeks, address, signer) => {
 
 const leaveLockStaking = async (signer) => {
     try {
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingLockContract(signer);
         const tx = await stakingContract.leaveLockStaking();
         console.log('LeaveLockStaking: ', tx);
         await tx.wait();
@@ -193,13 +199,13 @@ const leaveLockStaking = async (signer) => {
     }
 };
 
-const calculateBoost = async (amount, weeks, address, signer) => {
-    if (!amount || !weeks) return 0
+const calculateBoost = async (weeks, signer) => {
+    if (!weeks) return 0
     try {
-        const stakingContract = getStakingContract(signer);
-        const boost = await stakingContract.calculateBoost(address, amount, weeks);
+        const stakingContract = getStakingLockContract(signer);
+        const boost = await stakingContract.calculateBoost(weeks);
         const boostNumber = parseFloat(boost.toString()) / 1000;
-        console.log('Boost: ', amount, weeks, boostNumber);
+        console.log('Boost: ', weeks, boostNumber);
         return +boostNumber.toFixed(2);
     } catch (error) {
         console.error('Boost Error: ', error);
@@ -209,7 +215,7 @@ const calculateBoost = async (amount, weeks, address, signer) => {
 
 const userStakingAmount = async (address, signer) => {
     try {
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingFlexibleContract(signer);
         const userInfo = await stakingContract.userInfo(0, address);
         const amount = ethers.utils.formatUnits(userInfo.amount, 18);
         // console.log('userStakingAmount: ', amount);
@@ -222,7 +228,7 @@ const userStakingAmount = async (address, signer) => {
 
 const userLockStakingAmount = async (address, signer) => {
     try {
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingLockContract(signer);
         const userInfo = await stakingContract.userInfo(1, address);
         const amount = ethers.utils.formatUnits(userInfo.amount, 18);
         // console.log('userLockStakingAmount: ', amount);
@@ -235,7 +241,7 @@ const userLockStakingAmount = async (address, signer) => {
 
 const userLockStakingTime = async (address, signer) => {
     try {
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingLockContract(signer);
         const userInfo = await stakingContract.userInfo(1, address);
         const startTime = userInfo.startTime;
         const endTime = userInfo.endTime;
@@ -252,7 +258,7 @@ const userLockStakingTime = async (address, signer) => {
 
 const lockUserInfo = async (address, signer) => {
     try {
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingLockContract(signer);
         const userInfo = await stakingContract.userInfo(1, address);
         return userInfo;
     } catch (error) {
@@ -263,7 +269,7 @@ const lockUserInfo = async (address, signer) => {
 
 const totalAllocPoint = async (signer) => {
     try {
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingFlexibleContract(signer);
         const totalAllocPoint = await stakingContract.totalAllocPoint();
         // console.log('totalAllocPoint: ', totalAllocPoint);
         return totalAllocPoint;
@@ -276,7 +282,7 @@ const totalAllocPoint = async (signer) => {
 const stakingROI = async (amount, signer) => {
     if (!amount) return 0
     try {
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingFlexibleContract(signer);
         const totalAllocPointBoost = await stakingContract.totalAllocPointBoost();
         const flarePerSecond = await stakingContract.flarePerBlock();
         const secondsPerYear = 365 * 24 * 60 * 60;
@@ -294,7 +300,7 @@ const lockStakingROI = async (amount, week, address, signer) => {
     if (!amount || !week) return 0
     try {
         const amountInWei = ethers.utils.parseUnits(amount.toString(), 18);
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingLockContract(signer);
         const boost = await stakingContract.calculateBoost(address, amountInWei, week);
         const totalAllocPointBoost = await stakingContract.totalAllocPointBoost();
         const flarePerSecond = await stakingContract.flarePerBlock();
@@ -310,7 +316,7 @@ const lockStakingROI = async (amount, week, address, signer) => {
 // APR = flarePerTime * Time * (amount / totalAllocPointBoost) / amount
 const stakingAPR = async (signer) => {
     try {
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingFlexibleContract(signer);
         const totalAllocPointBoost = await stakingContract.totalAllocPointBoost();
         const flarePerSecond = await stakingContract.flarePerBlock();
         const secondsPerYear = 365 * 24 * 60 * 60;
@@ -328,7 +334,7 @@ const lockStakingAPR = async (amount, week, address, signer) => {
     if (!amount || !week) return 0
     try {
         const amountInWei = ethers.utils.parseUnits(amount.toString(), 18);
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingLockContract(signer);
         const boost = await stakingContract.calculateBoost(address, amountInWei, week);
         const totalAllocPointBoost = await stakingContract.totalAllocPointBoost();
         const flarePerSecond = await stakingContract.flarePerBlock();
@@ -348,7 +354,7 @@ const reEnterLockStakingAPR = async (amount, weeks, address, signer) => {
     if (!amount || !weeks) return 0
     try {
         const amountInWei = ethers.utils.parseUnits(amount.toString(), 18);
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingLockContract(signer);
 
         const timestamp = (await signer.provider.getBlock('latest')).timestamp;
         const userInfo = await stakingContract.userInfo(1, address);
@@ -371,7 +377,7 @@ const reEnterLockStakingAPR = async (amount, weeks, address, signer) => {
 
 const getMaxWeeks = async (signer) => {
     try {
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingLockContract(signer);
         const weeks = await stakingContract.MAX_WEEKS();
         return +weeks.toString();
     } catch (error) {
@@ -382,7 +388,7 @@ const getMaxWeeks = async (signer) => {
 
 const getMinLockAmount = async (signer) => {
     try {
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingLockContract(signer);
         const result = await stakingContract.MIN_LOCK_AMOUNT();
         const amount = ethers.utils.formatUnits(result, 18);
         return +amount;
@@ -394,7 +400,7 @@ const getMinLockAmount = async (signer) => {
 
 const calcWeeksAfterExtend = async (weeks, address, signer) => {
     try {
-        const stakingContract = getStakingContract(signer);
+        const stakingContract = getStakingLockContract(signer);
         const extendWeeks = await stakingContract.weeksAfterExtend(address, weeks);
         console.log('calcWeeksAfterExtend: ', extendWeeks);
         return extendWeeks.toNumber();

@@ -49,7 +49,7 @@ const LockFlexiblePanel = () => {
 
     const calcBoost = async () => {
         if (!weekValue) return;
-        const result = await ContractService.calculateBoost(amount, weekValue, address, signer);
+        const result = await ContractService.calculateBoost(weekValue, signer);
         setBoost(result);
     }
 

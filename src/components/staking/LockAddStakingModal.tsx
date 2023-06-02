@@ -105,7 +105,7 @@ const LockAddStakingModal: React.FC<{
 
     const calcBoost = async () => {
         if (!stakeValue || !weekValue) return;
-        const result = await ContractService.calculateBoost(stakeValue + userInfo.amount, weekValue, address, signer);
+        const result = await ContractService.calculateBoost( weekValue, signer);
         setBoost(result);
     }
 

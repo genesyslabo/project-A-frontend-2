@@ -88,7 +88,7 @@ const LockExtendModal: React.FC<{
 
     const calcBoost = async (week) => {
         if (!week) return;
-        const result = await ContractService.calculateBoost(amount, week, address, signer);
+        const result = await ContractService.calculateBoost(week, signer);
         setBoost(result);
     }
 

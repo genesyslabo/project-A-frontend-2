@@ -14,20 +14,8 @@ export function Header(props) {
     const bg = useColorModeValue('#BEF6FF', '#1A1D29')
     const bgBtn = useColorModeValue('darkgreen', '#0084FF')
     const bgMobileMenu = useColorModeValue('#D5FAFF', '#1A1D29')
-
-    const handleTabsChange = (index) => {
-        switch (index) {
-            case 0:
-                router.push('/');
-                break;
-            case 2:
-                router.push('/airdrop')
-                break;
-        
-            default:
-                break;
-        }
-    }
+    const colorText = useColorModeValue('#6E8A99', 'white')
+    const colorHighlight = useColorModeValue('darkgreen', '#0084FF')
 
     useEffect(() => {console.log('menu', props.menu)
         if (props.menu) {
@@ -69,7 +57,7 @@ export function Header(props) {
                     </Tabs> */}
                     <Spacer />
                     
-                    <CustomConnectButton />
+                    {/* <CustomConnectButton /> */}
 
                     <DarkModeSwitch />
 
@@ -104,25 +92,30 @@ export function Header(props) {
                     :
                     "fixed top-12 left-0 bottom-0 z-50 !ml-0 flex flex-col justify-between py-8 px-8 pb-12 text-white transition-all duration-300 ease-in-out md:hidden -translate-x-full"
             } bg={bgMobileMenu}>
-                <Box as="ul" className="mb-8 flex flex-col justify-center space-y-8 font-bold text-[20px] text-[#6E8A99]">
-                    <Box as='li' color={props.menu == 'about' ? 'darkgreen' : ''}>
-                        Entrance
+                <Box as="ul" className="mb-8 flex flex-col justify-center space-y-8 font-bold text-[20px]" color={colorText}>
+                    <Box as='li' color={props.menu == 'about' ? colorHighlight : ''}>
+                       <Image src={`/assets/images/entrance${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> Entrance
                     </Box>
-                    <Box as='li' color={props.menu == 'tokens' ? 'darkgreen' : ''}>
+                    <Box as='li' color={props.menu == 'about' ? colorHighlight : ''}>
+                        <Image src={`/assets/images/entrance${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> 
                         About
                     </Box>
-                    <Box as='li' color={props.menu == 'tokens' ? 'darkgreen' : ''}>
+                    <Box as='li' color={props.menu == 'team' ? colorHighlight : ''}>
+                        <Image src={`/assets/images/theteam${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> 
                         The Team
                     </Box>
-                    <Box as='li' color={props.menu == 'staking' ? 'darkgreen' : ''}>
+                    <Box as='li' color={props.menu == 'staking' ? colorHighlight : ''}>
+                        <Image src={`/assets/images/staking${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> 
                         <Link href="/">
                             Staking
                         </Link>
                     </Box>
-                    <Box as='li' color={props.menu == 'airdrop' ? 'darkgreen' : ''}>
+                    <Box as='li' color={props.menu == 'airdrop' ? colorHighlight : ''}>
+                        <Image src={`/assets/images/airdrop${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> 
                         <Link href="/airdrop">Airdrop</Link>
                     </Box>
-                    <Box as='li' color={props.menu == 'marketplace' ? 'darkgreen' : ''}>
+                    <Box as='li' color={props.menu == 'marketplace' ? colorHighlight : ''}>
+                        <Image src={`/assets/images/marketplace${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> 
                         Market place
                     </Box>
                 </Box>
