@@ -6,13 +6,13 @@ import { useAccount, useSigner } from 'wagmi';
 
 export const LockPendingFlare = () => {
     const [amount, setAmount] = useState(0);
-    const { isConnected, address } = useAccount();
+    const { isConnected } = useAccount();
     const {data: signer} = useSigner();
     const colorHeader = useColorModeValue('black', 'white')
     const colorDesc = useColorModeValue('#6E8A99', '#898B8E')
 
     const fetchAmount = async () => {
-        const result = await ContractService.pendingFlareLock(address, signer);
+        const result = await ContractService.getTotalVeToken(signer);
         setAmount(result);
     };
 

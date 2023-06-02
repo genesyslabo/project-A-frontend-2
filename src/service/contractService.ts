@@ -100,15 +100,15 @@ const pendingFlare = async (address, signer) => {
     }
 };
 
-const pendingFlareLock = async (address, signer) => {
+const getTotalVeToken = async (signer) => {
     try {
         const stakingContract = getStakingLockContract(signer);
-        const pendingFlare = await stakingContract.pendingFlare(address);
-        const pendingFlareNumber = ethers.utils.formatUnits(pendingFlare, 18);
-        // console.log('pendingFlare: ', pendingFlareNumber);
-        return parseFloat(pendingFlareNumber);
+        const totalVeToken = await stakingContract.totalVeToken();
+        const totalVeTokenNumber = ethers.utils.formatUnits(totalVeToken, 18);
+        // console.log('totalVeToken: ', totalVeTokenNumber);
+        return parseFloat(totalVeTokenNumber);
     } catch (error) {
-        console.error('pendingFlare Error: ', error);
+        console.error('totalVeToken Error: ', error);
         return -1;
     }
 };
@@ -440,7 +440,7 @@ export const ContractService = {
     userLockStakingAmount,
     userLockStakingTime,
     stakingAPR,
-    pendingFlareLock,
+    getTotalVeToken,
     totalAllocPoint,
     lockStakingAPR,
     reEnterLockStakingAPR,

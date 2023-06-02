@@ -1,34 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import {Avatar, Box, Button, Flex, Image, Spacer, TabIndicator, TabList, Tabs, useColorMode, useColorModeValue, useDisclosure} from '@chakra-ui/react';
+import React from 'react';
+import { Box, Button, Flex, Image, Spacer, useColorModeValue, useDisclosure} from '@chakra-ui/react';
 import Link from 'next/link';
 import { CustomConnectButton } from './CustomConnectButton';
-import CustomTab from './CustomTab';
-import { useRouter } from 'next/router';
 import { DarkModeSwitch } from './DarkModeSwitch';
 
 export function Header(props) {
     const {isOpen, onOpen, onClose} = useDisclosure();
-    const router = useRouter();
-    const [tabIndex, setTabIndex] = useState(0);
 
     const bg = useColorModeValue('#BEF6FF', '#1A1D29')
     const bgBtn = useColorModeValue('darkgreen', '#0084FF')
     const bgMobileMenu = useColorModeValue('#D5FAFF', '#1A1D29')
     const colorText = useColorModeValue('#6E8A99', 'white')
     const colorHighlight = useColorModeValue('darkgreen', '#0084FF')
-
-    useEffect(() => {console.log('menu', props.menu)
-        if (props.menu) {
-            switch (props.menu) {
-                case 'airdrop':
-                    setTabIndex(2);console.log('index')
-                    break;
-            
-                default:
-                    break;
-            }
-        }
-    }, [props.menu]);
 
     return (
         <>
@@ -57,7 +40,7 @@ export function Header(props) {
                     </Tabs> */}
                     <Spacer />
                     
-                    <CustomConnectButton />
+                    {/* <CustomConnectButton /> */}
 
                     <DarkModeSwitch />
 

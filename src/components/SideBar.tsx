@@ -45,6 +45,12 @@ const menus: MenuItem[] = [
         label: "Market Place",
         icon: "marketplace",
         link: "/"
+    },
+    {
+        name: "getland",
+        label: "Get land",
+        icon: "getland",
+        link: "/"
     }
 ]
 
