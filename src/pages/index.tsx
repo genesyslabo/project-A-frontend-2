@@ -38,8 +38,8 @@ const Index = () => {
                             <Avatar bg={bgAvator} name=" " size={"lg"} />
                         </Box>
                         <Box className="flex flex-col gap-0">
-                            <Text className="font-bold text-base" color={colorHeader}>Flare Staking</Text>
-                            <Text className="text-xs" color={colorDesc}>Collateralize assets to borrow liquidity.</Text>
+                            <Text className="font-bold text-base" color={colorHeader}>STAKE MF</Text>
+                            <Text className="text-xs" color={colorDesc}>Stake your MF to get more reward</Text>
                             <Text className="text-xs underline" color={colorHeader}>Learn More</Text>
                         </Box>
                     </Box>

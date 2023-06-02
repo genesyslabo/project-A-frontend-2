@@ -24,7 +24,7 @@ const Airdrop = () => {
     return (<>
         <FramePage menu="airdrop">
             <Flex className="flex flex-col justify-center items-center pt-4 gap-6">
-                <Flex color={colorTitle} className="w-full text-2xl font-bold items-start">Flare claim check</Flex>
+                <Flex color={colorTitle} className="w-full text-2xl font-bold items-start">MF AIRDROP CHECK</Flex>
 
                 <Flex className="w-full flex-col">
                     <Flex className="justify-end pr-1">
@@ -61,11 +61,11 @@ const Airdrop = () => {
                     <Text className="">0x025C6da5BD0e6A5dd1350fda9e3B6a614B205a1F</Text>
                 </Flex>
 
-                <Flex className="flex-col gap-2">
-                    <Flex color={colorTitle} className="w-full text-2xl font-bold items-start">NFT claim check</Flex>
+                <Flex className="w-full flex-col gap-2">
+                    <Flex color={colorTitle} className="w-full text-2xl font-bold items-start">NFT CLAIM CHECK</Flex>
 
                     <Text className="text-base text-[#666666]">
-                        Enter the Token ID to see if a XXX NFT is eligible for a one-time claim of Flare NFT.
+                        Enter the Token ID to see if a OG NFT is eligible for a one-time claim of Flare NFT.
                     </Text>
 
                     <Flex className="flex-col">
@@ -77,9 +77,9 @@ const Airdrop = () => {
                         </Flex>
                     </Flex>
 
-                    <Text className="text-xs text-[#6E8A99]">
+                    {/* <Text className="text-xs text-[#6E8A99]">
                     Please note: this checker updates in real time as tokens are claimed. If you are purchasing a Bored Ape, Mutant, or Kennel Club NFT on the secondary market, keep in mind that it’s possible for someone to claim immediately after you have checked, making the Bored Ape, Mutant Ape, or Kennel Club NFT no longer eligible.F
-                    </Text>
+                    </Text> */}
                 </Flex>
             </Flex>
         </FramePage>

@@ -21,7 +21,7 @@ export const LockStakingAmount = () => {
 
     return (
         <Text as="span">
-            {amount} Flare
+            {amount} MF
         </Text>
     );
 };

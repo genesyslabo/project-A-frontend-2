@@ -50,16 +50,16 @@ const FlexiblePanel = () => {
 
                         <VStack className="text-left" alignItems={"start"}>
                             <Text className="text-xs" color={colorHeader}>
-                                Flexible FLARE
+                                STAKE MF
                             </Text>
                             <Text className="text-[10px] !mt-0" color={colorDesc}>
-                                Fleible staking on the side.
+                                Staking on the side.
                             </Text>
                         </VStack>
                     </HStack>
                     <VStack className="!hidden md:!flex !items-start">
                         <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
-                            FLARE staked
+                            MF STAKED
                         </Text>
                         <Text className="text-[14px] font-medium !mt-0" color={colorDesc}>
                             {amount}
@@ -70,7 +70,7 @@ const FlexiblePanel = () => {
                     </VStack>
                     <VStack>
                         <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
-                            Flexible APY
+                            APY
                         </Text>
                         <Text className="text-[14px] font-medium !mt-0" color={colorHeader}>
                             <StakingAPR />
@@ -116,7 +116,7 @@ const FlexiblePanel = () => {
                         className="mb-2 font-medium text-sm"
                         color={"#FE9D1C"}
                     >
-                        RECENT FLARE PROFIT
+                        REWARDS
                     </Text>
                     <Flex className="flex-row items-center gap-8">
                         <PendingFlare />

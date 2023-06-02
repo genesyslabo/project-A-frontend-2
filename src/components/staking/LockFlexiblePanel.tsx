@@ -94,10 +94,10 @@ const LockFlexiblePanel = () => {
 
                         <VStack className="text-left" alignItems={"start"}>
                             <Text className="text-[#FE9D1C] text-[10px] font-medium">
-                                locked
+                                LOCKED
                             </Text>
                             <Text className="font-bold text-sm !mt-0" color={colorHeader}>
-                                stake FLARE
+                                Lock MF
                             </Text>
                             <Text className="text-[10px] !mt-0" color={colorDesc}>
                                 Stake, Earn-And more!
@@ -107,7 +107,7 @@ const LockFlexiblePanel = () => {
 
                     <VStack className="!hidden md:!flex !items-start">
                         <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
-                            FLARE staked
+                            MF STAKED
                         </Text>
                         <Text className="text-[14px] font-medium !mt-0" color={colorDesc}>
                             {stakeAmount}
@@ -118,7 +118,7 @@ const LockFlexiblePanel = () => {
                     </VStack>
                     <VStack>
                         <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
-                            Locked APR
+                            LOCKED APY
                         </Text>
                         <Text className="text-[14px] font-medium !mt-0" color={colorDesc}>
                             Up to
@@ -129,7 +129,7 @@ const LockFlexiblePanel = () => {
                     </VStack>
                     <VStack className="!hidden md:!flex">
                         <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
-                            Total staked
+                            TOTAL STAKED
                         </Text>
                         <Text className="text-[14px] font-medium !mt-0" color={colorHeader}>
                             <LockStakingAmount />
@@ -184,7 +184,7 @@ const LockFlexiblePanel = () => {
                         className="grid-cols-2 md:gap-x-2 md:basis-5/12"
                     >
                         <Text className="text-[#FE9D1C] font-medium text-sm">
-                            RECENT FLARE PROFIT
+                            REWARDS
                         </Text>
                         <Text className="text-[#FE9D1C] font-medium text-sm">
                             YIELD BOOST

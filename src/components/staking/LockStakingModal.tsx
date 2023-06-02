@@ -212,13 +212,13 @@ const LockStakingModal: React.FC<{
         <Modal isOpen={isOpen} onClose={closeModal}>
             <ModalOverlay />
             <ModalContent bg={bgModal}>
-                <ModalHeader color={colorHeader}>FLARE TO LOCK</ModalHeader>
+                <ModalHeader color={colorHeader}>MF TO LOCK</ModalHeader>
                 <ModalCloseButton color={colorHeader} />
                 <ModalBody className="h-[80vh] overflow-y-auto">
                     <Flex className="flex-col gap-2">
                         <Flex>
                             <Text className="grow text-[#5B7A8A] text-xs font-medium">
-                                FLARE TO STAKE
+                                MF TO STAKE
                             </Text>
                             <Flex className="gap-1 items-center">
                                 <Box
@@ -226,7 +226,7 @@ const LockStakingModal: React.FC<{
                                     className="rounded-full w-4 h-4"
                                 ></Box>
                                 <Box className="font-bold text-sm" color={colorHeader}>
-                                    FLARE
+                                    MF
                                 </Box>
                             </Flex>
                         </Flex>
@@ -241,7 +241,7 @@ const LockStakingModal: React.FC<{
                             </Text>
                         </Flex>
                         <Text className="text-right text-[#6E8A99] text-xs">
-                            Balance: {balance} Flare
+                            Balance: {balance} MF
                         </Text>
                         <Box pt={6} pb={2}>
                             <Slider aria-label='slider-ex-6' value={sliderValue} onChange={handleSliderChange}
@@ -299,7 +299,7 @@ const LockStakingModal: React.FC<{
 
                         <Grid className="grid-cols-2 gap-2 text-[12px] font-medium p-4"
                             borderRadius={"7px"} color={"lightfont"} bg={bgBox}>
-                            <Box>FLARELOCKED TO BE LOCKED</Box>
+                            <Box>MF TO BE LOCKED</Box>
                             <Box className="text-right text-base" color={colorHeader}>0.00-&gt;{+parseFloat(stakeValue + "").toFixed(2)}</Box>
                             <Box>APR</Box>
                             <Box className="text-right text-base" color={colorHeader}><LockStakingFutureAPR amount={stakeValue} week={weekValue} /></Box>
@@ -309,7 +309,7 @@ const LockStakingModal: React.FC<{
                             <Box className="text-right text-base" color={colorHeader}>{boost}x</Box>
                             <Box>UNLOCK ON</Box>
                             <Box className="text-right text-base" color={colorHeader}>{unlockOn}</Box>
-                            <Box>EXPECTED ROI</Box>
+                            <Box>REWARDS</Box>
                             <Box className="text-right text-base" color={colorHeader}>${roi}</Box>
                         </Grid>
 

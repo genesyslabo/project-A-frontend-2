@@ -21,7 +21,7 @@ export const StakingAmount = () => {
 
     return (
         <Text as="span">
-            {amount} Flare
+            {amount} MF
         </Text>
     );
 };

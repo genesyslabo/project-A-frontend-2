@@ -29,7 +29,7 @@ const colors = {
 }
 
 export const theme = extendTheme({
-    initialColorMode: 'system',
+    initialColorMode: 'dark', //system
     useSystemColorMode: true,
     // semanticTokens: {
     //     colors: {

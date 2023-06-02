@@ -19,7 +19,7 @@ export const TotalStakingAmount = () => {
 
     return (
         <Text as="span">
-            {+parseFloat(amount).toFixed(2)} Flare
+            {+parseFloat(amount).toFixed(2)} MF
         </Text>
     );
 };

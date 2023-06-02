@@ -155,13 +155,13 @@ const StakingModal: React.FC<{
         <Modal isOpen={isOpen} onClose={closeModal}>
             <ModalOverlay />
             <ModalContent bg={bgModal}>
-                <ModalHeader color={colorHeader}>FLEXIBLE</ModalHeader>
+                <ModalHeader color={colorHeader}>STAKING</ModalHeader>
                 <ModalCloseButton color={colorHeader} />
                 <ModalBody>
                     <Flex className="flex-col gap-2">
                         <Flex>
                             <Text className="grow text-xs font-medium" color={colorDesc}>
-                                FLARE TO STAKE
+                                MF TO STAKE
                             </Text>
                             <Flex className="gap-1 items-center">
                                 <Box
@@ -169,7 +169,7 @@ const StakingModal: React.FC<{
                                     className="rounded-full w-4 h-4"
                                 ></Box>
                                 <Box className="font-bold text-sm" color={colorHeader}>
-                                    FLARE
+                                    MF
                                 </Box>
                             </Flex>
                         </Flex>
@@ -184,7 +184,7 @@ const StakingModal: React.FC<{
                             </Text>
                         </Flex>
                         <Text className="text-right text-xs" color={colorDesc}>
-                            Balance: {balance} Flare
+                            Balance: {balance} MF
                         </Text>
                         <Box pt={6} pb={2}>
                             <Slider aria-label='slider-ex-6' value={sliderValue} onChange={handleSliderChange}
@@ -218,7 +218,7 @@ const StakingModal: React.FC<{
                         </Grid>
                         <Flex className="flex-row">
                             <Flex className="flex-col gap-2 grow text-xs text-[#676768]">
-                                <Text>xxNFT x1 +25% &gt;</Text>
+                                {/* <Text>xxNFT x1 +25% &gt;</Text> */}
                                 <Text>Annual ROI at current rates;</Text>
                             </Flex>
                             <Flex className="items-center font-medium text-sm" color={colorHeader}>
@@ -255,7 +255,7 @@ const StakingModal: React.FC<{
                                 transform: "scale(0.98)",
                             }}
                         >
-                            Get Flare
+                            Get MF
                         </Button>
                     </Flex>
                 </ModalBody>

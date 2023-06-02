@@ -22,7 +22,7 @@ export const Balance = () => {
 
     return (
         <Text as={"span"}>
-            {amount} Flare
+            {amount} MF
         </Text>
     );
 };
