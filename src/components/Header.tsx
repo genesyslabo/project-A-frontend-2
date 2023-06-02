@@ -20,6 +20,10 @@ export function Header(props) {
     useEffect(() => {console.log('menu', props.menu)
         if (props.menu) {
             switch (props.menu) {
+                case 'marketplace':
+                    setTabIndex(1);console.log('index')
+                    break;
+
                 case 'airdrop':
                     setTabIndex(2);console.log('index')
                     break;
@@ -116,7 +120,7 @@ export function Header(props) {
                     </Box>
                     <Box as='li' color={props.menu == 'marketplace' ? colorHighlight : ''}>
                         <Image src={`/assets/images/marketplace${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> 
-                        Market place
+                        <Link href="/marketplace">Market place</Link>
                     </Box>
                 </Box>
             </Box>
