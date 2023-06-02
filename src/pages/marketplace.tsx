@@ -29,11 +29,7 @@ const Upper = () => {
       />
       <Flex position="absolute" right="0" bottom={p2Bottom}>
         <Image
-          src="/assets/images/marketplace-person2.png"
-          h={p2Hight}
-        />
-        <Image
-          src="/assets/images/marketplace-person3.png"
+          src="/assets/images/marketplace-people.png"
           h={p2Hight}
         />
       </Flex>
