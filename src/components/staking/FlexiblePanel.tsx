@@ -119,7 +119,7 @@ const FlexiblePanel = () => {
                         RECENT FLARE PROFIT
                     </Text>
                     <Flex className="flex-row items-center gap-8">
-                        <PendingFlare pid={0} />
+                        <PendingFlare />
                         <Box className="text-right underline text-sm font-medium md:basis-6/12" color={colorHeader}>
                             flexible lock for 1 day
                         </Box>

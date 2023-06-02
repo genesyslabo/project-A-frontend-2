@@ -57,7 +57,7 @@ export function Header(props) {
                     </Tabs> */}
                     <Spacer />
                     
-                    {/* <CustomConnectButton /> */}
+                    <CustomConnectButton />
 
                     <DarkModeSwitch />
 

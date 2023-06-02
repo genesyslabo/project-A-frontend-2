@@ -8,7 +8,7 @@ import { TotalStakingAmount } from "./TotalStakingAmount"
 import { useEffect, useState } from "react"
 import { ContractService } from "../../service/contractService"
 import { flareUsdRate } from "../../common/constants"
-import { PendingFlare } from "./PendingFlare"
+import { LockPendingFlare } from "./LockPendingFlare"
 import { useAccount, useSigner } from "wagmi"
 
 const LockFlexiblePanel = () => {
@@ -190,7 +190,7 @@ const LockFlexiblePanel = () => {
                             YIELD BOOST
                         </Text>
 
-                        <PendingFlare pid={1} />
+                        <LockPendingFlare />
 
                         <Flex className="flex-col">
                             <Text className="font-bold text-xl" color={colorHeader}>

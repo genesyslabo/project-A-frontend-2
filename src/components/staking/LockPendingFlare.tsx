@@ -4,7 +4,7 @@ import { ContractService } from '../../service/contractService';
 import { flareUsdRate } from '../../common/constants';
 import { useAccount, useSigner } from 'wagmi';
 
-export const PendingFlare = () => {
+export const LockPendingFlare = () => {
     const [amount, setAmount] = useState(0);
     const { isConnected, address } = useAccount();
     const {data: signer} = useSigner();
@@ -12,7 +12,7 @@ export const PendingFlare = () => {
     const colorDesc = useColorModeValue('#6E8A99', '#898B8E')
 
     const fetchAmount = async () => {
-        const result = await ContractService.pendingFlare(address, signer);
+        const result = await ContractService.pendingFlareLock(address, signer);
         setAmount(result);
     };
 

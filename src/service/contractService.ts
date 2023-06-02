@@ -87,10 +87,23 @@ const allowance = async (address, signer) => {
     }
 };
 
-const pendingFlare = async (pid, address, signer) => {
+const pendingFlare = async (address, signer) => {
     try {
         const stakingContract = getStakingFlexibleContract(signer);
-        const pendingFlare = await stakingContract.pendingFlare(address, pid);
+        const pendingFlare = await stakingContract.pendingFlare(address);
+        const pendingFlareNumber = ethers.utils.formatUnits(pendingFlare, 18);
+        // console.log('pendingFlare: ', pendingFlareNumber);
+        return parseFloat(pendingFlareNumber);
+    } catch (error) {
+        console.error('pendingFlare Error: ', error);
+        return -1;
+    }
+};
+
+const pendingFlareLock = async (address, signer) => {
+    try {
+        const stakingContract = getStakingLockContract(signer);
+        const pendingFlare = await stakingContract.pendingFlare(address);
         const pendingFlareNumber = ethers.utils.formatUnits(pendingFlare, 18);
         // console.log('pendingFlare: ', pendingFlareNumber);
         return parseFloat(pendingFlareNumber);
@@ -427,6 +440,7 @@ export const ContractService = {
     userLockStakingAmount,
     userLockStakingTime,
     stakingAPR,
+    pendingFlareLock,
     totalAllocPoint,
     lockStakingAPR,
     reEnterLockStakingAPR,
