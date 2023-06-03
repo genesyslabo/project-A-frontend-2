@@ -23,7 +23,7 @@ const Upper = () => {
         position="absolute"
       />
       <Image
-        src="/assets/images/marketplace-person1.png"
+        src="/assets/images/marketplace-person.png"
         position="absolute"
         left="0"
         bottom={p1Bottom}
