@@ -318,6 +318,8 @@ const LockStakingModal: React.FC<{
                             bg={bgBtn}
                             color={"white"}
                             borderColor={bgBtn}
+                            borderRadius={"22px"}
+                            height={"38px"}
                             // bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
                             onClick={lockStaking}
                             disabled={!stakeValue || stakeValue < minLockAmount || stakeValue > balance || !weekValue || weekValue <= 0 || weekValue > maxWeeks || inTransaction }

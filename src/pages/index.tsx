@@ -35,7 +35,7 @@ const Index = () => {
                 <Box className="w-full flex flex-col md:flex-row gap-2 justify-between rounded-2xl p-4" bg={bgHeader}>
                     <Box className="flex flex-row gap-2 items-center">
                         <Box>
-                            <Avatar bg={bgAvator} name=" " size={"lg"} />
+                            <Avatar src="/assets/images/avatar.png" size={"lg"} />
                         </Box>
                         <Box className="flex flex-col gap-0">
                             <Text className="font-bold text-base" color={colorHeader}>STAKE MF</Text>

@@ -61,11 +61,7 @@ function MyApp({Component, pageProps}: AppProps) {
             showRecentTransactions={true}
             chains={chains}
             initialChain={bscTestnet}
-            theme={ colorMode === 'dark' ? darkTheme() : lightTheme({
-              accentColor: '#306f60',
-              accentColorForeground: 'white',
-              borderRadius: 'medium',
-            })}>
+            theme={ darkTheme() }>
             <Component {...pageProps} />
           </RainbowKitProvider>
         </WagmiConfig>

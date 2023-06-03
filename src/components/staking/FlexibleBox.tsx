@@ -30,6 +30,8 @@ const FlexibleBox = () => {
             bg={bgBtn}
             color={"white"}
             borderColor={bgBtn}
+            borderRadius={"22px"}
+            height={"38px"}
             // bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
             disabled={disabled}
             // _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
@@ -39,7 +41,7 @@ const FlexibleBox = () => {
             }}
             onClick={() => setFlexibleOpen(true)}
         >
-            Flexible
+            Staking
         </Button>
         <Link href={""}>
             <Text className="underline text-sm font-medium">

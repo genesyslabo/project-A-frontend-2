@@ -1,4 +1,4 @@
-import { AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, AvatarBadge, Box, Flex, Grid, HStack, Image, Tag, TagLabel, TagLeftIcon, Text, VStack, useColorModeValue } from "@chakra-ui/react"
+import { AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, AvatarBadge, Box, Button, Flex, Grid, HStack, Image, Tag, TagLabel, TagLeftIcon, Text, VStack, useColorModeValue } from "@chakra-ui/react"
 import { LockStakingDuration, LockStakingTime } from "../LockStakingTime"
 import { LockIcon } from "@chakra-ui/icons"
 import { LockStakingAmount } from "../LockStakingAmount"
@@ -24,10 +24,13 @@ const LockFlexiblePanel = () => {
     const bgHeader = useColorModeValue('white', '#242A33')
     const bgPanel = useColorModeValue('#ECFDFF', '#1B2026')
     const bgAvator = useColorModeValue('#20B4CA', '#0084FF')
+    const bgBtn = useColorModeValue('darkgreen', '#0084FF')
     const colorHeader = useColorModeValue('black', 'white')
     const colorDesc = useColorModeValue('#6E8A99', '#898B8E')
     const colorBorder = useColorModeValue('#96E6FF', '#2D4E6E')
     const colorIcon = useColorModeValue('darkgreen', '#0084FF')
+
+    const cyclicIcon = useColorModeValue('/assets/images/icon-cyclic.png', '/assets/images/icon-cyclic-dark.png')
 
     const fetchAmount = async () => {
         const result = await ContractService.userLockStakingAmount(address, signer);
@@ -82,13 +85,13 @@ const LockFlexiblePanel = () => {
             <AccordionButton className="rounded-2xl" bg={bgHeader}>
                 <Flex className="w-full flex-row items-center justify-between gap-4">
                     <HStack>
-                        <Avatar bg={bgAvator} name=" ">
+                        <Avatar src="/assets/images/avatar.png">
                             <AvatarBadge
                                 boxSize="1.25em"
                                 bg="transparent"
                                 borderColor="transparent"
                             >
-                                <Image src="/assets/images/icon-cyclic.png" />
+                                <Image src={cyclicIcon} />
                             </AvatarBadge>
                         </Avatar>
 
@@ -181,7 +184,7 @@ const LockFlexiblePanel = () => {
                         borderRadius={"8px"}
                         p={"20px"}
                         my={"20px"}
-                        className="grid-cols-2 md:gap-x-2 md:basis-5/12"
+                        className="grid-cols-2 md:gap-x-2 gap-y-2 md:basis-5/12"
                     >
                         <Text className="text-[#FE9D1C] font-medium text-sm">
                             REWARDS
@@ -200,6 +203,26 @@ const LockFlexiblePanel = () => {
                                 Lock for <LockStakingDuration />
                             </Text>
                         </Flex>
+
+                        <Button
+                            size="lg"
+                            fontSize={16}
+                            bg={bgBtn}
+                            color={"white"}
+                            borderColor={bgBtn}
+                            borderRadius={"22px"}
+                            height={"38px"}
+                            className="w-full col-span-2"
+                            // bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
+                            disabled={!isConnected}
+                            // _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
+                            _active={{
+                                // bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)",
+                                transform: "scale(0.98)",
+                            }}
+                        >
+                            Claim
+                        </Button>
                     </Grid>
 
                     <Flex

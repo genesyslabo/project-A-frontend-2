@@ -22,6 +22,8 @@ const StakingButton: React.FC<{}> = () => {
             bg={bgBtn}
             color={"white"}
             borderColor={bgBtn}
+            borderRadius={"22px"}
+            height={"38px"}
             // bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
             disabled={disabled}
             onClick={() => setOpenModal(true)}

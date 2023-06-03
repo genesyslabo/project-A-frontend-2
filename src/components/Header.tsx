@@ -55,6 +55,8 @@ export function Header(props) {
                             minW={40}
                             color={"white"}
                             borderColor={bgBtn}
+                            borderRadius={"22px"}
+                            height={"36px"}
                             fontSize={14}
                             _hover={{ bg: bgBtn }}
                             className='!hidden md:!inline-flex grow'

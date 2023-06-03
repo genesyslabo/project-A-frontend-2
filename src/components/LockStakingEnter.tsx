@@ -32,6 +32,8 @@ const LockStakingEnter = () => {
                     bg="darkgreen"
                     color={"white"}
                     borderColor="darkgreen"
+                    borderRadius={"22px"}
+                    height={"38px"}
                     fontSize={16}
                     bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
                     _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}

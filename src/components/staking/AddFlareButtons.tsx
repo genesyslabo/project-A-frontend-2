@@ -19,6 +19,8 @@ const AddFlareButtons: React.FC<{}> = () => {
                 bg={bgBtn}
                 color={"white"}
                 borderColor={bgBtn}
+                borderRadius={"22px"}
+                height={"38px"}
                 fontSize={16}
                 onClick={() => setAddFlareOpen(true)}
                 // bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
@@ -34,6 +36,8 @@ const AddFlareButtons: React.FC<{}> = () => {
                 size="lg"
                 bg={bgBtn}
                 color={"white"}
+                borderRadius={"22px"}
+                height={"38px"}
                 fontSize={16}
                 borderColor={bgBtn}
                 onClick={() => setExtendOpen(true)}
