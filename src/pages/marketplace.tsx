@@ -10,9 +10,11 @@ const Upper = () => {
   const p2Hight = useBreakpointValue({ base: "100px", md: "160px" })
   const p2Bottom = useBreakpointValue({ base: "160px", md: "120px" })
   const t1Bottom = useBreakpointValue({ base: "80px", md: "35px" })
+  const boxW = useBreakpointValue({ base: "100vw", md: "full" })
+  const boxLeft = useBreakpointValue({ base: "-16px", md: "0px" })
 
   return (
-    <Box position="relative" h="320px" bg="black">
+    <Box w={boxW} marginLeft={boxLeft} position="relative" h="320px" bg="black">
       <Image
         src="/assets/images/marketplace-background.png"
         objectFit="cover"
@@ -51,7 +53,7 @@ const Upper = () => {
         fontWeight="normal"
         p={3}
       >
-        Accesss to Snoop Dogg lifestyle: attend Snoop's parties, get access to exclusive NFTs, and enjoy priceless experiences.
+        To honor the pioneers of our journey, we introduce MetaFlareOG - a special edition NFT airdropped exclusively to early adopters of MetaFlare.
       </Text>
     </Box>
   );
