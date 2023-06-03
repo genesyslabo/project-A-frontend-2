@@ -10,9 +10,11 @@ const Upper = () => {
   const p2Hight = useBreakpointValue({ base: "100px", md: "160px" })
   const p2Bottom = useBreakpointValue({ base: "160px", md: "120px" })
   const t1Bottom = useBreakpointValue({ base: "80px", md: "35px" })
+  const boxW = useBreakpointValue({ base: "100vw", md: "full" })
+  const boxLeft = useBreakpointValue({ base: "-16px", md: "0px" })
 
   return (
-    <Box position="relative" h="320px" bg="black">
+    <Box w={boxW} marginLeft={boxLeft} position="relative" h="320px" bg="black">
       <Image
         src="/assets/images/marketplace-background.png"
         objectFit="cover"
@@ -21,13 +23,13 @@ const Upper = () => {
         position="absolute"
       />
       <Image
-        src="/assets/images/marketplace-person1.png"
+        src="/assets/images/marketplace-person.png"
         position="absolute"
-        left="0"
+        left="20px"
         bottom={p1Bottom}
         h={p1Height}
       />
-      <Flex position="absolute" right="0" bottom={p2Bottom}>
+      <Flex position="absolute" right="20px" bottom={p2Bottom}>
         <Image
           src="/assets/images/marketplace-people.png"
           h={p2Hight}
@@ -40,6 +42,7 @@ const Upper = () => {
         fontSize="18px"
         p={3}
         fontWeight="bold"
+        left="20px"
       >
         Snoop Dogg
       </Text>
@@ -50,8 +53,9 @@ const Upper = () => {
         fontSize="12px"
         fontWeight="normal"
         p={3}
+        left="20px"
       >
-        Accesss to Snoop Dogg lifestyle: attend Snoop's parties, get access to exclusive NFTs, and enjoy priceless experiences.
+        To honor the pioneers of our journey, we introduce MetaFlareOG - a special edition NFT airdropped exclusively to early adopters of MetaFlare.
       </Text>
     </Box>
   );
@@ -90,19 +94,21 @@ const Offers = () => {
       </Select>
 
       {/* 列表数据 */}
-      <Grid mt="10px" templateColumns={gridTemplateColumns} gap="10px">
+      <Grid mt="10px" templateColumns={gridTemplateColumns} gap="10px" paddingX="20px">
         {images.map((imgSrc, index) => (
           <Image key={index} src={imgSrc} />
         ))}
       </Grid>
       <Button
-        w="100%"
+        w="calc(100% - 40px)"
         h="40px"
         mt="10px"
         borderRadius="24px"
         backgroundColor="#0084FF"
         color="white"
         fontSize="14px"
+        marginLeft="20px"
+        marginRight="20px"
       >
         Make Collection Offer
       </Button>
