@@ -1,4 +1,4 @@
-import {ChakraProvider, ChakraProviderProps, useColorMode} from '@chakra-ui/react'
+import {ChakraProvider, ChakraProviderProps, DarkMode, useColorMode} from '@chakra-ui/react'
 
 import {theme} from '../theme'
 import {AppProps} from 'next/app'
@@ -9,7 +9,6 @@ import '@rainbow-me/rainbowkit/styles.css';
 import {
   darkTheme,
   getDefaultWallets,
-  lightTheme,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
 import { configureChains, createClient, WagmiConfig } from 'wagmi';
@@ -62,7 +61,7 @@ function MyApp({Component, pageProps}: AppProps) {
             chains={chains}
             initialChain={bscTestnet}
             theme={ darkTheme() }>
-            <Component {...pageProps} />
+              <Component {...pageProps} />
           </RainbowKitProvider>
         </WagmiConfig>
       </ChakraProvider>

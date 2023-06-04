@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import contractABI from '../contracts/contract.json'
-import { MetaflareContractAddr, StakingFlexibleContractAddr, StakingLockContractAddr, MinStakingAmount, MinLockStakingAmount} from '../common/constants';
+import { MetaflareContractAddr, StakingFlexibleContractAddr, StakingLockContractAddr, MinStakingAmount, MinLockStakingAmount, NftContractAddr} from '../common/constants';
 // import { useSigner } from 'wagmi';
 
 // const getSigner = async () => {
@@ -26,6 +26,13 @@ const getMetaflareContract = (signer) => {
     return new ethers.Contract(MetaflareContractAddr, contractABI.MetaflareContractABI, getProvider());
 }
 
+const getNftContract = (signer) => {
+    if (signer) {
+        return new ethers.Contract(NftContractAddr, contractABI.OGContract, signer);
+    }
+    return new ethers.Contract(NftContractAddr, contractABI.OGContract, getProvider());
+}
+
 const getStakingFlexibleContract = (signer) => {
     if (signer) {
         return new ethers.Contract(StakingFlexibleContractAddr, contractABI.StakingFlexibleContractABI, signer);
@@ -41,6 +48,52 @@ const getStakingLockContract = (signer) => {
 
     return new ethers.Contract(StakingLockContractAddr, contractABI.StakingLockContractABI, getProvider());
 }
+
+const redeem = async (voucher, signer) => {
+    try {
+        const metaflareContract = getMetaflareContract(signer);
+        const result = await metaflareContract.redeem(voucher);
+        console.log('redeem: ', result);
+    } catch (error) {
+        console.error('redeem Error: ', error);
+        throw error;
+    }
+};
+
+const redeemNft = async (voucher, signer) => {
+    try {
+        const nftContract = getNftContract(signer);
+        const result = await nftContract.redeem(voucher);
+        console.log('redeemNft: ', result);
+    } catch (error) {
+        console.error('redeemNft Error: ', error);
+        throw error;
+    }
+};
+
+const redeemed = async (address, signer) => {
+    try {
+        const metaflareContract = getMetaflareContract(signer);
+        const result = await metaflareContract.redeemed(address);
+        console.log('redeemed: ', result);
+        return result;
+    } catch (error) {
+        console.error('redeemed Error: ', error);
+        throw error;
+    }
+};
+
+const redeemedNft = async (address, signer) => {
+    try {
+        const metaflareContract = getNftContract(signer);
+        const result = await metaflareContract.redeemed(address);
+        console.log('redeemed nft: ', result);
+        return result;
+    } catch (error) {
+        console.error('redeemed nft Error: ', error);
+        throw error;
+    }
+};
 
 const balanceOf = async (address, signer) => {
     try {
@@ -229,7 +282,7 @@ const calculateBoost = async (weeks, signer) => {
 const userStakingAmount = async (address, signer) => {
     try {
         const stakingContract = getStakingFlexibleContract(signer);
-        const userInfo = await stakingContract.userInfo(0, address);
+        const userInfo = await stakingContract.userInfo(address);
         const amount = ethers.utils.formatUnits(userInfo.amount, 18);
         // console.log('userStakingAmount: ', amount);
         return parseFloat(amount);
@@ -242,7 +295,7 @@ const userStakingAmount = async (address, signer) => {
 const userLockStakingAmount = async (address, signer) => {
     try {
         const stakingContract = getStakingLockContract(signer);
-        const userInfo = await stakingContract.userInfo(1, address);
+        const userInfo = await stakingContract.userInfo(address);
         const amount = ethers.utils.formatUnits(userInfo.amount, 18);
         // console.log('userLockStakingAmount: ', amount);
         return parseFloat(amount);
@@ -255,7 +308,7 @@ const userLockStakingAmount = async (address, signer) => {
 const userLockStakingTime = async (address, signer) => {
     try {
         const stakingContract = getStakingLockContract(signer);
-        const userInfo = await stakingContract.userInfo(1, address);
+        const userInfo = await stakingContract.userInfo(address);
         const startTime = userInfo.startTime;
         const endTime = userInfo.endTime;
 
@@ -272,7 +325,7 @@ const userLockStakingTime = async (address, signer) => {
 const lockUserInfo = async (address, signer) => {
     try {
         const stakingContract = getStakingLockContract(signer);
-        const userInfo = await stakingContract.userInfo(1, address);
+        const userInfo = await stakingContract.userInfo(address);
         return userInfo;
     } catch (error) {
         console.error('lockUserInfo Error: ', error);
@@ -309,22 +362,22 @@ const stakingROI = async (amount, signer) => {
     }
 };
 
-const lockStakingROI = async (amount, week, address, signer) => {
-    if (!amount || !week) return 0
-    try {
-        const amountInWei = ethers.utils.parseUnits(amount.toString(), 18);
-        const stakingContract = getStakingLockContract(signer);
-        const boost = await stakingContract.calculateBoost(address, amountInWei, week);
-        const totalAllocPointBoost = await stakingContract.totalAllocPointBoost();
-        const flarePerSecond = await stakingContract.flarePerBlock();
-        const roi = (boost * flarePerSecond * week * amount / totalAllocPointBoost / 1000);
-        // console.log('lockStakingROI: ', roi);
-        return roi;
-    } catch (error) {
-        console.error('lockStakingROI Error: ', error);
-        return -1
-    }
-};
+// const lockStakingROI = async (amount, week, address, signer) => {
+//     if (!amount || !week) return 0
+//     try {
+//         const amountInWei = ethers.utils.parseUnits(amount.toString(), 18);
+//         const stakingContract = getStakingLockContract(signer);
+//         const boost = await stakingContract.calculateBoost(address, amountInWei, week);
+//         const totalAllocPointBoost = await stakingContract.totalAllocPointBoost();
+//         const flarePerSecond = await stakingContract.flarePerBlock();
+//         const roi = (boost * flarePerSecond * week * amount / totalAllocPointBoost / 1000);
+//         // console.log('lockStakingROI: ', roi);
+//         return roi;
+//     } catch (error) {
+//         console.error('lockStakingROI Error: ', error);
+//         return -1
+//     }
+// };
 
 // APR = flarePerTime * Time * (amount / totalAllocPointBoost) / amount
 const stakingAPR = async (signer) => {
@@ -370,7 +423,7 @@ const reEnterLockStakingAPR = async (amount, weeks, address, signer) => {
         const stakingContract = getStakingLockContract(signer);
 
         const timestamp = (await signer.provider.getBlock('latest')).timestamp;
-        const userInfo = await stakingContract.userInfo(1, address);
+        const userInfo = await stakingContract.userInfo(address);
         const userAmount = userInfo.amount;
         const userEndTime = userInfo.endTime;
         const restWeeks =  Math.floor((userEndTime - timestamp) / 604800);
@@ -428,6 +481,10 @@ export const ContractService = {
     getMinLockAmount,
     balanceOf, 
     approve, 
+    redeem,
+    redeemNft,
+    redeemed,
+    redeemedNft,
     allowance,
     pendingFlare,
     enterStaking,
@@ -444,7 +501,7 @@ export const ContractService = {
     totalAllocPoint,
     lockStakingAPR,
     reEnterLockStakingAPR,
-    lockStakingROI,
+    // lockStakingROI,
     stakingROI,
     calcWeeksAfterExtend,
     lockUserInfo

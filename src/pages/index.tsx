@@ -26,7 +26,6 @@ const Index = () => {
     const bgHeader = useColorModeValue('white', '#242A33')
     const colorHeader = useColorModeValue('black', 'white')
     const colorDesc = useColorModeValue('#6E8A99', '#898B8E')
-    const bgAvator = useColorModeValue('#20B4CA', '#0084FF')
     const colorTitle = useColorModeValue('darkgreen', '#0084FF')
 
     return (<>

@@ -1,12 +1,17 @@
-import { Circle, Flex, Image, Text, useColorModeValue } from "@chakra-ui/react"
+import { Button, Circle, Flex, Image, Text, useColorModeValue, useToast } from "@chakra-ui/react"
 import { FramePage } from "../components/FramePage"
 import { Balance } from "../components/Balance"
 import React, { useEffect, useState } from "react"
-import { useAccount } from "wagmi"
+import { useAccount, useSigner } from "wagmi"
+import { WalletService } from "../service/walletService"
+import { ContractService } from "../service/contractService"
+import CustomToast from "../components/CustomToast"
 
 
 const Airdrop = () => {
     const { address } = useAccount();
+    const toast = useToast()
+    const {data: signer} = useSigner();
 
     const [account, setAccount] = useState("")
 
@@ -16,10 +21,182 @@ const Airdrop = () => {
     const bgBorder = useColorModeValue('#DAF7FF', '')
     const colorHeader = useColorModeValue('black', 'white')
     const colorTitle = useColorModeValue('darkgreen', '#0084FF')
+    const bgBtn = useColorModeValue('darkgreen', '#0084FF')
+
+    const [tokenSignature, setTokenSignature] = useState(null);
+    const [tokenNftSignature, setTokenNftSignature] = useState(null);
+    const [inTransaction, setInTransaction] = useState(false);
+    const [redeemStatus, setRedeemStatus] = useState(false);
+    const [redeemNftStatus, setRedeemNftStatus] = useState(false);
+
+    const getToken = async () => {
+        const result = await WalletService.getTokenSignature(address);
+        console.log(result, 'result')
+        setTokenSignature(result);
+    }
+
+    const getNftToken = async () => {
+        const result = await WalletService.getTokenNftSignature(address);
+        console.log(result, 'result')
+        setTokenNftSignature(result);
+    }
+
+    const getReedmStatus = async () => {
+        const result = await ContractService.redeemed(address, signer);
+        setRedeemStatus(result);
+    }
+
+    const getReedmNftStatus = async () => {
+        const result = await ContractService.redeemedNft(address, signer);
+        setRedeemNftStatus(result);
+    }
+
+    const redeemToken = async () => {
+        toast({
+            position: 'top-right',
+            duration: 1000000,
+            render: () => (<CustomToast status={"info"} 
+                title={"Transacting!"} 
+                description={"The transaction is in progress, please waiting..."} />)
+          })
+        
+        try {
+            setInTransaction(true);
+            const result = await ContractService.redeem(tokenSignature, signer);
+            
+            toast({
+                position: 'top-right',
+                render: () => (<CustomToast status={"success"} 
+                    title={"Staked!"} 
+                    description={"Claim success."} />)
+              })
+            setTimeout(function() {
+                location.reload();
+            }, 30000);
+        } catch(err) {
+            console.log('staking', err);
+            toast({
+                position: 'top-right',
+                render: () => (<CustomToast status={"error"} 
+                    title={"Error"} 
+                    description={"There has some issue happened."} />)
+              })
+        }
+    }
+
+    const redeemNftToken = async () => {
+        toast({
+            position: 'top-right',
+            duration: 1000000,
+            render: () => (<CustomToast status={"info"} 
+                title={"Transacting!"} 
+                description={"The transaction is in progress, please waiting..."} />)
+          })
+        
+        try {
+            setInTransaction(true);
+            const result = await ContractService.redeemNft(tokenNftSignature, signer);
+            
+            toast({
+                position: 'top-right',
+                render: () => (<CustomToast status={"success"} 
+                    title={"Staked!"} 
+                    description={"Claim success."} />)
+              })
+            setTimeout(function() {
+                location.reload();
+            }, 30000);
+        } catch(err) {
+            console.log('staking', err);
+            toast({
+                position: 'top-right',
+                render: () => (<CustomToast status={"error"} 
+                    title={"Error"} 
+                    description={"There has some issue happened."} />)
+              })
+        }
+    }
+
+    const RedeemComponent = () => {
+        if (redeemStatus) {
+            return <Text>
+                Successfully claimed!
+            </Text>
+        } else if (tokenSignature) {
+            return (
+                <Button
+                    size="lg"
+                    bg={bgBtn}
+                    color={"white"}
+                    borderColor={bgBtn}
+                    borderRadius={"22px"}
+                    height={"38px"}
+                    disabled={inTransaction}
+                    onClick={redeemToken}
+                    _active={{
+                        transform: "scale(0.98)",
+                    }}
+                >
+                    Claim
+                </Button>
+            )
+        } else {
+            return <Text>
+                Tokens are currently not claimable.
+            </Text>
+        }
+    }
+
+    const RedeemNftComponent = () => {
+        if (redeemNftStatus) {
+            return <Text>
+                Successfully claimed! Go to OpenSea to check the detail.
+            </Text>
+        } else if (tokenNftSignature) {
+            return (
+                <Button
+                    size="lg"
+                    bg={bgBtn}
+                    color={"white"}
+                    borderColor={bgBtn}
+                    borderRadius={"22px"}
+                    height={"38px"}
+                    disabled={inTransaction}
+                    onClick={redeemNftToken}
+                    _active={{
+                        transform: "scale(0.98)",
+                    }}
+                >
+                    Claim
+                </Button>
+            )
+        } else {
+            return <Text>
+                You are not on the whitelist.
+            </Text>
+        }
+    }
 
     useEffect(() => {
         setAccount(address)
+
+        if (address) {
+            getReedmStatus();
+            getReedmNftStatus();
+        }
     }, [address])
+
+    useEffect(() => {
+        if (!redeemStatus) {
+            getToken();
+        }
+    }, [redeemStatus])
+
+    useEffect(() => {
+        if (!redeemNftStatus) {
+            getNftToken();
+        }
+    }, [redeemNftStatus])
    
     return (<>
         <FramePage menu="airdrop">
@@ -51,7 +228,7 @@ const Airdrop = () => {
                             </Flex>
                         </Flex>
                         <Flex className="items-center text-base p-3 pb-8">
-                            Tokens are currently not claimable.
+                            <RedeemComponent />
                         </Flex>
                     </Flex>
                 </Flex>
@@ -73,7 +250,7 @@ const Airdrop = () => {
                             <Image src="/assets/images/bot2.png" />
                         </Flex>
                         <Flex className="items-center text-base p-3 pb-8 rounded-xl" bg={bgHeader} color={colorHeader}>
-                        You are not on the whitelist.
+                            <RedeemNftComponent />
                         </Flex>
                     </Flex>
 

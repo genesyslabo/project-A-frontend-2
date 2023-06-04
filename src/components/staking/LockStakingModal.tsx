@@ -29,7 +29,7 @@ const LockStakingModal: React.FC<{
 
     const [unlockOn, setUnlockOn] = useState("")
     const [boost, setBoost] = useState(0);
-    const [roi, setRoi] = useState(0)
+    // const [roi, setRoi] = useState(0)
 
     const bgModal = useColorModeValue('', '#1B2026')
     const bgBtn = useColorModeValue('darkgreen', '#0084FF')
@@ -118,11 +118,11 @@ const LockStakingModal: React.FC<{
         setBoost(result);
     }
 
-    const calcRoi = async () => {
-        if (!stakeValue || !weekValue) return;
-        const result = await ContractService.lockStakingROI(stakeValue, weekValue, address, signer);
-        setRoi(result);
-    }
+    // const calcRoi = async () => {
+    //     if (!stakeValue || !weekValue) return;
+    //     const result = await ContractService.lockStakingROI(stakeValue, weekValue, address, signer);
+    //     setRoi(result);
+    // }
 
     const fetchBalance = async () => {
         const result = await ContractService.balanceOf(address, signer);
@@ -184,7 +184,7 @@ const LockStakingModal: React.FC<{
 
     useEffect(() => {
         calcBoost()
-        calcRoi()
+        // calcRoi()
     }, [weekValue, stakeValue])
     
     useEffect(() => {
@@ -309,8 +309,8 @@ const LockStakingModal: React.FC<{
                             <Box className="text-right text-base" color={colorHeader}>{boost}x</Box>
                             <Box>UNLOCK ON</Box>
                             <Box className="text-right text-base" color={colorHeader}>{unlockOn}</Box>
-                            <Box>REWARDS</Box>
-                            <Box className="text-right text-base" color={colorHeader}>${roi}</Box>
+                            {/* <Box>REWARDS</Box>
+                            <Box className="text-right text-base" color={colorHeader}>${roi}</Box> */}
                         </Grid>
 
                         <Button

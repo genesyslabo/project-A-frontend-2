@@ -42,7 +42,7 @@ export function Header(props) {
                     
                     {/* <CustomConnectButton /> */}
 
-                    <DarkModeSwitch />
+                    {/* <DarkModeSwitch /> */}
 
                     <Image src={ isOpen ? "/assets/images/icon-close.png" : "/assets/images/icon-hamburger.png" }
                         onClick={isOpen ? onClose : onOpen} className='md:hidden w-4 ml-4' />

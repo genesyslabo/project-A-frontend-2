@@ -1,7 +1,7 @@
 import {Header} from "../components/Header";
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren, useEffect } from "react";
 import 'react-reflex/styles.css'
-import { Container, Flex } from "@chakra-ui/react";
+import { Container, Flex, useColorMode } from "@chakra-ui/react";
 import { Footer } from "./Footer";
 import { SideBar } from "./SideBar";
 
@@ -10,6 +10,14 @@ export const FramePage: React.FC<PropsWithChildren<{
 }>> = (
     props
 ) => {
+    const { colorMode, toggleColorMode } = useColorMode()
+
+    useEffect(() => {
+        if (colorMode !== 'dark') {
+            toggleColorMode();
+        }
+    }, [colorMode])
+
     return (<>
         <Flex className="w-full min-h-screen flex flex-col gap-0">
             <Header menu={props.menu} />

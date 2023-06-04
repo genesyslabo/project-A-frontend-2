@@ -23,7 +23,7 @@ const LockExtendModal: React.FC<{
 
     const [unlockOn, setUnlockOn] = useState("")
     const [boost, setBoost] = useState(0);
-    const [roi, setRoi] = useState(0)
+    // const [roi, setRoi] = useState(0)
     const [maxWeeks, setMaxWeeks] = useState(52);
     const [userInfo, setUserInfo] = useState(null)
 
@@ -92,11 +92,11 @@ const LockExtendModal: React.FC<{
         setBoost(result);
     }
 
-    const calcRoi = async () => {
-        if (!weekValue) return;
-        const result = await ContractService.lockStakingROI(amount, weekValue, address, signer);
-        setRoi(result);
-    }
+    // const calcRoi = async () => {
+    //     if (!weekValue) return;
+    //     const result = await ContractService.lockStakingROI(amount, weekValue, address, signer);
+    //     setRoi(result);
+    // }
 
     const calcWeeks = async () => {
         const result = await ContractService.calcWeeksAfterExtend(weekValue, address, signer);
@@ -138,7 +138,7 @@ const LockExtendModal: React.FC<{
 
         fetchMaxWeeks();
 
-        calcRoi()
+        // calcRoi()
 
         calcWeeks()
     }, [weekValue])
@@ -231,8 +231,8 @@ const LockExtendModal: React.FC<{
                             <Box className="text-right text-base" color={colorHeader}>{boost}x</Box>
                             <Box>UNLOCK ON</Box>
                             <Box className="text-right text-base" color={colorHeader}>{unlockOn} </Box>
-                            <Box>EXPECTED ROI</Box>
-                            <Box className="text-right text-base" color={colorHeader}>${roi}</Box>
+                            {/* <Box>EXPECTED ROI</Box>
+                            <Box className="text-right text-base" color={colorHeader}>${roi}</Box> */}
                         </Grid>
 
                         <Button

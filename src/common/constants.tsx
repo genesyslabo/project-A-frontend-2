@@ -1,6 +1,6 @@
 export const MetaflareContractAddr = "0x4d2A4736f0213CD78a910c395Da007675a83F0fB";
 
-// export const StakingContractAddr = "0x9935D3e9E3E3F10983e38C9Aa733461783cB27E3";
+export const NftContractAddr = "0x6bFD38a2b36a8E310361e3Eb9d834d35e52B1896";
 
 export const StakingFlexibleContractAddr = "0x9c31B722963b0551846EFFfE1129fCbB43661BC6";
 

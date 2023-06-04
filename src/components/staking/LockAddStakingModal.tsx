@@ -2,7 +2,7 @@ import { Box, Button, Flex, Grid, Input, Modal, ModalBody, ModalCloseButton, Mod
 import { useEffect, useState } from "react";
 import SmallButton from "../SmallButton";
 import { ContractService } from "../../service/contractService";
-import { WEEK_MILLICONDS, flareUsdRate } from "../../common/constants";
+import { flareUsdRate } from "../../common/constants";
 import CustomToast from "../CustomToast";
 import { BigNumber } from "ethers";
 import { LockStakingFutureAPR } from "../LockStakingAPR";
@@ -27,7 +27,7 @@ const LockAddStakingModal: React.FC<{
 
     const [unlockOn, setUnlockOn] = useState("")
     const [boost, setBoost] = useState(0);
-    const [roi, setRoi] = useState(0)
+    // const [roi, setRoi] = useState(0)
     const [userInfo, setUserInfo] = useState(null)
 
     const bgModal = useColorModeValue('', '#1B2026')
@@ -109,11 +109,11 @@ const LockAddStakingModal: React.FC<{
         setBoost(result);
     }
 
-    const calcRoi = async () => {
-        if (!stakeValue) return;
-        const result = await ContractService.lockStakingROI(stakeValue, weekValue, address, signer);
-        setRoi(result);
-    }
+    // const calcRoi = async () => {
+    //     if (!stakeValue) return;
+    //     const result = await ContractService.lockStakingROI(stakeValue, weekValue, address, signer);
+    //     setRoi(result);
+    // }
 
     const calcWeeks = async () => {
         const result = await ContractService.calcWeeksAfterExtend(weekValue, address, signer);
@@ -133,7 +133,7 @@ const LockAddStakingModal: React.FC<{
     useEffect(() => {
         setUsdValue(flareUsdRate * stakeValue)
         calcBoost()
-        calcRoi()
+        // calcRoi()
     }, [stakeValue])
 
     useEffect(() => {
@@ -260,8 +260,8 @@ const LockAddStakingModal: React.FC<{
                             <Box className="text-right text-base" color={colorHeader}>{boost}x</Box>
                             <Box>UNLOCK ON</Box>
                             <Box className="text-right text-base" color={colorHeader}>{unlockOn} </Box>
-                            <Box>EXPECTED ROI</Box>
-                            <Box className="text-right text-base" color={colorHeader}>${roi}</Box>
+                            {/* <Box>EXPECTED ROI</Box>
+                            <Box className="text-right text-base" color={colorHeader}>${roi}</Box> */}
                         </Grid>
 
                         <Button
