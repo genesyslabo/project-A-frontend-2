@@ -81,13 +81,9 @@ export function Header(props) {
                     <Box as='li' color={props.menu == 'about' ? colorHighlight : ''}>
                        <Image src={`/assets/images/entrance${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> Entrance
                     </Box>
-                    <Box as='li' color={props.menu == 'about' ? colorHighlight : ''}>
-                        <Image src={`/assets/images/entrance${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> 
-                        About
-                    </Box>
-                    <Box as='li' color={props.menu == 'team' ? colorHighlight : ''}>
+                    <Box as='li' color={props.menu == 'home' ? colorHighlight : ''}>
                         <Image src={`/assets/images/theteam${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> 
-                        The Team
+                        <Link href="/home">Home</Link>
                     </Box>
                     <Box as='li' color={props.menu == 'staking' ? colorHighlight : ''}>
                         <Image src={`/assets/images/staking${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> 

@@ -17,16 +17,10 @@ const menus: MenuItem[] = [
         link: "/"
     },
     {
-        name: "about",
-        label: "About",
-        icon: "about",
-        link: "/"
-    },
-    {
-        name: "team",
-        label: "The Team",
+        name: "home",
+        label: "Home",
         icon: "theteam",
-        link: "/"
+        link: "/home"
     },
     {
         name: "staking",
