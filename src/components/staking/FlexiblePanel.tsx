@@ -71,14 +71,14 @@ const FlexiblePanel = () => {
                             {amount * flareUsdRate} USD
                         </Text>
                     </VStack>
-                    <VStack>
+                    {/* <VStack>
                         <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
                             APY
                         </Text>
                         <Text className="text-[14px] font-medium !mt-0" color={colorHeader}>
                             <StakingAPR />
                         </Text>
-                    </VStack>
+                    </VStack> */}
                     <VStack className="!hidden md:!flex">
                         <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
                             Total staked

@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import SmallButton from "../SmallButton";
 import { ContractService } from "../../service/contractService";
 import CustomToast from "../CustomToast";
-import { LockStakingFutureAPR } from "../LockStakingAPR";
 import { useAccount, useSigner } from "wagmi";
 import { WEEK_MILLICONDS } from "../../common/constants";
 
@@ -223,8 +222,8 @@ const LockExtendModal: React.FC<{
                             borderRadius={"7px"} color={"lightfont"}>
                             <Box>FLARELOCKED TO BE LOCKED</Box>
                             <Box className="text-right text-base" color={colorHeader}>0.00-&gt;0.00</Box>
-                            <Box>APR</Box>
-                            <Box className="text-right text-base" color={colorHeader}><LockStakingFutureAPR amount={amount} week={weekValue} /></Box>
+                            {/* <Box>APR</Box>
+                            <Box className="text-right text-base" color={colorHeader}><LockStakingFutureAPR amount={amount} week={weekValue} /></Box> */}
                             <Box>DURATION</Box>
                             <Box className="text-right text-base" color={colorHeader}>{duration} week{duration > 1 ? 's':''}</Box>
                             <Box>YIELD BOOST</Box>

@@ -5,7 +5,6 @@ import { ContractService } from "../../service/contractService";
 import { flareUsdRate } from "../../common/constants";
 import CustomToast from "../CustomToast";
 import { BigNumber } from "ethers";
-import { LockStakingFutureAPR } from "../LockStakingAPR";
 import { useAccount, useSigner } from "wagmi";
 
 
@@ -252,8 +251,8 @@ const LockAddStakingModal: React.FC<{
                             borderRadius={"7px"} color={"lightfont"}>
                             <Box>FLARELOCKED TO BE LOCKED</Box>
                             <Box className="text-right text-base" color={colorHeader}>0.00-&gt;{+parseFloat(stakeValue + "").toFixed(2)}</Box>
-                            <Box>APR</Box>
-                            <Box className="text-right text-base" color={colorHeader}><LockStakingFutureAPR amount={stakeValue} week={weekValue} /></Box>
+                            {/* <Box>APR</Box>
+                            <Box className="text-right text-base" color={colorHeader}><LockStakingFutureAPR amount={stakeValue} week={weekValue} /></Box> */}
                             <Box>DURATION</Box>
                             <Box className="text-right text-base" color={colorHeader}>{weekValue} week{weekValue > 1 ? 's':''}</Box>
                             <Box>YIELD BOOST</Box>

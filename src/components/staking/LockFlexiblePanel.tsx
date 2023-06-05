@@ -2,7 +2,6 @@ import { AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, 
 import { LockStakingDuration, LockStakingTime } from "../LockStakingTime"
 import { LockIcon } from "@chakra-ui/icons"
 import { LockStakingAmount } from "../LockStakingAmount"
-import { LockStakingCurrentAPR } from "../LockStakingAPR"
 import LockStakingButtons from "./LockStakingButtons"
 import { TotalStakingAmount } from "./TotalStakingAmount"
 import { useEffect, useState } from "react"
@@ -119,7 +118,7 @@ const LockFlexiblePanel = () => {
                             {stakeAmount * flareUsdRate} USD
                         </Text>
                     </VStack>
-                    <VStack>
+                    {/* <VStack>
                         <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
                             LOCKED APY
                         </Text>
@@ -129,7 +128,7 @@ const LockFlexiblePanel = () => {
                         <Text className="text-[14px] font-medium !mt-0" color={colorHeader}>
                             <LockStakingCurrentAPR />
                         </Text>
-                    </VStack>
+                    </VStack> */}
                     <VStack className="!hidden md:!flex">
                         <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
                             TOTAL STAKED
