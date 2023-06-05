@@ -44,7 +44,7 @@ const Upper = () => {
         fontWeight="bold"
         left="20px"
       >
-        Snoop Dogg
+        MetaFlareOG
       </Text>
       <Text
         position="absolute"
