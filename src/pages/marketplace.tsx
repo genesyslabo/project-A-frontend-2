@@ -65,7 +65,7 @@ const MyNFT = () => {
   return (
     <Flex as="header" width="full" alignItems="center" justifyContent="flex-start" paddingX="20px" marginTop="10px">
       <Text fontSize="sm" fontWeight="bold" color="white" marginRight="30px">Marketplace</Text>
-      <Link href="https://opensea.io" color="white" isExternal fontSize="sm">My NFT</Link>
+      <Link href="https://opensea.io/account" color="white" isExternal fontSize="sm">My NFT</Link>
     </Flex>
   );
 }
