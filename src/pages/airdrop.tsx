@@ -9,6 +9,9 @@ import CustomToast from "../components/CustomToast"
 
 
 const Airdrop = () => {
+    const K_TOKEN = "_token";
+    const K_NFT_TOKEN = "_nft_token";
+
     const { address } = useAccount();
     const toast = useToast()
     const {data: signer} = useSigner();
@@ -30,15 +33,32 @@ const Airdrop = () => {
     const [redeemNftStatus, setRedeemNftStatus] = useState(false);
 
     const getToken = async () => {
-        const result = await WalletService.getTokenSignature(address);
-        console.log(result, 'result')
-        setTokenSignature(result);
+        const token = localStorage.getItem(K_TOKEN);
+        if (!token || token == 'null') {
+            const result = await WalletService.getTokenSignature(address);
+            console.log(result, 'result');
+            if (result) {
+                localStorage.setItem(K_TOKEN, JSON.stringify(result));
+            }
+            
+            setTokenSignature(result);
+        } else {
+            setTokenSignature(JSON.parse(token));
+        }
     }
 
     const getNftToken = async () => {
-        const result = await WalletService.getTokenNftSignature(address);
-        console.log(result, 'result')
-        setTokenNftSignature(result);
+        const token = localStorage.getItem(K_NFT_TOKEN);
+        if (!token || token == 'null') {
+            const result = await WalletService.getTokenNftSignature(address);
+            console.log(result, 'result')
+            if (result) {
+                localStorage.setItem(K_NFT_TOKEN, JSON.stringify(result));
+            }
+            setTokenNftSignature(result);
+        } else {
+            setTokenSignature(JSON.parse(token));
+        }
     }
 
     const getReedmStatus = async () => {
@@ -67,9 +87,11 @@ const Airdrop = () => {
             toast({
                 position: 'top-right',
                 render: () => (<CustomToast status={"success"} 
-                    title={"Staked!"} 
+                    title={"Claimed!"} 
                     description={"Claim success."} />)
               })
+
+            localStorage.removeItem(K_TOKEN)
             setTimeout(function() {
                 location.reload();
             }, 30000);
@@ -100,9 +122,11 @@ const Airdrop = () => {
             toast({
                 position: 'top-right',
                 render: () => (<CustomToast status={"success"} 
-                    title={"Staked!"} 
+                    title={"Claimed!"} 
                     description={"Claim success."} />)
               })
+            
+            localStorage.removeItem(K_NFT_TOKEN)
             setTimeout(function() {
                 location.reload();
             }, 30000);
@@ -242,7 +266,7 @@ const Airdrop = () => {
                     <Flex color={colorTitle} className="w-full text-2xl font-bold items-start">NFT CLAIM CHECK</Flex>
 
                     <Text className="text-base text-[#666666]">
-                        Enter the Token ID to see if a OG NFT is eligible for a one-time claim of Flare NFT.
+                        Enter the Token ID to see if a OG NFT is eligible for a one-time claim of MF NFT.
                     </Text>
 
                     <Flex className="flex-col">

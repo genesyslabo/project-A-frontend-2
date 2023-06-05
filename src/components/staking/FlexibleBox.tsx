@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Spacer, Text, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
 import StakingModal from "./FlexibleModal";
 import { useAccount } from "wagmi";
@@ -23,8 +23,9 @@ const FlexibleBox = () => {
             <Box as="span" color={"#FE9D1C"}>
                 STAKE
             </Box>{" "}
-            FLARE
+            MF
         </Text>
+        <Spacer />
         <Button
             size="lg"
             bg={bgBtn}
@@ -43,11 +44,11 @@ const FlexibleBox = () => {
         >
             Staking
         </Button>
-        <Link href={""}>
+        {/* <Link href={""}>
             <Text className="underline text-sm font-medium">
                 What's the difference?
             </Text>
-        </Link>
+        </Link> */}
     </>)
 }
 

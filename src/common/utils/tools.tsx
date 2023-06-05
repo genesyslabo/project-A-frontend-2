@@ -47,6 +47,13 @@ export const setCookie = (cName: String, cValue: String, expDays: any) => {
     document.cookie = cName + "=" + cValue + "; domain=" + getDomain(document.domain) + "; " + expires + "; path=/";
 }
 
+export const toNFix = (number: string | number, decimal: number) => {
+    if (number) {
+      return +parseFloat(number + "").toFixed(decimal);
+    }
+    return 0;
+  }
+
 const Tools = {
     truncateEthAddress, getDomain, getCookie, setCookie
 }

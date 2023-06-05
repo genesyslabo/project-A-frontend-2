@@ -22,7 +22,7 @@ export const Allowance = () => {
 
     return (
         <Text className="text-black font-bold text-xl">
-            {amount} Flare
+            {amount} MF
         </Text>
     );
 };

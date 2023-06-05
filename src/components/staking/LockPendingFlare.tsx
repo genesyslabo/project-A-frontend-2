@@ -3,6 +3,7 @@ import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
 import { ContractService } from '../../service/contractService';
 import { flareUsdRate } from '../../common/constants';
 import { useAccount, useSigner } from 'wagmi';
+import { toNFix } from '../../common/utils/tools';
 
 export const LockPendingFlare = () => {
     const [amount, setAmount] = useState(0);
@@ -28,10 +29,10 @@ export const LockPendingFlare = () => {
     return (
         <Flex className="flex-col">
             <Box className="text-xl font-bold" color={colorHeader}>
-                {amount}
+                {toNFix(amount, 4)}
             </Box>
             <Box className="text-xs font-medium whitespace-nowrap" color={colorDesc}>
-                ~ {amount * flareUsdRate} USD
+                ~ {toNFix(amount * flareUsdRate, 4)} USD
             </Box>
         </Flex>
     );

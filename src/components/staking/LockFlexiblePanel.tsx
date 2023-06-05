@@ -9,6 +9,7 @@ import { ContractService } from "../../service/contractService"
 import { flareUsdRate } from "../../common/constants"
 import { LockPendingFlare } from "./LockPendingFlare"
 import { useAccount, useSigner } from "wagmi"
+import { toNFix } from "../../common/utils/tools"
 
 const LockFlexiblePanel = () => {
     const { isConnected, address } = useAccount();
@@ -45,7 +46,7 @@ const LockFlexiblePanel = () => {
     };
 
     const fetchStakeAmount = async () => {
-        const result = await ContractService.userStakingAmount(address, signer);
+        const result = await ContractService.userLockStakingAmount(address, signer);
         setStakeAmount(result);
     };
 
@@ -188,20 +189,22 @@ const LockFlexiblePanel = () => {
                         <Text className="text-[#FE9D1C] font-medium text-sm">
                             REWARDS
                         </Text>
-                        <Text className="text-[#FE9D1C] font-medium text-sm">
+                        {/* <Text className="text-[#FE9D1C] font-medium text-sm">
                             YIELD BOOST
+                        </Text> */}
+
+                        <Text className="font-medium text-xs" color={colorDesc}>
+                            Lock for <LockStakingDuration />
                         </Text>
 
                         <LockPendingFlare />
 
-                        <Flex className="flex-col">
-                            <Text className="font-bold text-xl" color={colorHeader}>
+                        {/* <Flex className="flex-col"> */}
+                            {/* <Text className="font-bold text-xl" color={colorHeader}>
                                 {boost}x
-                            </Text>
-                            <Text className="font-medium text-xs" color={colorDesc}>
-                                Lock for <LockStakingDuration />
-                            </Text>
-                        </Flex>
+                            </Text> */}
+                            
+                        {/* </Flex> */}
 
                         <Button
                             size="lg"
@@ -235,7 +238,7 @@ const LockFlexiblePanel = () => {
                         <Grid className="grid-cols-2" color={colorDesc}>
                             <Text className="font-medium text-sm">
                                 <span className="text-[#FE9D1C]">
-                                    FLARE
+                                    MF
                                 </span>
                                 LOCKED
                             </Text>
@@ -243,11 +246,11 @@ const LockFlexiblePanel = () => {
                                 UNLOCK IN
                             </Text>
                             <Text className="font-bold text-xl" color={colorHeader}>
-                                {amount}
+                                {toNFix(amount, 4)}
                             </Text>
                             <LockStakingTime />
                             <Text className="font-medium text-xs">
-                                ~{amount * flareUsdRate}USD
+                                ~{toNFix(amount * flareUsdRate, 4)}USD
                             </Text>
                             <Text className="font-medium text-xs">
                                 {unlockOn}

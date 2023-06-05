@@ -31,7 +31,7 @@ const LockStakingLeave = () => {
                         transform: "scale(0.98)",
                     }}
                 >
-                    Withdraw Flare
+                    Withdraw MF
                 </Button>
             </Grid>
         </Flex>

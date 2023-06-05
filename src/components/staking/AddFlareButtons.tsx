@@ -30,7 +30,7 @@ const AddFlareButtons: React.FC<{}> = () => {
                     transform: "scale(0.98)",
                 }}
             >
-                ADD FLARE
+                ADD MF
             </Button>
             <Button
                 size="lg"

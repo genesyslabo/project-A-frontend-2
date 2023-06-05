@@ -41,12 +41,12 @@ const FlexibleLockBox = () => {
             <Box as="span" color={"#FE9D1C"}>
                 STAKE
             </Box>
-            FLARE
+            MF
         </Text>
         <HStack className="items-stretch justify-between">
             <VStack className="justify-start items-start">
                 <Text className="font-bold text-xl" color={colorHeader}>
-                    {amount} FLARE
+                    {amount} MF
                 </Text>
                 <Text className="w-full font-medium text-xs text-left" color={colorDesc}>
                     ~{amount * flareUsdRate} USD

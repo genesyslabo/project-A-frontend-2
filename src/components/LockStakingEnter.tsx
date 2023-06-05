@@ -42,7 +42,7 @@ const LockStakingEnter = () => {
                         transform: "scale(0.98)",
                     }}
                 >
-                    Deposit Flare
+                    Deposit MF
                 </Button>
             </Grid>
         </Flex>

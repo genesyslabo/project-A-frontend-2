@@ -62,7 +62,7 @@ const Staking = () => {
                         transform: "scale(0.98)",
                     }}
                 >
-                    Deposit Flare
+                    Deposit MF
                 </Button>
                 <Input
                     value={withdrawInput}
@@ -84,7 +84,7 @@ const Staking = () => {
                         transform: "scale(0.98)",
                     }}
                 >
-                    Withdraw Flare
+                    Withdraw MF
                 </Button>
             </Grid>
         </Flex>

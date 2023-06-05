@@ -25,7 +25,7 @@ const LockAddStakingModal: React.FC<{
     const [inTransaction, setInTransaction] = useState(false);
 
     const [unlockOn, setUnlockOn] = useState("")
-    const [boost, setBoost] = useState(0);
+    // const [boost, setBoost] = useState(0);
     // const [roi, setRoi] = useState(0)
     const [userInfo, setUserInfo] = useState(null)
 
@@ -102,11 +102,11 @@ const LockAddStakingModal: React.FC<{
         }
     }
 
-    const calcBoost = async () => {
-        if (!stakeValue || !weekValue) return;
-        const result = await ContractService.calculateBoost( weekValue, signer);
-        setBoost(result);
-    }
+    // const calcBoost = async () => {
+    //     if (!stakeValue || !weekValue) return;
+    //     const result = await ContractService.calculateBoost( weekValue, signer);
+    //     setBoost(result);
+    // }
 
     // const calcRoi = async () => {
     //     if (!stakeValue) return;
@@ -131,7 +131,7 @@ const LockAddStakingModal: React.FC<{
 
     useEffect(() => {
         setUsdValue(flareUsdRate * stakeValue)
-        calcBoost()
+        // calcBoost()
         // calcRoi()
     }, [stakeValue])
 
@@ -142,18 +142,18 @@ const LockAddStakingModal: React.FC<{
 
         setUnlockOn(weeksLater.toLocaleString())
         
-        calcBoost()
+        // calcBoost()
     }, [weekValue])
 
-    useEffect(() => {
-        if (userInfo) {
-            if (stakeValue === 0) {
-                setBoost(userInfo.multiplier/1000)
-            } else {
-                calcBoost()
-            }
-        }
-    }, [userInfo, stakeValue])
+    // useEffect(() => {
+    //     if (userInfo) {
+    //         if (stakeValue === 0) {
+    //             setBoost(userInfo.multiplier/1000)
+    //         } else {
+    //             calcBoost()
+    //         }
+    //     }
+    // }, [userInfo, stakeValue])
 
     useEffect(() => {
         const fetchBalance = async () => {
@@ -181,13 +181,13 @@ const LockAddStakingModal: React.FC<{
         <Modal isOpen={isOpen} onClose={closeModal}>
             <ModalOverlay />
             <ModalContent bg={bgModal}>
-                <ModalHeader color={colorHeader}>FLARE TO LOCK</ModalHeader>
+                <ModalHeader color={colorHeader}>MF TO LOCK</ModalHeader>
                 <ModalCloseButton color={colorHeader} />
                 <ModalBody>
                     <Flex className="flex-col gap-2">
                         <Flex>
                             <Text className="grow text-[#5B7A8A] text-xs font-medium">
-                                FLARE TO STAKE
+                                MF TO STAKE
                             </Text>
                             <Flex className="gap-1 items-center">
                                 <Box
@@ -195,7 +195,7 @@ const LockAddStakingModal: React.FC<{
                                     className="rounded-full w-4 h-4"
                                 ></Box>
                                 <Box className="font-bold text-sm" color={colorHeader}>
-                                    FLARE
+                                    MF
                                 </Box>
                             </Flex>
                         </Flex>
@@ -210,7 +210,7 @@ const LockAddStakingModal: React.FC<{
                             </Text>
                         </Flex>
                         <Text className="text-right text-[#6E8A99] text-xs">
-                            Balance: {balance} Flare
+                            Balance: {balance} MF
                         </Text>
                         <Box pt={6} pb={2}>
                             <Slider aria-label='slider-ex-6' value={sliderValue} onChange={handleSliderChange}
@@ -249,14 +249,14 @@ const LockAddStakingModal: React.FC<{
 
                         <Grid className="grid-cols-2 gap-2 text-[12px] font-medium p-4" bg={bgBox}
                             borderRadius={"7px"} color={"lightfont"}>
-                            <Box>FLARELOCKED TO BE LOCKED</Box>
+                            <Box>MF LOCKED TO BE LOCKED</Box>
                             <Box className="text-right text-base" color={colorHeader}>0.00-&gt;{+parseFloat(stakeValue + "").toFixed(2)}</Box>
                             {/* <Box>APR</Box>
                             <Box className="text-right text-base" color={colorHeader}><LockStakingFutureAPR amount={stakeValue} week={weekValue} /></Box> */}
                             <Box>DURATION</Box>
                             <Box className="text-right text-base" color={colorHeader}>{weekValue} week{weekValue > 1 ? 's':''}</Box>
-                            <Box>YIELD BOOST</Box>
-                            <Box className="text-right text-base" color={colorHeader}>{boost}x</Box>
+                            {/* <Box>YIELD BOOST</Box>
+                            <Box className="text-right text-base" color={colorHeader}>{boost}x</Box> */}
                             <Box>UNLOCK ON</Box>
                             <Box className="text-right text-base" color={colorHeader}>{unlockOn} </Box>
                             {/* <Box>EXPECTED ROI</Box>

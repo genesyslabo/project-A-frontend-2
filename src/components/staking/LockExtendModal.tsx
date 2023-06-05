@@ -21,7 +21,7 @@ const LockExtendModal: React.FC<{
     const [duration, setDuration] = useState(0)
 
     const [unlockOn, setUnlockOn] = useState("")
-    const [boost, setBoost] = useState(0);
+    // const [boost, setBoost] = useState(0);
     // const [roi, setRoi] = useState(0)
     const [maxWeeks, setMaxWeeks] = useState(52);
     const [userInfo, setUserInfo] = useState(null)
@@ -85,11 +85,11 @@ const LockExtendModal: React.FC<{
         setWeekValue(parseInt(value))
     }
 
-    const calcBoost = async (week) => {
-        if (!week) return;
-        const result = await ContractService.calculateBoost(week, signer);
-        setBoost(result);
-    }
+    // const calcBoost = async (week) => {
+    //     if (!week) return;
+    //     const result = await ContractService.calculateBoost(week, signer);
+    //     setBoost(result);
+    // }
 
     // const calcRoi = async () => {
     //     if (!weekValue) return;
@@ -142,15 +142,15 @@ const LockExtendModal: React.FC<{
         calcWeeks()
     }, [weekValue])
 
-    useEffect(() => {
-        if (userInfo && duration) {
-            if (weekValue === 0) {
-                setBoost(userInfo.multiplier/1000)
-            } else {
-                calcBoost(duration)
-            }
-        }
-    }, [userInfo, weekValue, duration])
+    // useEffect(() => {
+    //     if (userInfo && duration) {
+    //         if (weekValue === 0) {
+    //             setBoost(userInfo.multiplier/1000)
+    //         } else {
+    //             calcBoost(duration)
+    //         }
+    //     }
+    // }, [userInfo, weekValue, duration])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -182,7 +182,7 @@ const LockExtendModal: React.FC<{
                     <Flex className="flex-col gap-2">
                         <Flex>
                             <Text className="grow text-[#5B7A8A] text-xs font-medium">
-                                ADD FLARE TO LOCK
+                                ADD MF TO LOCK
                             </Text>
                             <Flex className="gap-1 items-center">
                                 <Box
@@ -190,7 +190,7 @@ const LockExtendModal: React.FC<{
                                     className="rounded-full w-4 h-4"
                                 ></Box>
                                 <Box className="font-bold text-sm" color={colorHeader}>
-                                    FLARE
+                                    MF
                                 </Box>
                             </Flex>
                         </Flex>
@@ -220,14 +220,14 @@ const LockExtendModal: React.FC<{
 
                         <Grid className="grid-cols-2 gap-2 text-[12px] font-medium p-4" bg={bgBox}
                             borderRadius={"7px"} color={"lightfont"}>
-                            <Box>FLARELOCKED TO BE LOCKED</Box>
+                            <Box>MF LOCKED TO BE LOCKED</Box>
                             <Box className="text-right text-base" color={colorHeader}>0.00-&gt;0.00</Box>
                             {/* <Box>APR</Box>
                             <Box className="text-right text-base" color={colorHeader}><LockStakingFutureAPR amount={amount} week={weekValue} /></Box> */}
                             <Box>DURATION</Box>
                             <Box className="text-right text-base" color={colorHeader}>{duration} week{duration > 1 ? 's':''}</Box>
-                            <Box>YIELD BOOST</Box>
-                            <Box className="text-right text-base" color={colorHeader}>{boost}x</Box>
+                            {/* <Box>YIELD BOOST</Box>
+                            <Box className="text-right text-base" color={colorHeader}>{boost}x</Box> */}
                             <Box>UNLOCK ON</Box>
                             <Box className="text-right text-base" color={colorHeader}>{unlockOn} </Box>
                             {/* <Box>EXPECTED ROI</Box>

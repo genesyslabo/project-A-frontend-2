@@ -27,7 +27,7 @@ const LockStakingModal: React.FC<{
     const [minLockAmount, setMinLockAmount] = useState(0);
 
     const [unlockOn, setUnlockOn] = useState("")
-    const [boost, setBoost] = useState(0);
+    // const [boost, setBoost] = useState(0);
     // const [roi, setRoi] = useState(0)
 
     const bgModal = useColorModeValue('', '#1B2026')
@@ -111,11 +111,11 @@ const LockStakingModal: React.FC<{
         }
     }
 
-    const calcBoost = async () => {
-        if (!stakeValue) return;
-        const result = await ContractService.calculateBoost(weekValue, signer);
-        setBoost(result);
-    }
+    // const calcBoost = async () => {
+    //     if (!stakeValue) return;
+    //     const result = await ContractService.calculateBoost(weekValue, signer);
+    //     setBoost(result);
+    // }
 
     // const calcRoi = async () => {
     //     if (!stakeValue || !weekValue) return;
@@ -181,10 +181,10 @@ const LockStakingModal: React.FC<{
         setUnlockOn(weeksLater.toLocaleString())
     }, [weekValue])
 
-    useEffect(() => {
-        calcBoost()
-        // calcRoi()
-    }, [weekValue, stakeValue])
+    // useEffect(() => {
+    //     calcBoost()
+    //     // calcRoi()
+    // }, [weekValue, stakeValue])
     
     useEffect(() => {
         if (isConnected) {
@@ -304,8 +304,8 @@ const LockStakingModal: React.FC<{
                             <Box className="text-right text-base" color={colorHeader}><LockStakingFutureAPR amount={stakeValue} week={weekValue} /></Box> */}
                             <Box>DURATION</Box>
                             <Box className="text-right text-base" color={colorHeader}>{weekValue} week{weekValue > 1 ? 's':''}</Box>
-                            <Box>YIELD BOOST</Box>
-                            <Box className="text-right text-base" color={colorHeader}>{boost}x</Box>
+                            {/* <Box>YIELD BOOST</Box>
+                            <Box className="text-right text-base" color={colorHeader}>{boost}x</Box> */}
                             <Box>UNLOCK ON</Box>
                             <Box className="text-right text-base" color={colorHeader}>{unlockOn}</Box>
                             {/* <Box>REWARDS</Box>

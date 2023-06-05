@@ -152,7 +152,7 @@ const UnstakeModal: React.FC<{
                                     className="rounded-full w-4 h-4"
                                 ></Box>
                                 <Box className="font-bold text-sm" color={colorHeader}>
-                                    FLARE
+                                    MF
                                 </Box>
                             </Flex>
                         </Flex>
@@ -167,7 +167,7 @@ const UnstakeModal: React.FC<{
                             </Text>
                         </Flex>
                         <Text className="text-right text-[#6E8A99] text-xs">
-                            Balance: {amount} Flare
+                            Balance: {amount} MF
                         </Text>
                         <Box pt={6} pb={2}>
                             <Slider aria-label='slider-ex-6' value={sliderValue} onChange={handleSliderChange}
@@ -205,7 +205,7 @@ const UnstakeModal: React.FC<{
                                 <Text>0.1% unstaking fee before</Text>
                             </Flex>
                             <Flex className="flex-col gap-2 items-end grow text-xs" color={colorHeader}>
-                                <Text>0.0000 FLARE</Text>
+                                <Text>0.0000 MF</Text>
                                 <Text>{remainDate}</Text>
                             </Flex>
                         </Flex>

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { ContractService } from "../../service/contractService";
 import { flareUsdRate } from "../../common/constants";
 import { useAccount, useSigner } from "wagmi";
+import { toNFix } from "../../common/utils/tools";
 
 const FlexiblePanel = () => {
     const [amount, setAmount] = useState(0);
@@ -65,10 +66,10 @@ const FlexiblePanel = () => {
                             MF STAKED
                         </Text>
                         <Text className="text-[14px] font-medium !mt-0" color={colorDesc}>
-                            {amount}
+                            {toNFix(amount, 4)}
                         </Text>
                         <Text className="text-[14px] font-medium !mt-0" color={colorDesc}>
-                            {amount * flareUsdRate} USD
+                            {toNFix(amount * flareUsdRate, 4)} USD
                         </Text>
                     </VStack>
                     {/* <VStack>
