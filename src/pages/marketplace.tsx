@@ -16,7 +16,7 @@ const Upper = () => {
   return (
     <Box w={boxW} marginLeft={boxLeft} position="relative" h="320px" bg="black">
       <Image
-        src="/assets/images/marketplace-background.png"
+        src="/assets/images/marketplace-head.png"
         objectFit="cover"
         w="full"
         h={height}
@@ -44,7 +44,7 @@ const Upper = () => {
         fontWeight="bold"
         left="20px"
       >
-        Snoop Dogg
+        MetaFlareOG
       </Text>
       <Text
         position="absolute"
