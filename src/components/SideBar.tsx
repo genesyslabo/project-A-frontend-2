@@ -14,7 +14,7 @@ const menus: MenuItem[] = [
         name: "entrance",
         label: "Entrance",
         icon: "entrance",
-        link: "/"
+        link: "http://43.207.106.100:88"
     },
     {
         name: "home",

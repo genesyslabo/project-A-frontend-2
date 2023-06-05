@@ -79,7 +79,8 @@ export function Header(props) {
             } bg={bgMobileMenu}>
                 <Box as="ul" className="mb-8 flex flex-col justify-center space-y-8 font-bold text-[20px]" color={colorText}>
                     <Box as='li' color={props.menu == 'about' ? colorHighlight : ''}>
-                       <Image src={`/assets/images/entrance${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> Entrance
+                       <Image src={`/assets/images/entrance${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' />
+                       <Link href="http://43.207.106.100:88">Entrance</Link>
                     </Box>
                     <Box as='li' color={props.menu == 'home' ? colorHighlight : ''}>
                         <Image src={`/assets/images/theteam${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> 
