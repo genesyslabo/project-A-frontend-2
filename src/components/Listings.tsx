@@ -57,7 +57,7 @@ const Listings = () => {
               <Text color="white" fontSize="sm" fontWeight="bold">{nft.id}</Text>
               <Text color="white" fontSize="sm" fontWeight="bold">{nft.priceWithSymbol}</Text>
               <Link href={nft.purchaseLink} isExternal color="blue.500" _hover={{ textDecoration: 'none' }}>
-                <Button colorScheme="blue" size="sm" mt={2} width="100%" bg="#0084FF" color="white">Buy now</Button>
+                <Button colorScheme="blue" size="sm" fontWeight="medium" mt={2} width="100%" bg="#0084FF" color="white">Buy now</Button>
               </Link>
             </VStack>
           </Box>

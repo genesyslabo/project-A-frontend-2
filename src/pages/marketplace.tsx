@@ -1,4 +1,4 @@
-import { Accordion, Avatar, Select, Box, Image, Flex, Grid, HStack, Spacer, Text, Button, useBreakpointValue } from "@chakra-ui/react"
+import { Accordion, Avatar, Select, Box, Image, Flex, Grid, HStack, Spacer, Text, Button, useBreakpointValue, Link } from "@chakra-ui/react"
 import { FramePage } from "../components/FramePage"
 import React from 'react';
 import Listings from "../components/Listings"
@@ -61,6 +61,15 @@ const Upper = () => {
   );
 };
 
+const MyNFT = () => {
+  return (
+    <Flex as="header" width="full" alignItems="center" justifyContent="flex-start" paddingX="20px" marginTop="10px">
+      <Text fontSize="sm" fontWeight="bold" color="white" marginRight="30px">Marketplace</Text>
+      <Link href="https://opensea.io" color="white" isExternal fontSize="sm">My NFT</Link>
+    </Flex>
+  );
+}
+
 const Offer = () => {
   return (
     <Button
@@ -84,6 +93,7 @@ const MarketPlace = () => {
   return (<>
     <FramePage menu="marketplace">
       <Upper />
+      <MyNFT />
       <Listings />
       <Offer />
     </FramePage>
