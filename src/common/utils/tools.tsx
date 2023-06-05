@@ -99,3 +99,10 @@ export function isDev() {
     }
     return false;
 }
+
+export function isMainnet() {
+    if (typeof window !== 'undefined') {
+        return window.location.hostname.indexOf("metaflare.vip") >= 0;
+    }
+    return false;
+}

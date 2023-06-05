@@ -11,16 +11,19 @@ import {
   getDefaultWallets,
   RainbowKitProvider,
 } from '@rainbow-me/rainbowkit';
-import { configureChains, createClient, WagmiConfig } from 'wagmi';
+import { Chain, configureChains, createClient, WagmiConfig } from 'wagmi';
 import { bsc, bscTestnet } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
+import { isMainnet } from '../common/utils/tools'
 
 function MyApp({Component, pageProps}: AppProps) {
-  const { colorMode } = useColorMode();
+  // const { colorMode } = useColorMode();
+
+  const currentChains: Chain[] = isMainnet() ? [bsc] : [bscTestnet]
 
   const { chains, provider } = configureChains(
-    [bscTestnet, bsc],
+    currentChains,
     [publicProvider()]
   );
 
@@ -36,9 +39,9 @@ function MyApp({Component, pageProps}: AppProps) {
     provider
   })
 
-  useEffect(() => {
-    console.log("Theme mode:", colorMode);
-  }, [colorMode]);
+  // useEffect(() => {
+  //   console.log("Theme mode:", colorMode);
+  // }, [colorMode]);
 
   return (
     <>

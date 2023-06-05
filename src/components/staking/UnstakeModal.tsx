@@ -114,7 +114,7 @@ const UnstakeModal: React.FC<{
 
             const fetchWeek = async () => {
                 const result = await ContractService.userLockStakingTime(address, signer);
-                console.log('week', result[2].toNumber(), result[1])
+                
                 const rest = result[2] - result[1];
                 setRemainDate(timeDown(rest))
             };
