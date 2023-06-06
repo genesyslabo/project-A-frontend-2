@@ -57,7 +57,7 @@ const Airdrop = () => {
             }
             setTokenNftSignature(result);
         } else {
-            setTokenSignature(JSON.parse(token));
+            setTokenNftSignature(JSON.parse(token));
         }
     }
 
@@ -84,20 +84,22 @@ const Airdrop = () => {
             setInTransaction(true);
             const result = await ContractService.redeem(tokenSignature, signer);
             
-            toast({
-                position: 'top-right',
-                render: () => (<CustomToast status={"success"} 
-                    title={"Claimed!"} 
-                    description={"Claim success."} />)
-              })
+            // toast({
+            //     position: 'top-right',
+            //     render: () => (<CustomToast status={"success"} 
+            //         title={"Claimed!"} 
+            //         description={"Claim success."} />)
+            //   })
 
             localStorage.removeItem(K_TOKEN)
             setTimeout(function() {
                 location.reload();
-            }, 30000);
+            }, 20000);
         } catch(err) {
+            toast.closeAll();
+            setInTransaction(false);
             console.log('staking', err);
-            toast({
+            toast({ 
                 position: 'top-right',
                 render: () => (<CustomToast status={"error"} 
                     title={"Error"} 
@@ -119,18 +121,20 @@ const Airdrop = () => {
             setInTransaction(true);
             const result = await ContractService.redeemNft(tokenNftSignature, signer);
             
-            toast({
-                position: 'top-right',
-                render: () => (<CustomToast status={"success"} 
-                    title={"Claimed!"} 
-                    description={"Claim success."} />)
-              })
+            // toast({
+            //     position: 'top-right',
+            //     render: () => (<CustomToast status={"success"} 
+            //         title={"Claimed!"} 
+            //         description={"Claim success."} />)
+            //   })
             
             localStorage.removeItem(K_NFT_TOKEN)
             setTimeout(function() {
                 location.reload();
-            }, 30000);
+            }, 20000);
         } catch(err) {
+            toast.closeAll();
+            setInTransaction(false);
             console.log('staking', err);
             toast({
                 position: 'top-right',
