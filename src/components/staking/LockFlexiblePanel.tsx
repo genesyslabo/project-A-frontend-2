@@ -187,7 +187,7 @@ const LockFlexiblePanel = () => {
                         className="grid-cols-2 md:gap-x-2 gap-y-2 md:basis-5/12"
                     >
                         <Text className="text-[#FE9D1C] font-medium text-sm">
-                            REWARDS
+                            veToken earned
                         </Text>
                         {/* <Text className="text-[#FE9D1C] font-medium text-sm">
                             YIELD BOOST

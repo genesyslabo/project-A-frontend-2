@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, Flex, Image, Spacer, useColorModeValue, useDisclosure} from '@chakra-ui/react';
 import Link from 'next/link';
 import { CustomConnectButton } from './CustomConnectButton';
-import { DarkModeSwitch } from './DarkModeSwitch';
+// import { DarkModeSwitch } from './DarkModeSwitch';
 
 export function Header(props) {
     const {isOpen, onOpen, onClose} = useDisclosure();
@@ -18,7 +18,7 @@ export function Header(props) {
             <Box as='nav' bg={bg} className="w-full flex fixed z-20 top-0 left-0 justify-between items-center">
                 <Flex className='w-full gap-4 px-8 md:px-4 h-12 justify-between items-center mx-auto'>
                     {/* <Avatar bg={"#02715F"} name='Logo' size={"sm"} src='/' /> */}
-                    <Link href={"/"}><Image src='/assets/logo.png' className='cursor-pointer' /></Link>
+                    <Link href={"/home"}><Image src='/assets/logo.png' className='cursor-pointer' /></Link>
                     {/* <Tabs position="relative" 
                         variant="unstyled" 
                         className="w-full !hidden md:!block" 
@@ -60,6 +60,7 @@ export function Header(props) {
                             fontSize={14}
                             _hover={{ bg: bgBtn }}
                             className='!hidden md:!inline-flex grow'
+                            onClick={() => location.href = process.env.NEXT_PUBLIC_GAME_URL}
                             _active={{
                                 bg: bgBtn,
                                 transform: "scale(0.98)",
