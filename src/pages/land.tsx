@@ -23,7 +23,7 @@ const Upper = () => {
         position="absolute"
       />
       <Image
-        src="/assets/images/marketplace-person.png"
+        src="/assets/images/land-person.png"
         position="absolute"
         left="20px"
         bottom={p1Bottom}
@@ -44,7 +44,7 @@ const Upper = () => {
         fontWeight="bold"
         left="20px"
       >
-        MetaFlareOG
+        Snoop Dogg
       </Text>
       <Text
         position="absolute"
@@ -55,47 +55,17 @@ const Upper = () => {
         p={3}
         left="20px"
       >
-        To honor the pioneers of our journey, we introduce MetaFlareOG - a special edition NFT airdropped exclusively to early adopters of MetaFlare.
+        Access to Snoop Dogg's lifestyle: attend Snoop's private metaverse parties, get access to exclusive NFTs, and enjoy priceless experiences.
       </Text>
     </Box>
   );
 };
-
-const MyNFT = () => {
-  return (
-    <Flex as="header" width="full" alignItems="center" justifyContent="flex-start" paddingX="20px" marginTop="10px">
-      <Text fontSize="sm" fontWeight="bold" color="white" marginRight="30px">Marketplace</Text>
-      <Link href="https://opensea.io/account" color="white" isExternal fontSize="sm">My NFT</Link>
-    </Flex>
-  );
-}
-
-const Offer = () => {
-  return (
-    <Button
-      w="calc(100% - 40px)"
-      h="40px"
-      mt="10px"
-      borderRadius="24px"
-      backgroundColor="#0084FF"
-      color="white"
-      fontSize="14px"
-      marginLeft="20px"
-      marginRight="20px"
-    >
-      Make Collection Offer
-    </Button>
-  )
-}
 
 const Land = () => {
 
   return (<>
     <FramePage menu="land">
       <Upper />
-      <MyNFT />
-      <Listings />
-      <Offer />
     </FramePage>
   </>)
 }
