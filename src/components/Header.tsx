@@ -101,6 +101,10 @@ export function Header(props) {
                         <Image src={`/assets/images/marketplace${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> 
                         <Link href="/marketplace">Market place</Link>
                     </Box>
+                    <Box as='li' color={props.menu == 'land' ? colorHighlight : ''}>
+                        <Image src={`/assets/images/getland${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> 
+                        <Link href="/land">Get land</Link>
+                    </Box>
                 </Box>
             </Box>
         </>
