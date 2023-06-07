@@ -153,7 +153,7 @@ const FlexiblePanel = () => {
                     my={"20px"}
                     gap={2}
                     align={"left"}
-                    className="md:basis-4/12"
+                    className="md:basis-5/12"
                 >
                     <Text
                         className="mb-2 font-medium text-sm"
@@ -163,8 +163,8 @@ const FlexiblePanel = () => {
                     </Text>
                     <Flex className="flex-row items-center gap-8">
                         <PendingFlare />
-                        <Box className="text-right underline text-sm font-medium md:basis-6/12" color={colorHeader}>
-                            flexible lock for 1 day
+                        <Box className="text-right underline text-sm font-medium" color={colorHeader}>
+                            min reward withdraw is 0.001MF
                         </Box>
                     </Flex>
 
@@ -198,24 +198,24 @@ const FlexiblePanel = () => {
                     my={"20px"}
                     gap={2}
                     align={"left"}
-                    className="md:basis-4/12"
+                    className="md:basis-5/12"
                 >
                     <StakingButtons />
                 </VStack>
                 
-                <Grid className="grid-cols-2 gap-4 md:gap-2 md:py-8 text-[14px] md:order-first items-center" color={colorHeader}>
+                <Grid className="grid-cols-2 gap-4 md:gap-2 md:py-8 text-[14px] md:order-first items-center md:basis-2/12" color={colorHeader}>
                     <Box>Total staked</Box>
                     <Box className="text-right font-medium">
-                        <TotalStakingAmount />
+                        <StakingAmount />
                     </Box>
                     {/* <Box>Total locked</Box>
                     <Box className="text-right font-medium">
                         189,65,524 FLARE
                     </Box> */}
-                    <Box className="">Average lock duration</Box>
-                    <Box className="text-right font-medium">
+                    {/* <Box className="">Average lock duration</Box> */}
+                    {/* <Box className="text-right font-medium">
                         40 weeks
-                    </Box>
+                    </Box> */}
                     {/* <Box>Performance Fee</Box>
                     <Box className="text-right font-medium">0-2%</Box> */}
                 </Grid>

@@ -62,7 +62,7 @@ function MyApp({Component, pageProps}: AppProps) {
           <RainbowKitProvider modalSize="compact"
             showRecentTransactions={true}
             chains={chains}
-            initialChain={isMainnet ? bsc : bscTestnet}
+            initialChain={isMainnet() ? bsc : bscTestnet}
             theme={ darkTheme() }>
               <Component {...pageProps} />
           </RainbowKitProvider>
