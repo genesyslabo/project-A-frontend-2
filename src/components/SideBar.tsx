@@ -20,13 +20,13 @@ const menus: MenuItem[] = [
         name: "home",
         label: "Home",
         icon: "theteam",
-        link: "/home"
+        link: "/"
     },
     {
         name: "staking",
         label: "Staking",
         icon: "staking",
-        link: "/"
+        link: "/staking"
     },
     {
         name: "airdrop",
