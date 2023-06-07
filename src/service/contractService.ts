@@ -49,6 +49,17 @@ const getStakingLockContract = (signer) => {
     return new ethers.Contract(StakingLockContractAddr, contractABI.StakingLockContractABI, getProvider());
 }
 
+const withdrawReward = async (signer) => {
+    try {
+        const contract = getStakingFlexibleContract(signer);
+        const result = await contract.withdrawReward();
+        console.log('withdrawReward: ', result);
+    } catch (error) {
+        console.error('withdrawReward Error: ', error);
+        throw error;
+    }
+};
+
 const redeem = async (voucher, signer) => {
     try {
         const metaflareContract = getMetaflareContract(signer);
@@ -305,6 +316,19 @@ const userLockStakingAmount = async (address, signer) => {
     }
 };
 
+const userLockStakingAmountVe = async (address, signer) => {
+    try {
+        const stakingContract = getStakingLockContract(signer);
+        const userInfo = await stakingContract.userInfo(address);
+        const amount = ethers.utils.formatUnits(userInfo.amountVe, 18);
+        // console.log('userLockStakingAmountVe: ', amount);
+        return parseFloat(amount);
+    } catch (error) {
+        console.error('userLockStakingAmountVe Error: ', error);
+        return 0;
+    }
+};
+
 const userLockStakingTime = async (address, signer) => {
     try {
         const stakingContract = getStakingLockContract(signer);
@@ -479,6 +503,7 @@ const calcWeeksAfterExtend = async (weeks, address, signer) => {
 export const ContractService = {
     getMaxWeeks,
     getMinLockAmount,
+    withdrawReward,
     balanceOf, 
     approve, 
     redeem,
@@ -500,6 +525,7 @@ export const ContractService = {
     getTotalVeToken,
     totalAllocPoint,
     lockStakingAPR,
+    userLockStakingAmountVe,
     reEnterLockStakingAPR,
     // lockStakingROI,
     stakingROI,

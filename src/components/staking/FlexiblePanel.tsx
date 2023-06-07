@@ -1,4 +1,4 @@
-import { AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, AvatarBadge, Box, Button, Flex, Grid, HStack, Image, Text, VStack, useColorMode, useColorModeValue } from "@chakra-ui/react"
+import { AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, AvatarBadge, Box, Button, Flex, Grid, HStack, Image, Text, VStack, useColorMode, useColorModeValue, useToast } from "@chakra-ui/react"
 import { StakingAmount } from "../StakingAmount";
 import { StakingAPR } from "../StakingAPR";
 import StakingButtons from "./StakingButtons";
@@ -9,22 +9,61 @@ import { ContractService } from "../../service/contractService";
 import { flareUsdRate } from "../../common/constants";
 import { useAccount, useSigner } from "wagmi";
 import { toNFix } from "../../common/utils/tools";
+import CustomToast from "../CustomToast";
 
 const FlexiblePanel = () => {
     const [amount, setAmount] = useState(0);
     const { isConnected, address } = useAccount();
     const {data: signer} = useSigner();
+    const toast = useToast()
+    const [inTransaction, setInTransaction] = useState(false);
     
     const bgHeader = useColorModeValue('white', '#242A33')
     const bgPanel = useColorModeValue('#ECFDFF', '#1B2026')
     const bgBtn = useColorModeValue('darkgreen', '#0084FF')
-    const bgAvator = useColorModeValue('#20B4CA', '#0084FF')
     const colorHeader = useColorModeValue('black', 'white')
     const colorDesc = useColorModeValue('#6E8A99', '#898B8E')
     const colorBorder = useColorModeValue('#96E6FF', '#2D4E6E')
     const colorIcon = useColorModeValue('darkgreen', '#0084FF')
 
     const cyclicIcon = useColorModeValue('/assets/images/icon-cyclic.png', '/assets/images/icon-cyclic-dark.png')
+
+    const withdrawReward = async () => {
+        toast({
+            position: 'top-right',
+            duration: 1000000,
+            render: () => (<CustomToast status={"info"} 
+                title={"Transacting!"} 
+                description={"The transaction is in progress, please waiting..."} />)
+          })
+        
+        try {
+            setInTransaction(true);
+            const result = await ContractService.withdrawReward(signer);
+
+            setTimeout(function() {
+                toast.closeAll();
+                toast({
+                    position: 'top-right',
+                    render: () => (<CustomToast status={"success"} 
+                        title={"Claimed!"} 
+                        description={"Claim success."} />)
+                  });
+                setInTransaction(false);
+            }, 20000);
+            
+        } catch(err) {
+            toast.closeAll();
+            setInTransaction(false);
+            console.log('staking', err);
+            toast({ 
+                position: 'top-right',
+                render: () => (<CustomToast status={"error"} 
+                    title={"Error"} 
+                    description={"There has some issue happened."} />)
+              })
+        }
+    }
 
     const fetchAmount = async () => {
         const result = await ContractService.userStakingAmount(address, signer);
@@ -138,8 +177,9 @@ const FlexiblePanel = () => {
                         borderRadius={"22px"}
                         height={"38px"}
                         className="w-full col-span-2"
+                        onClick={withdrawReward}
                         // bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
-                        disabled={!isConnected}
+                        disabled={!isConnected || inTransaction}
                         // _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
                         _active={{
                             // bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)",

@@ -10,6 +10,7 @@ import { flareUsdRate } from "../../common/constants"
 import { LockPendingFlare } from "./LockPendingFlare"
 import { useAccount, useSigner } from "wagmi"
 import { toNFix } from "../../common/utils/tools"
+import { LockAmountVe } from "./LockAmountVe"
 
 const LockFlexiblePanel = () => {
     const { isConnected, address } = useAccount();
@@ -20,6 +21,7 @@ const LockFlexiblePanel = () => {
     const [weekValue, setWeekValue] = useState(1)
     const [boost, setBoost] = useState(0);
     const [stakeAmount, setStakeAmount] = useState(0);
+    const [veToken, setVeToken] = useState(0);
 
     const bgHeader = useColorModeValue('white', '#242A33')
     const bgPanel = useColorModeValue('#ECFDFF', '#1B2026')
@@ -56,6 +58,11 @@ const LockFlexiblePanel = () => {
         setBoost(result);
     }
 
+    const getVeToken = async () => {
+        const result = await ContractService.getTotalVeToken(signer);
+        setVeToken(result);
+    }
+
     useEffect(() => {
         const currentDate = new Date();
 
@@ -76,6 +83,8 @@ const LockFlexiblePanel = () => {
             fetchAmount();
     
             calcBoost()
+
+            getVeToken();
         }
         
     }, [isConnected]);
@@ -135,7 +144,7 @@ const LockFlexiblePanel = () => {
                             TOTAL STAKED
                         </Text>
                         <Text className="text-[14px] font-medium !mt-0" color={colorHeader}>
-                            <LockStakingAmount />
+                            <TotalStakingAmount />
                         </Text>
                     </VStack>
                 </Flex>
@@ -167,16 +176,16 @@ const LockFlexiblePanel = () => {
                 </Box>
                 <Flex className="flex-col md:flex-row md:gap-4">
                     <Grid className="grid-cols-2 gap-4 md:gap-0 md:py-10 items-center text-[14px] !hidden md:!grid" color={colorHeader}>
-                        <Box>Total locked</Box>
+                        {/* <Box>Total locked</Box>
                         <Box className="text-right font-medium whitespace-nowrap">
                             <TotalStakingAmount />
-                        </Box>
+                        </Box> */}
                         <Box className="whitespace-nowrap">Average lock duration</Box>
                         <Box className="text-right font-medium">
                             40 weeks
                         </Box>
-                        {/* <Box>Performance Fee</Box>
-                        <Box className="text-right font-medium">0-2%</Box> */}
+                        <Box>Total VeToken distributed</Box>
+                        <Box className="text-right font-medium">{veToken}</Box>
                     </Grid>
                     <Grid
                         border={"1px solid"}
@@ -197,7 +206,7 @@ const LockFlexiblePanel = () => {
                             Lock for <LockStakingDuration />
                         </Text>
 
-                        <LockPendingFlare />
+                        <LockAmountVe />
 
                         {/* <Flex className="flex-col"> */}
                             {/* <Text className="font-bold text-xl" color={colorHeader}>
@@ -206,7 +215,7 @@ const LockFlexiblePanel = () => {
                             
                         {/* </Flex> */}
 
-                        <Button
+                        {/* <Button
                             size="lg"
                             fontSize={16}
                             bg={bgBtn}
@@ -224,7 +233,7 @@ const LockFlexiblePanel = () => {
                             }}
                         >
                             Claim
-                        </Button>
+                        </Button> */}
                     </Grid>
 
                     <Flex
