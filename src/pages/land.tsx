@@ -31,7 +31,7 @@ const Upper = () => {
       />
       <Flex position="absolute" right="20px" bottom={p2Bottom}>
         <Image
-          src="/assets/images/marketplace-people.png"
+          src="/assets/images/land-people.png"
           h={p2Hight}
         />
       </Flex>
