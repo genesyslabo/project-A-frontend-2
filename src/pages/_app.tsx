@@ -1,4 +1,4 @@
-import {ChakraProvider, ChakraProviderProps, DarkMode, useColorMode} from '@chakra-ui/react'
+import {ChakraProvider} from '@chakra-ui/react'
 
 import {theme} from '../theme'
 import {AppProps} from 'next/app'
@@ -62,7 +62,7 @@ function MyApp({Component, pageProps}: AppProps) {
           <RainbowKitProvider modalSize="compact"
             showRecentTransactions={true}
             chains={chains}
-            initialChain={bscTestnet}
+            initialChain={isMainnet ? bsc : bscTestnet}
             theme={ darkTheme() }>
               <Component {...pageProps} />
           </RainbowKitProvider>
