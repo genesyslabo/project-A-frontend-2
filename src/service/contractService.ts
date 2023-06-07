@@ -160,7 +160,7 @@ const pendingFlare = async (address, signer) => {
         return parseFloat(pendingFlareNumber);
     } catch (error) {
         console.error('pendingFlare Error: ', error);
-        return -1;
+        return 0;
     }
 };
 
@@ -173,7 +173,7 @@ const getTotalVeToken = async (signer) => {
         return parseFloat(totalVeTokenNumber);
     } catch (error) {
         console.error('totalVeToken Error: ', error);
-        return -1;
+        return 0;
     }
 };
 
@@ -299,7 +299,7 @@ const userStakingAmount = async (address, signer) => {
         return parseFloat(amount);
     } catch (error) {
         console.error('userStakingAmount Error: ', error);
-        throw -1;
+        return 0;
     }
 };
 
@@ -312,7 +312,7 @@ const userLockStakingAmount = async (address, signer) => {
         return parseFloat(amount);
     } catch (error) {
         console.error('userLockStakingAmount Error: ', error);
-        return -1;
+        return 0;
     }
 };
 
@@ -365,7 +365,7 @@ const totalAllocPoint = async (signer) => {
         return totalAllocPoint;
     } catch (error) {
         console.error('totalAllocPoint Error: ', error);
-        return -1;
+        return 0;
     }
 }
 
@@ -382,7 +382,7 @@ const stakingROI = async (amount, signer) => {
         return roi;
     } catch (error) {
         console.error('stakingROI Error: ', error);
-        return -1;
+        return 0;
     }
 };
 
@@ -415,7 +415,7 @@ const stakingAPR = async (signer) => {
         return apr;
     } catch (error) {
         console.error('StakingAPR Error: ', error);
-        return -1;
+        return 0;
     }
 };
 
@@ -434,7 +434,7 @@ const lockStakingAPR = async (amount, week, address, signer) => {
         return apr;
     } catch (error) {
         console.error('LockStakingAPR Error: ', error);
-        return -1
+        return 0
     }
 };
 
@@ -496,7 +496,7 @@ const calcWeeksAfterExtend = async (weeks, address, signer) => {
         return extendWeeks.toNumber();
     } catch (error) {
         console.error('calcWeeksAfterExtend Error: ', error);
-        return -1;
+        return 0;
     }
 }
 

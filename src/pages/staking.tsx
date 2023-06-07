@@ -42,13 +42,13 @@ const Staking = () => {
                             <Text className="text-xs underline" color={colorHeader}>Learn More</Text>
                         </Box>
                     </Box>
-                    <Grid className="grid-cols-2 gap-2 md:gap-x-20">
+                    <Grid className="grid-cols-1 gap-2 md:gap-x-20">
                         <Box className="text-xl font-medium" color={colorHeader}>
                             <TotalStakingAmount />
                         </Box>
-                        <Box className="text-xl font-medium" color={colorHeader}>911</Box>
+                        {/* <Box className="text-xl font-medium" color={colorHeader}>911</Box> */}
                         <Box className="text-xs" color={colorHeader}>Total staked</Box>
-                        <Box className="text-xs" color={colorHeader}>Total reward</Box>
+                        {/* <Box className="text-xs" color={colorHeader}>Total reward</Box> */}
                     </Grid>
                 </Box>
 
