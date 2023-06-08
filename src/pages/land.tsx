@@ -44,7 +44,7 @@ const Upper = () => {
         fontWeight="bold"
         left="20px"
       >
-        Snoop Dogg
+        MetaFlare Land
       </Text>
       <Text
         position="absolute"
@@ -55,7 +55,7 @@ const Upper = () => {
         p={3}
         left="20px"
       >
-        Access to Snoop Dogg's lifestyle: attend Snoop's private metaverse parties, get access to exclusive NFTs, and enjoy priceless experiences.
+        Purchase land to build your own digital home and embark on a new era of digital social interaction.
       </Text>
     </Box>
   );
