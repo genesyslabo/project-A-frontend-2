@@ -18,7 +18,7 @@ export function Header(props) {
             <Box as='nav' bg={bg} className="w-full flex fixed z-20 top-0 left-0 justify-between items-center">
                 <Flex className='w-full gap-4 px-8 md:px-4 h-12 justify-between items-center mx-auto'>
                     {/* <Avatar bg={"#02715F"} name='Logo' size={"sm"} src='/' /> */}
-                    <Link href={"/home"}><Image src='/assets/logo.png' className='cursor-pointer' /></Link>
+                    <Link href={"/"}><Image src='/assets/logo.png' className='cursor-pointer' /></Link>
                     {/* <Tabs position="relative" 
                         variant="unstyled" 
                         className="w-full !hidden md:!block" 
@@ -81,7 +81,7 @@ export function Header(props) {
                 <Box as="ul" className="mb-8 flex flex-col justify-center space-y-8 font-bold text-[20px]" color={colorText}>
                     <Box as='li' color={props.menu == 'about' ? colorHighlight : ''}>
                        <Image src={`/assets/images/entrance${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' />
-                       <Link href="http://43.207.106.100:88">Entrance</Link>
+                       <Link href="http://farm.metaflare.vip">Entrance</Link>
                     </Box>
                     <Box as='li' color={props.menu == 'home' ? colorHighlight : ''}>
                         <Image src={`/assets/images/theteam${props.menu == 'about' ? '-hover' : ''}.png`} className='inline mr-2' /> 

@@ -14,7 +14,7 @@ const menus: MenuItem[] = [
         name: "entrance",
         label: "Entrance",
         icon: "entrance",
-        link: "http://43.207.106.100:88"
+        link: "http://farm.metaflare.vip"
     },
     {
         name: "home",
