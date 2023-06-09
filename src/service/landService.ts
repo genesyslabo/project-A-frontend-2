@@ -7,7 +7,7 @@ const getLandPriceAndNumber = async (signer, address) => {
         const landContract = ContractService.getLandContract(signer);
         const NFTContract = ContractService.getNftContract(signer);
 
-        const [result1, result2, result3, result4, result5] = await Promise.all([
+        const [ogNumber, ebNumber, leftNumber, NFTBalance, redeemed] = await Promise.all([
             landContract.ogRedeem(), 
             landContract.ebRedeem(),
             landContract.totalLeft(),
@@ -15,25 +15,34 @@ const getLandPriceAndNumber = async (signer, address) => {
             landContract.redeemed(address)
         ]);
 
+        let ogNumberValue = ogNumber.toNumber();
+        let ebNumberValue = ebNumber.toNumber();
+        let leftNumberValue = leftNumber.toNumber();
+        let NFTBalanceValue = NFTBalance.toNumber();
+
         let price = 5000;
-        let maxNumber = 0;
+        let maxNumber = 100;
 
         // 检查是否符合1000u的标准
-        if (result1 <= 2000 && result4 > 0 && result5) {
+        if (ogNumberValue < 2000 && NFTBalanceValue > 0 && !redeemed) {
             price = 1000;
-            maxNumber = result1;
+            maxNumber = 1;
         }
 
         // 如果不符合，检查是否符合3000u的标准
-        else if (new Date() < new Date(2023, 6, 10) && result2 <= 3000) {
+        else if (new Date() < new Date(2023, 6, 10) && ebNumberValue < 3000) {
             price = 3000;
-            maxNumber = result2;
+            if (maxNumber > 3000 - ebNumberValue) {
+                maxNumber = 3000 - ebNumberValue
+            }
         }
 
         // 如果还不符合，检查是否符合5000u的标准
-        else if (result3 > 0) {
+        else if (leftNumberValue > 0) {
             price = 5000;
-            maxNumber = result3;
+            if (maxNumber > leftNumberValue) {
+                maxNumber = leftNumberValue
+            }
         }
 
         return { price, maxNumber }
