@@ -509,6 +509,7 @@ const calcWeeksAfterExtend = async (weeks, address, signer) => {
 }
 
 export const ContractService = {
+    getNftContract,
     getLandContract,
     getMaxWeeks,
     getMinLockAmount,

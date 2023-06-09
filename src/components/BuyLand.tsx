@@ -10,17 +10,20 @@ interface LandData {
 }
 
 const BuyLand: React.FC = () => {
-  const [landData, setLandData] = useState<LandData>({ price: 0, maxNumber: 0 });
+  const [landData, setLandData] = useState<LandData>({ price: 5000, maxNumber: 0 });
   const [quantity, setQuantity] = useState(0);
   const {data: signer} = useSigner();
+  const { isConnected, address } = useAccount();
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await LandService.getLandPriceAndNumber(signer);
+      const data = await LandService.getLandPriceAndNumber(signer, address);
       setLandData(data);
     };
-    fetchData();
-  }, []);
+    if (isConnected) {
+      fetchData();
+    }
+  }, [isConnected]);
 
   const handleDecrease = () => {
     if (quantity > 0) {
