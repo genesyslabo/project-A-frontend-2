@@ -1,7 +1,7 @@
 import { Accordion, Avatar, Select, Box, Image, Flex, Grid, HStack, Spacer, Text, Button, useBreakpointValue, Link } from "@chakra-ui/react"
 import { FramePage } from "../components/FramePage"
 import React from 'react';
-import Listings from "../components/Listings"
+import BuyLand from "../components/BuyLand"
 
 const Upper = () => {
   const height = useBreakpointValue({ base: "160px", md: "200px" })
@@ -61,11 +61,21 @@ const Upper = () => {
   );
 };
 
+const LandImage = () => {
+  return (
+    <Image
+      src="/assets/images/land-image.png"
+    />
+  )
+}
+
 const Land = () => {
 
   return (<>
     <FramePage menu="land">
       <Upper />
+      <LandImage />
+      <BuyLand />
     </FramePage>
   </>)
 }
