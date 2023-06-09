@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Image, Text, Flex, IconButton, useBreakpointValue } from '@chakra-ui/react';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { LandService } from '../service/landService';
+import { useAccount, useSigner } from "wagmi";
 
 interface LandData {
   price: number;
@@ -11,10 +12,11 @@ interface LandData {
 const BuyLand: React.FC = () => {
   const [landData, setLandData] = useState<LandData>({ price: 0, maxNumber: 0 });
   const [quantity, setQuantity] = useState(0);
+  const {data: signer} = useSigner();
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await LandService.getLandPriceAndNumber();
+      const data = await LandService.getLandPriceAndNumber(signer);
       setLandData(data);
     };
     fetchData();
@@ -33,7 +35,7 @@ const BuyLand: React.FC = () => {
   };
 
   const handleBuyAndMint = async () => {
-    await LandService.buyLand(landData.price, quantity);
+    await LandService.buyLand(signer, landData.price, quantity);
   };
 
   const width = useBreakpointValue({ base: "70%", md: "50%" });
