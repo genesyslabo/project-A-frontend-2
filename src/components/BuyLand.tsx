@@ -38,7 +38,7 @@ const BuyLand: React.FC = () => {
   };
 
   const handleBuyAndMint = async () => {
-    await LandService.buyLand(signer, landData.price, quantity);
+    await LandService.buyLand(signer, address, landData.price, quantity);
   };
 
   const width = useBreakpointValue({ base: "70%", md: "50%" });

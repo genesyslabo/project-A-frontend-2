@@ -23,13 +23,13 @@ const getLandPriceAndNumber = async (signer, address) => {
         let price = 5000;
         let maxNumber = 100;
 
-        // 检查是否符合1000u的标准
+        // 1000u
         if (ogNumberValue < 2000 && NFTBalanceValue > 0 && !redeemed) {
             price = 1000;
             maxNumber = 1;
         }
 
-        // 如果不符合，检查是否符合3000u的标准
+        // 3000u
         else if (new Date() < new Date(2023, 6, 10) && ebNumberValue < 3000) {
             price = 3000;
             if (maxNumber > 3000 - ebNumberValue) {
@@ -37,7 +37,7 @@ const getLandPriceAndNumber = async (signer, address) => {
             }
         }
 
-        // 如果还不符合，检查是否符合5000u的标准
+        // 5000u
         else if (leftNumberValue > 0) {
             price = 5000;
             if (maxNumber > leftNumberValue) {
@@ -52,8 +52,11 @@ const getLandPriceAndNumber = async (signer, address) => {
     }
 };
 
-const buyLand = async (signer, price, quantity) => {
-    return true
+const buyLand = async (signer, address, price, quantity) => {
+    console.log(signer)
+    console.log(address)
+    console.log(price)
+    console.log(quantity)
 }
 
 export const LandService = { getLandPriceAndNumber, buyLand }
