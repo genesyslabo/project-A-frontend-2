@@ -53,10 +53,22 @@ const getLandPriceAndNumber = async (signer, address) => {
 };
 
 const buyLand = async (signer, address, price, quantity) => {
-    console.log(signer)
-    console.log(address)
-    console.log(price)
-    console.log(quantity)
+    try {
+        const result = await urlFetcher(process.env.NEXT_PUBLIC_BASE_URL + "/airdrop/getLandNftSignature", {
+            price, amount: quantity, recipient: address
+        }, {
+            method: "POST"
+        });
+    
+        if (result?.success) {
+            const landContract = ContractService.getLandContract(signer);
+            const redeemResult = await landContract.redeem(result.data);
+            console.log("redeemResult", redeemResult);
+        }
+    } catch (error) {
+        console.error('buyLand Error: ', error);
+        throw error;
+    }
 }
 
 export const LandService = { getLandPriceAndNumber, buyLand }
