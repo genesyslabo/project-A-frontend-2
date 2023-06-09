@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Image, Text, Flex, IconButton } from '@chakra-ui/react';
+import { Box, Button, Image, Text, Flex, IconButton, useBreakpointValue } from '@chakra-ui/react';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { LandService } from '../service/landService';
 
@@ -36,13 +36,19 @@ const BuyLand: React.FC = () => {
     await LandService.buyLand(landData.price, quantity);
   };
 
+  const width = useBreakpointValue({ base: "70%", md: "50%" });
+
+  const fontSize = useBreakpointValue({ base: "sm", md: "lg" });
+
   return (
-    <Box width="50%" margin="0 auto">
+    <Box width={width} margin="0 auto">
       <Image src="/assets/images/land-land.png" w="full" />
-      <Flex justifyContent="space-between">
-        <Text>Price: {landData.price} USDT</Text>
-        <Text>Original price: 5000 USDT</Text>
-      </Flex>
+      <Box>
+        <Flex flexDirection="row" flexWrap="wrap" justifyContent="space-between" p={2} >
+          <Text color="white" fontWeight="medium" fontSize={fontSize} style={{wordWrap: "break-word"}}>{landData.price} USDT</Text>
+          <Text color="#5B6676" fontSize={fontSize} style={{wordWrap: "break-word"}}>Original price: 5000 USDT</Text>
+        </Flex>
+      </Box>
       <Flex justifyContent="center" alignItems="center" my={4}>
         <IconButton aria-label="Decrease" icon={<MinusIcon />} onClick={handleDecrease} />
         <Text mx={4}>{quantity}</Text>
