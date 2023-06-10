@@ -31,25 +31,23 @@ const getLandPriceAndNumber = async (signer, address) => {
         // 1000u
         if (ogNumberValue < 2000 && NFTBalanceValue > 0 && !redeemed) {
             price = 1000;
-            maxNumber = ogNumberValue;
+            maxNumber = 2000 - ogNumberValue;
         }
 
         // 3000u
-        else if (new Date() < new Date(2023, 6, 10) && ebNumberValue < 3000) {
+        else if (new Date() < new Date(2023, 7, 10) && ebNumberValue < 3000) {
             price = 3000;
-            maxNumber = ebNumberValue;
-            // if (maxNumber > 3000 - ebNumberValue) {
-            //     maxNumber = 3000 - ebNumberValue
-            // }
+            if (maxNumber > 3000 - ebNumberValue) {
+                maxNumber = 3000 - ebNumberValue
+            }
         }
 
         // 5000u
         else if (leftNumberValue > 0) {
             price = 5000;
-            maxNumber = leftNumberValue;
-            // if (maxNumber > leftNumberValue) {
-            //     maxNumber = leftNumberValue
-            // }
+            if (maxNumber > leftNumberValue) {
+                maxNumber = leftNumberValue
+            }
         }
 
         return { price, maxNumber }

@@ -19,7 +19,7 @@ const ImageCarousel = ({ images }) => {
   };
 
   return (
-    <Box maxW="100%" h={"100px"} mx="auto" position="relative">
+    <Box maxW="100%" maxH={"100px"} mx="auto" position="relative">
       <Image
         src={images[currentIndex]}
         alt={`Image ${currentIndex}`}
