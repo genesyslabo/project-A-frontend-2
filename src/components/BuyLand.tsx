@@ -4,6 +4,7 @@ import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { LandService } from '../service/landService';
 import { useAccount, useSigner } from "wagmi";
 import CustomToast from './CustomToast';
+import styled from 'styled-components';
 
 interface LandData {
   price: number;
@@ -13,6 +14,7 @@ interface LandData {
 const BuyLand: React.FC = () => {
   const [landData, setLandData] = useState<LandData>({ price: 5000, maxNumber: 0 });
   const [quantity, setQuantity] = useState(0);
+  const [remain, setRemain] = useState(0);
   const {data: signer} = useSigner();
   const { isConnected, address } = useAccount();
   const [inTransaction, setInTransaction] = useState(false);
@@ -22,6 +24,7 @@ const BuyLand: React.FC = () => {
     const fetchData = async () => {
       const data = await LandService.getLandPriceAndNumber(signer, address);
       setLandData(data);
+      setRemain(data.maxNumber);
     };
     if (isConnected) {
       fetchData();
@@ -71,30 +74,61 @@ const BuyLand: React.FC = () => {
     }
   };
 
-  const width = useBreakpointValue({ base: "70%", md: "50%" });
+  useEffect(() => {
+    setRemain(landData.maxNumber - quantity);
+  }, [quantity])
 
   const fontSize = useBreakpointValue({ base: "sm", md: "lg" });
 
+  const CustomBox = styled.div`
+  background-color: #242A33;
+  border-radius: 8px;
+  height: 380px;
+  position: relative;
+  &:hover {
+    button {
+      display: block !important;
+    }
+  }
+`;
+
   return (
-    <Box width={width} margin="0 auto">
-      <Image src="/assets/images/land-land.png" w="full" className='my-4' />
-      <Box>
-        <Flex flexDirection="row" flexWrap="wrap" justifyContent="space-between" p={2} >
-          <Text color="white" fontWeight="medium" fontSize={fontSize} style={{wordWrap: "break-word"}}>{landData.price} USDT</Text>
-          <Text color="#5B6676" fontSize={fontSize} style={{wordWrap: "break-word"}}>Original price: 5000 USDT</Text>
-        </Flex>
-      </Box>
-      <Flex justifyContent="center" alignItems="center" my={4}>
-        <IconButton aria-label="Decrease" icon={<MinusIcon />} onClick={handleDecrease} />
-        <Text mx={4}>{quantity}</Text>
-        <IconButton aria-label="Increase" icon={<AddIcon />} onClick={handleIncrease} />
+    <CustomBox>
+      <Image src="/assets/images/land-land.jpg" w="full" className='w-[260px] h-[240px] rounded-t-lg' />
+
+      <Flex flexDirection="row" flexWrap="wrap" justifyContent="space-between" p={2} className="items-center">
+        <Text color="white" fontWeight="medium" fontSize={fontSize} style={{wordWrap: "break-word"}}>{landData.price} USDT</Text>
+        <Text color="#5B6676" style={{wordWrap: "break-word"}} className='text-xs line-through'>Original Price: 5000 USDT</Text>
       </Flex>
+
+      <Flex className='flex-row gap-2 items-center'>
+        <Flex alignItems="center" my={2} ml={4} border={"1px solid rgba(91,102,118,1)"} h={"24px"} borderRadius={"4px"}>
+          <IconButton aria-label="Decrease" icon={<MinusIcon fontSize={"10px"} />}
+             bg={"transparent"} 
+             _hover={{bg: "transparent"}} 
+             _active={{bg: "transparent"}}
+             onClick={handleDecrease} />
+          <Text px={4} borderRight={"1px solid rgba(91,102,118,1)"} borderLeft={"1px solid rgba(91,102,118,1)"}>{quantity}</Text>
+          <IconButton aria-label="Increase" icon={<AddIcon fontSize={"10px"} />} 
+            bg={"transparent"} 
+            _hover={{bg: "transparent"}} 
+            _active={{bg: "transparent"}}
+            onClick={handleIncrease} />
+        </Flex>
+        <Text className='text-[#5B6676] text-xs'>{remain} left</Text>
+      </Flex>
+
+      <Flex className='text-[#FF2424] text-xs' mb={2} mx={4} display={remain === 0 ? "flex !important":"none !important"}>
+        maximum reached
+      </Flex>
+
       <Button size="sm" fontWeight="medium" bg="#0084FF" color="white" w="full" 
         onClick={handleBuyAndMint} 
+        className='!block md:!hidden !absolute bottom-0'
         disabled={inTransaction || quantity === 0}>
         Buy and mint
       </Button>
-    </Box>
+    </CustomBox>
   );
 };
 

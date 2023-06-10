@@ -44,7 +44,9 @@ export const FramePage: React.FC<PropsWithChildren<{
                 <SideBar menu={props.menu} />
 
                 <Container
-                    className="grow w-full h-full md:!px-28 lg:!px-50 !max-w-full px-8 mt-12 md:!ml-[72px] mb-[20px]" 
+                    className="grow w-full h-full !max-w-full mt-12 md:!ml-[72px] mb-[20px]"
+                    paddingInlineStart={"0 !important"}
+                    paddingInlineEnd={"0 !important"} 
                     minH={{ sm: "80%", md: "100vh" }}
                     >
                     { props.children }

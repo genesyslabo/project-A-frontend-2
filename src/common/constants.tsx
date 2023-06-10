@@ -8,6 +8,8 @@ export const StakingLockContractAddr = process.env.NEXT_PUBLIC_CONTRACT_LOCK; //
 
 export const LandContractAddr = process.env.NEXT_PUBLIC_CONTRACT_LAND;
 
+export const UsdtContractAddr = process.env.NEXT_PUBLIC_CONTRACT_USDT;
+
 export const MinStakingAmount = 1000;
 
 export const MinLockStakingAmount = 2500000;

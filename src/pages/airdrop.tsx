@@ -228,7 +228,7 @@ const Airdrop = () => {
    
     return (<>
         <FramePage menu="airdrop">
-            <Flex className="flex flex-col justify-center items-center pt-4 gap-6">
+            <Flex className="flex flex-col justify-center items-center pt-4 gap-6 mx-auto px-8 md:px-28 lg:px-50">
                 <Flex color={colorTitle} className="w-full text-2xl font-bold items-start">MF AIRDROP CHECK</Flex>
 
                 <Flex className="w-full flex-col">

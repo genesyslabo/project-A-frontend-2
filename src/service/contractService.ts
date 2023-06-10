@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import contractABI from '../contracts/contract.json'
-import { MetaflareContractAddr, StakingFlexibleContractAddr, StakingLockContractAddr, MinStakingAmount, MinLockStakingAmount, NftContractAddr, LandContractAddr} from '../common/constants';
+import { MetaflareContractAddr, StakingFlexibleContractAddr, StakingLockContractAddr, MinStakingAmount, MinLockStakingAmount, NftContractAddr, LandContractAddr, UsdtContractAddr} from '../common/constants';
 // import { useSigner } from 'wagmi';
 
 // const getSigner = async () => {
@@ -55,6 +55,14 @@ const getLandContract = (signer) => {
     }
 
     return new ethers.Contract(LandContractAddr, contractABI.LandContractABI, getProvider());
+}
+
+const getUsdtContract = (signer) => {
+    if (signer) {
+        return new ethers.Contract(UsdtContractAddr, contractABI.UsdtContractABI, signer);
+    }
+
+    return new ethers.Contract(UsdtContractAddr, contractABI.UsdtContractABI, getProvider());
 }
 
 const withdrawReward = async (signer) => {
@@ -511,6 +519,7 @@ const calcWeeksAfterExtend = async (weeks, address, signer) => {
 export const ContractService = {
     getNftContract,
     getLandContract,
+    getUsdtContract,
     getMaxWeeks,
     getMinLockAmount,
     withdrawReward,

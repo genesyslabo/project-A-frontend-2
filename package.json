@@ -31,6 +31,7 @@
     "react-redux": "^8.0.5",
     "react-reflex": "^4.0.9",
     "redux": "^4.2.1",
+    "styled-components": "^5.3.11",
     "wagmi": "^0.12.12"
   },
   "devDependencies": {

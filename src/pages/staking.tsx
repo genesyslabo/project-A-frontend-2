@@ -30,7 +30,7 @@ const Staking = () => {
 
     return (<>
         <FramePage menu="staking">
-            <Flex className="flex flex-col justify-center items-center pt-4">
+            <Flex className="flex flex-col justify-center items-center pt-4 mx-auto px-8 md:px-28 lg:px-50">
                 <Box className="w-full flex flex-col md:flex-row gap-2 justify-between rounded-2xl p-4" bg={bgHeader}>
                     <Box className="flex flex-row gap-2 items-center">
                         <Box>

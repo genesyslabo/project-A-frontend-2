@@ -1,4 +1,4 @@
-import { Accordion, Avatar, Select, Box, Image, Flex, Grid, HStack, Spacer, Text, Button, useBreakpointValue, Link } from "@chakra-ui/react"
+import { Box, Image, Flex, Text, Button, useBreakpointValue, Link } from "@chakra-ui/react"
 import { FramePage } from "../components/FramePage"
 import React from 'react';
 import Listings from "../components/Listings"
@@ -92,10 +92,12 @@ const MarketPlace = () => {
 
   return (<>
     <FramePage menu="marketplace">
-      <Upper />
-      <MyNFT />
-      <Listings />
-      <Offer />
+      <Box className="mx-auto px-8 md:px-28 lg:px-50">
+        <Upper />
+        <MyNFT />
+        <Listings />
+        <Offer />
+      </Box>
     </FramePage>
   </>)
 }

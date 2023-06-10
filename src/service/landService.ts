@@ -62,6 +62,9 @@ const buyLand = async (signer, address, price, quantity) => {
     
         if (result?.success) {
             const landContract = ContractService.getLandContract(signer);
+            const usdtContract = ContractService.getUsdtContract(signer);
+            const approveResult = await usdtContract.approve(address, quantity);
+            console.log("approveResult", approveResult);
             const redeemResult = await landContract.redeem(result.data);
             console.log("redeemResult", redeemResult);
         }

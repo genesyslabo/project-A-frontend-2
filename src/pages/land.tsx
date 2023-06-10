@@ -1,71 +1,71 @@
-import { Accordion, Avatar, Select, Box, Image, Flex, Grid, HStack, Spacer, Text, Button, useBreakpointValue, Link } from "@chakra-ui/react"
+import { Box, Image, Flex, Text, useBreakpointValue } from "@chakra-ui/react"
 import { FramePage } from "../components/FramePage"
 import React from 'react';
 import BuyLand from "../components/BuyLand"
+import ImageCarousel from "../components/ImageCarousel";
 
 const Upper = () => {
   const height = useBreakpointValue({ base: "160px", md: "200px" })
   const p1Height = useBreakpointValue({ base: "80px", md: "140px" })
-  const p1Bottom = useBreakpointValue({ base: "130px", md: "80px" })
   const p2Hight = useBreakpointValue({ base: "100px", md: "160px" })
-  const p2Bottom = useBreakpointValue({ base: "160px", md: "120px" })
-  const t1Bottom = useBreakpointValue({ base: "80px", md: "35px" })
   const boxW = useBreakpointValue({ base: "100vw", md: "full" })
   const boxLeft = useBreakpointValue({ base: "-16px", md: "0px" })
 
-  return (
-    <Box w={boxW} marginLeft={boxLeft} position="relative" h="320px" bg="black">
+  return (<>
+    <Flex className="relative">
       <Image
         src="/assets/images/marketplace-head.png"
         objectFit="cover"
         w="full"
         h={height}
-        position="absolute"
       />
       <Image
         src="/assets/images/land-person.png"
         position="absolute"
-        left="20px"
-        bottom={p1Bottom}
+        className="left-8 md:left-28 lg:left-50"
+        bottom={"-50px"}
         h={p1Height}
+        mx={"auto"}
       />
-      <Flex position="absolute" right="20px" bottom={p2Bottom}>
+      <Flex position="absolute" className="right-8 md:right-28 lg:right-50" bottom={0}>
         <Image
           src="/assets/images/land-people.png"
           h={p2Hight}
         />
       </Flex>
+    </Flex>
+
+    <Box w={boxW} marginLeft={boxLeft} className='mx-auto px-8 md:px-28 lg:px-50 mt-[60px]'>
       <Text
-        position="absolute"
-        bottom={t1Bottom}
         color="white"
         fontSize="18px"
         p={3}
         fontWeight="bold"
-        left="20px"
       >
         MetaFlare Land
       </Text>
       <Text
-        position="absolute"
-        bottom="0px"
         color="#898B8E"
         fontSize="12px"
         fontWeight="normal"
         p={3}
-        left="20px"
       >
         Purchase land to build your own digital home and embark on a new era of digital social interaction.
       </Text>
+
+      <LandImage />
     </Box>
+  </>
   );
 };
 
 const LandImage = () => {
+  const images = [
+    '/assets/images/land-image.png',
+    '/assets/images/land-image.png',
+  ];
   return (
-    <Image
-      src="/assets/images/land-image.png"
-    />
+    <ImageCarousel images={images} />
   )
 }
 
@@ -74,8 +74,9 @@ const Land = () => {
   return (<>
     <FramePage menu="land">
       <Upper />
-      <LandImage />
-      <BuyLand />
+      <Flex className="justify-center mt-10">
+        <BuyLand />
+      </Flex>
     </FramePage>
   </>)
 }
