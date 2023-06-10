@@ -360,7 +360,7 @@ const userLockStakingTime = async (address, signer) => {
     try {
         const stakingContract = getStakingLockContract(signer);
         const userInfo = await stakingContract.userInfo(address);
-        const startTime = 0;//userInfo.startTime;
+        const startTime = userInfo?.startTime || 0;
         const endTime = userInfo.endTime;
 
         const provider = signer ? signer.provider : getProvider()
