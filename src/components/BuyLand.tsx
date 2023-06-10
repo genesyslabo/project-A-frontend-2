@@ -6,13 +6,26 @@ import { useAccount, useSigner } from "wagmi";
 import CustomToast from './CustomToast';
 import styled from 'styled-components';
 
+const CustomBox = styled.div`
+background-color: #242A33;
+border-radius: 8px;
+height: 380px;
+position: relative;
+&:hover {
+  button {
+    display: block !important;
+  }
+}
+`;
+
 interface LandData {
   price: number;
   maxNumber: number;
+  maxBuyNumber: number;
 }
 
 const BuyLand: React.FC = () => {
-  const [landData, setLandData] = useState<LandData>({ price: 5000, maxNumber: 0 });
+  const [landData, setLandData] = useState<LandData>({ price: 5000, maxNumber: 0, maxBuyNumber: 0 });
   const [quantity, setQuantity] = useState(0);
   const [remain, setRemain] = useState(0);
   const {data: signer} = useSigner();
@@ -38,7 +51,7 @@ const BuyLand: React.FC = () => {
   };
 
   const handleIncrease = () => {
-    if (quantity < landData.maxNumber) {
+    if (quantity < landData.maxBuyNumber) {
       setQuantity(quantity + 1);
     }
   };
@@ -76,7 +89,8 @@ const BuyLand: React.FC = () => {
 
   const quantityChange = (event) => {
     const value = event.target.value;
-    if (isNaN(value) || value == 0) {
+    if (isNaN(value) || value <= 0 || value > landData.maxBuyNumber) {
+        setQuantity(0);
         return;
     }
     setQuantity(value);
@@ -88,21 +102,9 @@ const BuyLand: React.FC = () => {
 
   const fontSize = useBreakpointValue({ base: "sm", md: "lg" });
 
-  const CustomBox = styled.div`
-  background-color: #242A33;
-  border-radius: 8px;
-  height: 380px;
-  position: relative;
-  &:hover {
-    button {
-      display: block !important;
-    }
-  }
-`;
-
   return (
     <CustomBox>
-      <Image src="/assets/images/land-land.jpg" w="full" className='w-[260px] h-[240px] rounded-t-lg' />
+      <Image src="/assets/images/land-land.jpg" w="full" className='!w-[260px] h-[240px] rounded-t-lg' />
 
       <Flex flexDirection="row" flexWrap="wrap" justifyContent="space-between" p={2} className="items-center">
         <Text color="white" fontWeight="medium" fontSize={fontSize} style={{wordWrap: "break-word"}}>{landData.price} USDT</Text>
@@ -117,7 +119,7 @@ const BuyLand: React.FC = () => {
              _active={{bg: "transparent"}}
              onClick={handleDecrease} />
           <Text borderRight={"1px solid rgba(91,102,118,1)"} borderLeft={"1px solid rgba(91,102,118,1)"}>
-            <Input variant='unstyled' placeholder='Unstyled' w={"50px"} textAlign={"center"} value={quantity} onChange={quantityChange} />
+            <Input variant='unstyled' placeholder='0' w={"50px"} textAlign={"center"} value={quantity} onChange={quantityChange} />
           </Text>
           <IconButton aria-label="Increase" icon={<AddIcon fontSize={"10px"} />} 
             bg={"transparent"} 

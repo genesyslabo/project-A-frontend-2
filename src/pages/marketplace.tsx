@@ -92,12 +92,7 @@ const MarketPlace = () => {
 
   return (<>
     <FramePage menu="marketplace">
-      <Box className="mx-auto px-8 md:px-28 lg:px-50">
-        <Upper />
-        <MyNFT />
-        <Listings />
-        <Offer />
-      </Box>
+      
     </FramePage>
   </>)
 }

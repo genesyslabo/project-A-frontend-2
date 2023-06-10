@@ -25,7 +25,7 @@ const ImageCarousel = ({ images }) => {
         alt={`Image ${currentIndex}`}
         borderRadius="md"
         boxShadow="md"
-        h="100px"
+        h="100%"
         w="100%"
         objectFit="cover"
       />

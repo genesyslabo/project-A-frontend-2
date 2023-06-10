@@ -27,16 +27,19 @@ const getLandPriceAndNumber = async (signer, address) => {
 
         let price = 5000;
         let maxNumber = 100;
+        let maxBuyNumber = 100; // 除了 1000u 的为 1，其他的都是 100
 
         // 1000u
         if (ogNumberValue < 2000 && NFTBalanceValue > 0 && !redeemed) {
             price = 1000;
             maxNumber = 2000 - ogNumberValue;
+            maxBuyNumber = ogNumberValue >= 1 ? 1 : 0;
         }
 
         // 3000u
         else if (new Date() < new Date(2023, 7, 10) && ebNumberValue < 3000) {
             price = 3000;
+            maxBuyNumber = ebNumberValue >= 100 ? 100 : (ebNumberValue - 100);
             if (maxNumber > 3000 - ebNumberValue) {
                 maxNumber = 3000 - ebNumberValue
             }
@@ -45,12 +48,13 @@ const getLandPriceAndNumber = async (signer, address) => {
         // 5000u
         else if (leftNumberValue > 0) {
             price = 5000;
+            maxBuyNumber = leftNumberValue >= 100 ? 100 : (leftNumberValue - 100);
             if (maxNumber > leftNumberValue) {
                 maxNumber = leftNumberValue
             }
         }
 
-        return { price, maxNumber }
+        return { price, maxNumber, maxBuyNumber }
     } catch (error) {
         console.error('getLandPriceAndNumber Error: ', error);
         throw error;
