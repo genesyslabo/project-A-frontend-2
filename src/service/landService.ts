@@ -39,19 +39,19 @@ const getLandPriceAndNumber = async (signer, address) => {
         // 3000u
         else if (new Date() < new Date(2023, 7, 10) && ebNumberValue < 3000) {
             price = 3000;
-            maxBuyNumber = ebNumberValue >= 100 ? 100 : (ebNumberValue - 100);
-            if (maxNumber > 3000 - ebNumberValue) {
+            // if (maxNumber > 3000 - ebNumberValue) {
                 maxNumber = 3000 - ebNumberValue
-            }
+            // }
+            maxBuyNumber = maxNumber >= 100 ? 100 : (maxNumber - 100);
         }
 
         // 5000u
         else if (leftNumberValue > 0) {
             price = 5000;
-            maxBuyNumber = leftNumberValue >= 100 ? 100 : (leftNumberValue - 100);
             if (maxNumber > leftNumberValue) {
                 maxNumber = leftNumberValue
             }
+            maxBuyNumber = leftNumberValue >= 100 ? 100 : (leftNumberValue - 100);
         }
 
         return { price, maxNumber, maxBuyNumber }

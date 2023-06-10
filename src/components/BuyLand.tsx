@@ -6,17 +6,7 @@ import { useAccount, useSigner } from "wagmi";
 import CustomToast from './CustomToast';
 import styled from 'styled-components';
 
-const CustomBox = styled.div`
-background-color: #242A33;
-border-radius: 8px;
-height: 380px;
-position: relative;
-&:hover {
-  button {
-    display: block !important;
-  }
-}
-`;
+
 
 interface LandData {
   price: number;
@@ -93,8 +83,21 @@ const BuyLand: React.FC = () => {
         setQuantity(0);
         return;
     }
-    setQuantity(value);
+    setQuantity(parseInt(value));
   }
+
+  const CustomBox = styled.div`
+background-color: #242A33;
+border-radius: 8px;
+height: 390px;
+width: 260px;
+position: relative;
+&:hover {
+  button {
+    display: block !important;
+  }
+}
+`;
 
   useEffect(() => {
     setRemain(landData.maxNumber - quantity);
@@ -130,7 +133,7 @@ const BuyLand: React.FC = () => {
         <Text className='text-[#5B6676] text-xs'>{remain} left</Text>
       </Flex>
 
-      <Flex className='text-[#FF2424] text-xs' mb={2} mx={4} display={remain === 0 ? "flex !important":"none !important"}>
+      <Flex className='text-[#FF2424] text-xs' mb={2} mx={4} display={quantity == landData.maxBuyNumber ? "flex !important":"none !important"}>
         maximum reached
       </Flex>
 
