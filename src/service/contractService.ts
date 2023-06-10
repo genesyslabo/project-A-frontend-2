@@ -74,7 +74,18 @@ const withdrawReward = async (signer) => {
         console.error('withdrawReward Error: ', error);
         throw error;
     }
-};
+}
+
+const withdrawRewardLock = async (signer) => {
+    try {
+        const contract = getStakingLockContract(signer);
+        const result = await contract.withdrawReward();
+        console.log('withdrawReward: ', result);
+    } catch (error) {
+        console.error('withdrawReward Error: ', error);
+        throw error;
+    }
+}
 
 const redeem = async (voucher, signer) => {
     try {
@@ -544,6 +555,7 @@ export const ContractService = {
     getTotalVeToken,
     totalAllocPoint,
     lockStakingAPR,
+    withdrawRewardLock,
     userLockStakingAmountVe,
     reEnterLockStakingAPR,
     // lockStakingROI,

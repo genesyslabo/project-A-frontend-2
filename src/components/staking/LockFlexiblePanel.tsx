@@ -1,4 +1,4 @@
-import { AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, AvatarBadge, Box, Button, Flex, Grid, HStack, Image, Tag, TagLabel, TagLeftIcon, Text, VStack, useColorModeValue } from "@chakra-ui/react"
+import { AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Avatar, AvatarBadge, Box, Button, Flex, Grid, HStack, Image, Tag, TagLabel, TagLeftIcon, Text, VStack, useColorModeValue, useToast } from "@chakra-ui/react"
 import { LockStakingDuration, LockStakingTime } from "../LockStakingTime"
 import { LockIcon } from "@chakra-ui/icons"
 import { LockStakingAmount } from "../LockStakingAmount"
@@ -11,6 +11,8 @@ import { LockPendingFlare } from "./LockPendingFlare"
 import { useAccount, useSigner } from "wagmi"
 import { toNFix } from "../../common/utils/tools"
 import { LockAmountVe } from "./LockAmountVe"
+import { PendingFlare } from "./PendingFlare"
+import CustomToast from "../CustomToast"
 
 const LockFlexiblePanel = () => {
     const { isConnected, address } = useAccount();
@@ -22,6 +24,8 @@ const LockFlexiblePanel = () => {
     const [boost, setBoost] = useState(0);
     const [stakeAmount, setStakeAmount] = useState(0);
     const [veToken, setVeToken] = useState(0);
+    const toast = useToast()
+    const [inTransaction, setInTransaction] = useState(false);
 
     const bgHeader = useColorModeValue('white', '#242A33')
     const bgPanel = useColorModeValue('#ECFDFF', '#1B2026')
@@ -61,6 +65,43 @@ const LockFlexiblePanel = () => {
     const getVeToken = async () => {
         const result = await ContractService.getTotalVeToken(signer);
         setVeToken(result);
+    }
+
+    const withdrawReward = async () => {
+        toast({
+            position: 'top-right',
+            duration: 1000000,
+            render: () => (<CustomToast status={"info"} 
+                title={"Transacting!"} 
+                description={"The transaction is in progress, please waiting..."} />)
+          })
+        
+        try {
+            setInTransaction(true);
+            const result = await ContractService.withdrawRewardLock(signer);
+
+            setTimeout(function() {
+                toast.closeAll();
+                toast({
+                    position: 'top-right',
+                    render: () => (<CustomToast status={"success"} 
+                        title={"Claimed!"} 
+                        description={"Claim success."} />)
+                  });
+                setInTransaction(false);
+            }, 20000);
+            
+        } catch(err) {
+            toast.closeAll();
+            setInTransaction(false);
+            console.log('staking', err);
+            toast({ 
+                position: 'top-right',
+                render: () => (<CustomToast status={"error"} 
+                    title={"Error"} 
+                    description={"There has some issue happened."} />)
+              })
+        }
     }
 
     useEffect(() => {
@@ -139,6 +180,13 @@ const LockFlexiblePanel = () => {
                             <LockStakingCurrentAPR />
                         </Text>
                     </VStack> */}
+                    <VStack>
+                        <Text className="text-[#FE9D1C] font-medium text-sm">
+                            veToken earned
+                        </Text>
+
+                        <LockAmountVe />
+                    </VStack>
                     <VStack className="!hidden md:!flex">
                         <Text className="text-[11px] font-medium whitespace-nowrap" color={colorDesc}>
                             TOTAL STAKED
@@ -180,6 +228,10 @@ const LockFlexiblePanel = () => {
                         <Box className="text-right font-medium whitespace-nowrap">
                             <TotalStakingAmount />
                         </Box> */}
+                        <Box>Lock for</Box>
+                        <Text className="text-right font-medium text-xs">
+                            <LockStakingDuration />
+                        </Text>
                         <Box className="whitespace-nowrap">Average lock duration</Box>
                         <Box className="text-right font-medium">
                             40 weeks
@@ -187,7 +239,52 @@ const LockFlexiblePanel = () => {
                         <Box>Total VeToken distributed</Box>
                         <Box className="text-right font-medium">{veToken}</Box>
                     </Grid>
-                    <Grid
+
+                    <VStack
+                        border={"1px solid"}
+                        borderColor={colorBorder}
+                        borderRadius={"8px"}
+                        p={"20px"}
+                        my={"20px"}
+                        gap={2}
+                        align={"left"}
+                        className="md:basis-5/12"
+                    >
+                        <Text
+                            className="mb-2 font-medium text-sm"
+                            color={"#FE9D1C"}
+                        >
+                            REWARDS
+                        </Text>
+                        <Flex className="flex-row items-center gap-8">
+                            <LockAmountVe />
+                            <Box className="text-right underline text-sm font-medium" color={colorHeader}>
+                                min reward withdraw is 0.001MF
+                            </Box>
+                        </Flex>
+
+                        <Button
+                            size="lg"
+                            fontSize={16}
+                            bg={bgBtn}
+                            color={"white"}
+                            borderColor={bgBtn}
+                            borderRadius={"22px"}
+                            height={"38px"}
+                            className="w-full col-span-2"
+                            onClick={withdrawReward}
+                            // bgImg={"linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)"}
+                            disabled={!isConnected || inTransaction}
+                            // _hover={{ bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)" }}
+                            _active={{
+                                // bgImg: "linear-gradient(135deg, #1AC1CE 0%, #00B3EB 100%)",
+                                transform: "scale(0.98)",
+                            }}
+                        >
+                            Claim
+                        </Button>
+                    </VStack>
+                    {/* <Grid
                         border={"1px solid"}
                         borderColor={colorBorder}
                         borderRadius={"8px"}
@@ -197,16 +294,16 @@ const LockFlexiblePanel = () => {
                     >
                         <Text className="text-[#FE9D1C] font-medium text-sm">
                             veToken earned
-                        </Text>
+                        </Text> */}
                         {/* <Text className="text-[#FE9D1C] font-medium text-sm">
                             YIELD BOOST
                         </Text> */}
 
-                        <Text className="font-medium text-xs" color={colorDesc}>
+                        {/* <Text className="font-medium text-xs" color={colorDesc}>
                             Lock for <LockStakingDuration />
-                        </Text>
+                        </Text> */}
 
-                        <LockAmountVe />
+                        {/* <LockAmountVe /> */}
 
                         {/* <Flex className="flex-col"> */}
                             {/* <Text className="font-bold text-xl" color={colorHeader}>
@@ -234,7 +331,7 @@ const LockFlexiblePanel = () => {
                         >
                             Claim
                         </Button> */}
-                    </Grid>
+                    {/* </Grid> */}
 
                     <Flex
                         border={"1px solid"}

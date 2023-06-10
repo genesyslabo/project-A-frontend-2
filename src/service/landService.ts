@@ -1,7 +1,12 @@
 import { urlFetcher } from '../common/utils/http';
-import { ethers } from 'ethers';
 import { ContractService } from './contractService';
+import { LandContractAddr } from '../common/constants';
 
+
+// 最大值 left 
+// 总的是 totalLeft
+// 1000 是 ogRedeem
+// 3000 是 ebRedeem
 const getLandPriceAndNumber = async (signer, address) => {
     try {
         const landContract = ContractService.getLandContract(signer);
@@ -15,9 +20,9 @@ const getLandPriceAndNumber = async (signer, address) => {
             landContract.redeemed(address)
         ]);
 
-        let ogNumberValue = ogNumber.toNumber();
-        let ebNumberValue = ebNumber.toNumber();
-        let leftNumberValue = leftNumber.toNumber();
+        let ogNumberValue = ogNumber.toNumber(); // ogRedeem
+        let ebNumberValue = ebNumber.toNumber(); // ebRedeem
+        let leftNumberValue = leftNumber.toNumber(); // totalLeft
         let NFTBalanceValue = NFTBalance.toNumber();
 
         let price = 5000;
@@ -26,23 +31,25 @@ const getLandPriceAndNumber = async (signer, address) => {
         // 1000u
         if (ogNumberValue < 2000 && NFTBalanceValue > 0 && !redeemed) {
             price = 1000;
-            maxNumber = 1;
+            maxNumber = ogNumberValue;
         }
 
         // 3000u
         else if (new Date() < new Date(2023, 6, 10) && ebNumberValue < 3000) {
             price = 3000;
-            if (maxNumber > 3000 - ebNumberValue) {
-                maxNumber = 3000 - ebNumberValue
-            }
+            maxNumber = ebNumberValue;
+            // if (maxNumber > 3000 - ebNumberValue) {
+            //     maxNumber = 3000 - ebNumberValue
+            // }
         }
 
         // 5000u
         else if (leftNumberValue > 0) {
             price = 5000;
-            if (maxNumber > leftNumberValue) {
-                maxNumber = leftNumberValue
-            }
+            maxNumber = leftNumberValue;
+            // if (maxNumber > leftNumberValue) {
+            //     maxNumber = leftNumberValue
+            // }
         }
 
         return { price, maxNumber }
@@ -63,8 +70,12 @@ const buyLand = async (signer, address, price, quantity) => {
         if (result?.success) {
             const landContract = ContractService.getLandContract(signer);
             const usdtContract = ContractService.getUsdtContract(signer);
-            const approveResult = await usdtContract.approve(address, quantity * 1000);
-            console.log("approveResult", approveResult);
+            const allowance =  await usdtContract.allowance(address, LandContractAddr);
+            if (allowance < 5000) {
+                const approveResult = await usdtContract.approve(address, quantity * 1000);
+                console.log("approveResult", approveResult);
+            }
+            
             const redeemResult = await landContract.redeem(result.data);
             console.log("redeemResult", redeemResult);
         }

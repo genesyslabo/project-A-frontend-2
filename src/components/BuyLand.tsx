@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Image, Text, Flex, IconButton, useBreakpointValue, useToast } from '@chakra-ui/react';
+import { Box, Button, Image, Text, Flex, IconButton, useBreakpointValue, useToast, Input } from '@chakra-ui/react';
 import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import { LandService } from '../service/landService';
 import { useAccount, useSigner } from "wagmi";
@@ -74,6 +74,14 @@ const BuyLand: React.FC = () => {
     }
   };
 
+  const quantityChange = (event) => {
+    const value = event.target.value;
+    if (isNaN(value) || value == 0) {
+        return;
+    }
+    setQuantity(value);
+  }
+
   useEffect(() => {
     setRemain(landData.maxNumber - quantity);
   }, [quantity])
@@ -108,7 +116,9 @@ const BuyLand: React.FC = () => {
              _hover={{bg: "transparent"}} 
              _active={{bg: "transparent"}}
              onClick={handleDecrease} />
-          <Text px={4} borderRight={"1px solid rgba(91,102,118,1)"} borderLeft={"1px solid rgba(91,102,118,1)"}>{quantity}</Text>
+          <Text borderRight={"1px solid rgba(91,102,118,1)"} borderLeft={"1px solid rgba(91,102,118,1)"}>
+            <Input variant='unstyled' placeholder='Unstyled' w={"50px"} textAlign={"center"} value={quantity} onChange={quantityChange} />
+          </Text>
           <IconButton aria-label="Increase" icon={<AddIcon fontSize={"10px"} />} 
             bg={"transparent"} 
             _hover={{bg: "transparent"}} 

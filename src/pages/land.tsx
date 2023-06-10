@@ -61,8 +61,8 @@ const Upper = () => {
 
 const LandImage = () => {
   const images = [
-    '/assets/images/land-image.png',
-    '/assets/images/land-image.png',
+    '/assets/images/land-image-01.png',
+    '/assets/images/land-image-02.png',
   ];
   return (
     <ImageCarousel images={images} />
