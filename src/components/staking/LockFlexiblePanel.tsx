@@ -257,7 +257,7 @@ const LockFlexiblePanel = () => {
                             REWARDS
                         </Text>
                         <Flex className="flex-row items-center gap-8">
-                            <LockAmountVe />
+                            <LockPendingFlare />
                             <Box className="text-right underline text-sm font-medium" color={colorHeader}>
                                 min reward withdraw is 0.001MF
                             </Box>

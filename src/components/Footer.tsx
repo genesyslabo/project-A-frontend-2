@@ -11,26 +11,26 @@ export function Footer() {
                 <Box className='flex flex-col w-full md:!w-10/12 lg:!w-9/12 p-4'>
                     <Flex className='w-full flex-col md:flex-row gap-4 md:gap-8 justify-between items-start md:items-center'>
                         <Box>White Paper</Box>
-                        <Box>Merchants</Box>
+                        <Box>FAQ</Box>
                         <Box>Terms of use</Box>
                         <Box>Privacy Policy</Box>
                         <Spacer />
                         <Box className='flex flex-row gap-6'>
                             <Link href={"https://twitter.com/MetaFlareweb3"}>
-                                <Box className='py-4 w-8 cursor-pointer'>
+                                <Box className='py-4 w-8 cursor-pointer image-link'>
                                     <Image src='/assets/images/icon-twitter.png' />
                                 </Box>
                             </Link>
-                            <Box className='py-4 w-8'>
+                            <Box className='py-4 w-8 image-link'>
                                 <Image src='/assets/images/icon-youtube.png' />
                             </Box>
-                            <Box className='py-4 w-8'>
+                            <Box className='py-4 w-8 image-link'>
                                 <Image src='/assets/images/icon-medium.png' />
                             </Box>
                         </Box>
                     </Flex>
                     <Flex className='text-xs'>
-                        &copy;Createra 2023
+                        &copy;Metaflare 2023
                     </Flex>
                 </Box>
             </Box>

@@ -60,10 +60,13 @@ const Upper = () => {
 };
 
 const LandImage = () => {
-  const images = [
+  const images = useBreakpointValue({ base: [
+    '/assets/images/land-image-mobile-01.jpg',
+    '/assets/images/land-image-mobile-02.jpg',
+  ], md: [
     '/assets/images/land-image-01.png',
     '/assets/images/land-image-02.png',
-  ];
+  ] });
   return (
     <ImageCarousel images={images} />
   )
