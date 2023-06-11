@@ -7,6 +7,18 @@ import CustomToast from './CustomToast';
 import styled from 'styled-components';
 
 
+const CustomBox = styled.div`
+  background-color: #242A33;
+  border-radius: 8px;
+  height: 390px;
+  width: 260px;
+  position: relative;
+  &:hover {
+    button {
+      display: block !important;
+    }
+  }
+`;
 
 interface LandData {
   price: number;
@@ -85,20 +97,7 @@ const BuyLand: React.FC = () => {
     }
     setQuantity(parseInt(value));
   }
-
-  const CustomBox = styled.div`
-background-color: #242A33;
-border-radius: 8px;
-height: 390px;
-width: 260px;
-position: relative;
-&:hover {
-  button {
-    display: block !important;
-  }
-}
-`;
-
+  
   useEffect(() => {
     setRemain(landData.maxNumber - quantity);
   }, [quantity])
