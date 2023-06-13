@@ -39,10 +39,6 @@ function MyApp({Component, pageProps}: AppProps) {
     provider
   })
 
-  // useEffect(() => {
-  //   console.log("Theme mode:", colorMode);
-  // }, [colorMode]);
-
   return (
     <>
       <Head>

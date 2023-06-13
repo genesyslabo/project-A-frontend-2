@@ -20,3 +20,5 @@ export const days = 3
 export const flareUsdRate = 6
 
 export const WEEK_MILLICONDS = 7 * 24 * 60 * 60
+
+export const RPC_URL = process.env.NEXT_PUBLIC_RPC_URL;

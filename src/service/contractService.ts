@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import contractABI from '../contracts/contract.json'
-import { MetaflareContractAddr, StakingFlexibleContractAddr, StakingLockContractAddr, MinStakingAmount, MinLockStakingAmount, NftContractAddr, LandContractAddr, UsdtContractAddr} from '../common/constants';
+import { MetaflareContractAddr, StakingFlexibleContractAddr, StakingLockContractAddr, MinStakingAmount, MinLockStakingAmount, NftContractAddr, LandContractAddr, UsdtContractAddr, RPC_URL} from '../common/constants';
 // import { useSigner } from 'wagmi';
 
 // const getSigner = async () => {
@@ -16,7 +16,7 @@ import { MetaflareContractAddr, StakingFlexibleContractAddr, StakingLockContract
 // };
 
 const getProvider = () => {
-    return new ethers.providers.JsonRpcProvider("https://data-seed-prebsc-1-s1.binance.org:8545");
+    return new ethers.providers.JsonRpcProvider(RPC_URL);
 }
 
 const getMetaflareContract = (signer) => {
